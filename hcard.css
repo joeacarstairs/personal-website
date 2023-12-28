@@ -1,0 +1,11 @@
+.h-card {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.u-photo {
+  width: 256px;
+  height: 256px;
+}
+
