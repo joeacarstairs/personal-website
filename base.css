@@ -691,3 +691,8 @@ sub {
   padding: 1.5rem;
   margin: 2rem 0;
 }
+
+.hidden {
+  display: none;
+}
+
