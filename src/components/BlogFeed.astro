@@ -39,7 +39,7 @@ function sortByPubDateDescending(post1: CollectionEntry<'blog'>, post2: Collecti
 
 const headingElem = `h${headingLevel}`;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
+const canonicalBlogUrl = new URL('blog', Astro.site)
 ---
 
 <section class="h-feed">
@@ -55,7 +55,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
 		</p>
 
 		<p>
-			<a class="u-url" href={canonicalUrl}>Permalink</a>
+			<a class="u-url" href={canonicalBlogUrl}>Permalink</a>
 		</p>
 	</aside>
 
