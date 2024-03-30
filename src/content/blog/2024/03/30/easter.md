@@ -93,16 +93,6 @@ people, from every nation on Earth, speaking thousands of languages, of every
 age and culture and gender and race, who defy the divisions of this world to
 insist on joining together as one body in Jesus.
 
-That includes Edinburgh’s thriving and diverse Christian community, many of whom
-will be taking part in the ritual of Communion at some point this week. And if
-you want to hear more about how Jesus gave his life for us and why that matters
-for all of us, I’m sure every church in Edinburgh will have their doors open at
-some point this week and would be delighted to have you. My own church,
-Bruntsfield Evangelical, will be having a service tomorrow, Good Friday at
-twelve noon, and also at eleven o’ clock on Sunday – I’d especially recommend this
-one if you’re new to church or haven’t been in a while. You’d be very welcome to
-join me there!
-
 Because Jesus’ new covenant, his promise to all of us, is that in an apparently
 hopelessly divided world, there exists real hope for unity. And that’s why
 Easter is the best week of the year.
