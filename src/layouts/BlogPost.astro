@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+
+const pubDateStr = `${pubDate.year}-${pubDate.month}-${pubDate.day}`;
+const updatedDateStr = updatedDate ?
+	`${updatedDate.year}-${updatedDate.month}-${updatedDate.day}`
+	: pubDateStr;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={`${title} | joeac’s blog`} description={description} />
+		<link rel="stylesheet" href="/css/blog.css">
+	</head>
+
+	<body>
+		<article class="h-entry">
+			<aside>
+				<p>This is a blog post by <a class="p-author h-card" href="/">Joe Carstairs</a></p>
+				{ updatedDate
+					? (
+						<p>Updated: <FormattedDate date={updatedDateStr} className="dt-updated"/></p>
+						<p>Originally published: <FormattedDate date={pubDateStr} className="dt-published"/></p>
+					) : <p>Published: <FormattedDate date={pubDateStr} className="dt-published"/></p>
+				}
+				<p>Go back to his <a href="/blog">blog</a> if you like.</p>
+				<p><a class="u-url uid" href={canonicalUrl}>Permalink</a></p>
+	  		</aside>
+
+			<h1 class="h-name">{title}</h1>
+
+			<p class="p-summary" set:html={description} />
+
+			<div class="e-content">
+			  <slot />
+			</div>
+		</article>
+	</body>
+</html>

@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+
+export interface Props {
+	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6,
+	hideAuthor?: boolean,
+};
+
+const { headingLevel = 2, hideAuthor = false } = Astro.props;
+
+const posts = (await getCollection('blog'));
+
+const distinctYears: number[] = posts
+	.map(post => post.data.pubDate.year)
+	.reduce<number[]>((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], [])
+	.sort((a, b) => b - a);
+
+function matchesYear(year: number) {
+	return (post: CollectionEntry<'blog'>) => post.data.pubDate.year === year;
+}
+
+function sortByPubDateDescending(post1: CollectionEntry<'blog'>, post2: CollectionEntry<'blog'>) {
+	const year1 = post1.data.pubDate.year;
+	const year2 = post2.data.pubDate.year;
+	const month1 = post1.data.pubDate.month;
+	const month2 = post2.data.pubDate.month;
+	const day1 = post1.data.pubDate.day;
+	const day2 = post2.data.pubDate.day;
+
+	if (year1 !== year2) {
+		return year2 - year1;
+	} else if (month1 !== month2) {
+		return month2 - month1;
+	} else {
+		return day2 - day1;
+	}
+}
+
+const headingElem = `h${headingLevel}`;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
+---
+
+<section class="h-feed">
+	<Fragment set:html={`
+		<${headingElem} class="p-name">
+		My blog
+		</${headingElem}>
+	`} />
+
+	<aside>
+		<p class={hideAuthor ? 'hidden' : ''}>
+			This blog is written by <a class="p-author h-card" href="/">Joe Carstairs</a>
+		</p>
+
+		<p>
+			<a class="u-url" href={canonicalUrl}>Permalink</a>
+		</p>
+	</aside>
+
+	<ul>
+		{ distinctYears.map(year => (
+			<li>
+				{year}
+				<ul>
+					{ posts.filter(matchesYear(year)).sort(sortByPubDateDescending).map(post => (
+						<li class="h-entry">
+							<a class="u-url p-name" href={`/blog/${post.slug}`}>{post.data.title}</a>
+						</li>
+					)) }
+				</ul>
+			</li>
+		)) }
+	</ul>
+</section>
