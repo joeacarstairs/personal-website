@@ -1,0 +1,21 @@
+---
+interface Props {
+	className?: string;
+	date: Date | string;
+}
+
+let { className, date } = Astro.props;
+if (typeof(date) === 'string') {
+	date = new Date(date);
+}
+---
+
+<time datetime={date.toISOString()} class={className ?? ''}>
+	{
+		date.toLocaleDateString('en-GB', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+		})
+	}
+</time>

@@ -5,8 +5,8 @@
 ::backdrop {
   /* Set sans-serif & mono fonts */
   --sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir,
-    "Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica,
-    "Helvetica Neue", sans-serif;
+	"Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica,
+	"Helvetica Neue", sans-serif;
   --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   --standard-border-radius: 5px;
 
@@ -28,21 +28,21 @@
 @media (prefers-color-scheme: dark) {
   :root,
   ::backdrop {
-    color-scheme: dark;
-    --bg: #212121;
-    --accent-bg: #2b2b2b;
-    --text: #dcdcdc;
-    --text-light: #ababab;
-    --accent: #ffb300;
-    --accent-text: var(--bg);
-    --code: #f06292;
-    --preformatted: #ccc;
-    --disabled: #111;
+	color-scheme: dark;
+	--bg: #212121;
+	--accent-bg: #2b2b2b;
+	--text: #dcdcdc;
+	--text-light: #ababab;
+	--accent: #ffb300;
+	--accent-text: var(--bg);
+	--code: #f06292;
+	--preformatted: #ccc;
+	--disabled: #111;
   }
   /* Add a bit of transparency so light media isn't so glaring in dark mode */
   img,
   video {
-    opacity: 0.8;
+	opacity: 0.8;
   }
 }
 
@@ -164,19 +164,19 @@ h3 {
 /* Reduce header size on mobile */
 @media only screen and (max-width: 720px) {
   h1 {
-    font-size: 2.5rem;
+	font-size: 2.5rem;
   }
 
   h2 {
-    font-size: 2.1rem;
+	font-size: 2.1rem;
   }
 
   h3 {
-    font-size: 1.75rem;
+	font-size: 1.75rem;
   }
 
   h4 {
-    font-size: 1.25rem;
+	font-size: 1.25rem;
   }
 }
 
@@ -297,10 +297,10 @@ header > nav a[aria-current="page"] {
 /* Reduce nav side on mobile */
 @media only screen and (max-width: 720px) {
   header > nav a {
-    border: none;
-    padding: 0;
-    text-decoration: underline;
-    line-height: 1;
+	border: none;
+	padding: 0;
+	text-decoration: underline;
+	line-height: 1;
   }
 }
 
@@ -326,9 +326,9 @@ aside {
 /* Make aside full-width on mobile */
 @media only screen and (max-width: 720px) {
   aside {
-    width: 100%;
-    float: none;
-    margin-inline-start: 0;
+	width: 100%;
+	float: none;
+	margin-inline-start: 0;
   }
 }
 
@@ -447,7 +447,7 @@ textarea:not([cols]) {
 /* Add arrow to drop-down */
 select:not([multiple]) {
   background-image: linear-gradient(45deg, transparent 49%, var(--text) 51%),
-    linear-gradient(135deg, var(--text) 51%, transparent 49%);
+	linear-gradient(135deg, var(--text) 51%, transparent 49%);
   background-position: calc(100% - 15px), calc(100% - 10px);
   background-size: 5px 5px, 5px 5px;
   background-repeat: no-repeat;
@@ -512,7 +512,7 @@ input[type="radio"]:checked::after {
   textarea,
   select,
   input {
-    width: 100%;
+	width: 100%;
   }
 }
 
@@ -583,7 +583,7 @@ cite {
 }
 
 dt {
-    color: var(--text-light);
+	color: var(--text-light);
 }
 
 /* Use mono font for code elements */
@@ -663,8 +663,8 @@ dialog::backdrop {
 
 @media only screen and (max-width: 720px) {
   dialog {
-    max-width: 100%;
-    margin: auto 1em;
+	max-width: 100%;
+	margin: auto 1em;
   }
 }
 

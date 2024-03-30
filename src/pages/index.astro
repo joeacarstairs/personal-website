@@ -1,0 +1,11 @@
+---
+import BlogFeed from '../components/BlogFeed.astro';
+import Me from '../components/Me.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import Page from '../layouts/Page.astro';
+---
+
+<Page title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<Me />
+	<BlogFeed hideAuthor />
+</Page>

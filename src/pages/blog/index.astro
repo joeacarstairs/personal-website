@@ -1,0 +1,17 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import BlogFeed from '../../components/BlogFeed.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<main>
+			<BlogFeed headingLevel={1} />
+		</main>
+	</body>
+</html>

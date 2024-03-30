@@ -1,0 +1,6 @@
+[language-server.astro.config]
+typescript = { tsdk = "node_modules/typescript/lib" }
+
+[[language]]
+name = "astro"
+indent = { tab-width = 4, unit = "  " }
