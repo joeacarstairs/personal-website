@@ -2,6 +2,10 @@
 
 Joe Carstairs' personal website
 
+Structure:
+
+└website: My public-facing website
+
 ## Invalidating the CloudFront cache
 
 When you update pages, you’ll need to invalidate the CloudFront cache in order
