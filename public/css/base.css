@@ -696,3 +696,6 @@ sub {
   display: none;
 }
 
+.small-caps {
+  font-variant: small-caps;
+}

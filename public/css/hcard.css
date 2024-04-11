@@ -1,21 +1,21 @@
 .u-photo {
-  margin-inline: auto;
-  margin-block-end: 3rem;
+	margin-inline: auto;
+	margin-block-end: 3rem;
 }
 
 @media (min-width: 48rem) {
-  .h-card {
-	display: flex;
-	gap: 1rem;
-	align-items: center;
-  }
+	.h-card:not(.h-card--minimal) {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+	}
 
   .u-photo {
-	margin: 0;
-  }
+		margin: 0;
+	}
 }
 
 .u-photo {
-  width: 256px;
+	width: 256px;
 }
 

@@ -24,15 +24,18 @@ const updatedDateStr = updatedDate ?
 	<body>
 		<article class="h-entry">
 			<aside>
-				<p>This is a blog post by <a class="p-author h-card" href="/">Joe Carstairs</a></p>
+				<span>
+					This is a blog post by
+					<a class="p-author h-card h-card--minimal" href="/">Joe Carstairs</a>.
+				</span>
 				{ updatedDate
 					? (
-						<p>Updated: <FormattedDate date={updatedDateStr} className="dt-updated"/></p>
-						<p>Originally published: <FormattedDate date={pubDateStr} className="dt-published"/></p>
-					) : <p>Published: <FormattedDate date={pubDateStr} className="dt-published"/></p>
+						<span>Updated: <FormattedDate date={updatedDateStr} className="dt-updated"/>.</span>
+						<span>Originally published: <FormattedDate date={pubDateStr} className="dt-published"/>.</span>
+					) : <span>Published: <FormattedDate date={pubDateStr} className="dt-published"/>.</span>
 				}
-				<p>Go back to his <a href="/blog">blog</a> if you like.</p>
-				<p><a class="u-url uid" href={canonicalUrl}>Permalink</a></p>
+				<span>Go back to his <a href="/blog">blog</a> if you like.</span>
+				<span><a class="u-url uid" href={canonicalUrl}>Permalink</a></span>
 	  		</aside>
 
 			<h1 class="h-name">{title}</h1>
