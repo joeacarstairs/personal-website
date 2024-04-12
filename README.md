@@ -4,7 +4,8 @@ Joe Carstairs' personal website
 
 Structure:
 
-└website: My public-facing website
+├website: My public-facing website
+└infrastructure: The infrastructure of my website as code
 
 ## Invalidating the CloudFront cache
 
