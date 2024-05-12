@@ -84,11 +84,18 @@ body {
 }
 
 @media (min-width: 36rem) {
-  :is(main, article) {
+  body {
     display: grid;
     grid-template-columns: [media-start] 6rem [content-start] 1fr [content-end];
     margin-inline-end: 6rem;
 		column-gap: var(--spacing-block-sm);
+    max-width: calc(6rem + var(--spacing-block-sm) + 30rem);
+
+    :is(main, article, nav) {
+      display: grid;
+      grid-column: media-start / content-end;
+      grid-template-columns: subgrid;
+    }
 
     :is(section, header, aside) {
       grid-column: content-start / content-end;
@@ -136,11 +143,23 @@ a:is(:link, :visited) {
 nav {
   margin-block: var(--spacing-block-sm);
 
-  li {
+  ul {
+    grid-column: media-start / content-end;
     display: flex;
     justify-content: center;
     gap: var(--spacing-inline-md);
     list-style: none;
+  }
+}
+
+@media (min-width: 36rem) {
+  nav {
+    display: grid;
+    grid-template-columns: subgrid;
+
+    ul {
+      justify-content: end;
+    }
   }
 }
 
