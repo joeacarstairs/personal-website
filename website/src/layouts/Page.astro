@@ -1,5 +1,6 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import Navbar from "../components/Navbar.astro";
 
 const { title, description } = Astro.props;
 ---
@@ -11,7 +12,10 @@ const { title, description } = Astro.props;
 	</head>
 
 	<body>
-		<slot />
+		<Navbar />
+		<main>
+			<slot />
+		</main>
 	</body>
 </html>
 

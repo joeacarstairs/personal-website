@@ -54,23 +54,19 @@ const canonicalBlogUrl = new URL('blog', Astro.site)
 			This blog is written by <a class="p-author h-card" href="/">Joe Carstairs</a>
 		</p>
 
-		<p>
+		<p hidden>
 			<a class="u-url" href={canonicalBlogUrl}>Permalink</a>
 		</p>
 	</aside>
 
-	<ul>
-		{ distinctYears.map(year => (
-			<li>
-				{year}
-				<ul>
-					{ posts.filter(matchesYear(year)).sort(sortByPubDateDescending).map(post => (
-						<li class="h-entry">
-							<a class="u-url p-name" href={`/blog/${post.slug}`}>{post.data.title}</a>
-						</li>
-					)) }
-				</ul>
-			</li>
-		)) }
-	</ul>
+	{ distinctYears.map(year => (
+		<h3>{year}</h3>
+		<ul>
+			{ posts.filter(matchesYear(year)).sort(sortByPubDateDescending).map(post => (
+				<li class="h-entry">
+					<a class="u-url p-name" href={`/blog/${post.slug}`}>{post.data.title}</a>
+				</li>
+			)) }
+		</ul>
+	)) }
 </section>

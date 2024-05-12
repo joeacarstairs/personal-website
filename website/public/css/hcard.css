@@ -1,21 +1,32 @@
-.u-photo {
-	margin-inline: auto;
-	margin-block-end: 3rem;
-}
-
-@media (min-width: 48rem) {
-	.h-card:not(.h-card--minimal) {
-		display: flex;
-		gap: 1rem;
-		align-items: center;
-	}
-
-  .u-photo {
-		margin: 0;
+.h-card {
+	img {
+		width: 6rem;
+		height: 6rem;
+		border-radius: 1rem;
 	}
 }
 
-.u-photo {
-	width: 256px;
-}
+@media (min-width: 36rem) {
+	.h-card {
+		grid-column: media-start / content-end;
+		display: grid;
+		grid-template-columns: subgrid; /** Subgrid of main column layout */
+		grid-template-rows: min-content 1fr;
+		grid-template-areas:
+			"empty heading"
+			"photo text";
 
+		img {
+			grid-area: photo;
+			margin-block-start: var(--spacing-block-sm);
+		}
+
+		header {
+			grid-area: heading;
+		}
+
+		.h-card__text {
+			grid-area: text;
+		}
+	}
+}

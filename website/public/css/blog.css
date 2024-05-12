@@ -1,8 +1,8 @@
 .p-summary {
   font-style: italic;
-  font-size: 80%;
+  font-size: var(--font-size-sm);
 }
 
-article > aside {
-  width: 100%;
+h1 {
+  margin-block-start: var(--spacing-block-md);
 }

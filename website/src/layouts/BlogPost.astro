@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import Navbar from '../components/Navbar.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
@@ -22,11 +23,12 @@ const updatedDateStr = updatedDate ?
 	</head>
 
 	<body>
+		<Navbar />
 		<article class="h-entry">
 			<aside>
 				<span>
 					This is a blog post by
-					<a class="p-author h-card h-card--minimal" href="/">Joe Carstairs</a>.
+					<a class="p-author h-card" href="/">Joe Carstairs</a>.
 				</span>
 				{ updatedDate
 					? (
@@ -34,17 +36,17 @@ const updatedDateStr = updatedDate ?
 						<span>Originally published: <FormattedDate date={pubDateStr} className="dt-published"/>.</span>
 					) : <span>Published: <FormattedDate date={pubDateStr} className="dt-published"/>.</span>
 				}
-				<span>Go back to his <a href="/blog">blog</a> if you like.</span>
-				<span><a class="u-url uid" href={canonicalUrl}>Permalink</a></span>
+				<span hidden><a class="u-url uid" href={canonicalUrl}>Permalink</a></span>
 	  		</aside>
 
-			<h1 class="h-name">{title}</h1>
+			<header>
+				<h1 class="h-name">{title}</h1>
+				<p class="p-summary" set:html={description} />
+			</header>
 
-			<p class="p-summary" set:html={description} />
-
-			<div class="e-content">
+			<section class="e-content">
 			  <slot />
-			</div>
+			</section>
 		</article>
 	</body>
 </html>
