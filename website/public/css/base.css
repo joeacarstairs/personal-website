@@ -170,3 +170,23 @@ nav {
 		list-style: none;
 	}
 }
+
+/** Block quotes */
+blockquote {
+  padding-inline-start: var(--spacing-inline-lg);
+  border-inline-start: 2px solid var(--colour-primary-fg);
+  font-style: italic;
+
+  footer {
+    font-style: initial;
+  }
+
+  :is(em, i) {
+    font-style: normal;
+  }
+}
+
+/** Small caps */
+.small-caps {
+  font-variant: small-caps;
+}
