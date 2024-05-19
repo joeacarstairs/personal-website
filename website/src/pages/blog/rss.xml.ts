@@ -14,7 +14,7 @@ export async function GET(context: APIContext) {
 		title: 'Joe Carstairs’ blog',
 		description: 'Short posts on random topics I find interesting',
 		customData: `
-			<image>/images/headshot.jpg</image>
+			<image>/images/headshot.webp</image>
 		  <language>en-GB</language>
 		`,
 		site,
