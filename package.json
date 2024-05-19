@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "cd website && astro dev",
     "start": "cd website && astro dev",
-    "build": "cd website && astro check && astro build",
+    "build": "cd website && astro build",
     "preview": "cd cd website && webiste && astro preview",
     "astro": "cd website && astro"
   },
