@@ -45,9 +45,11 @@
 
 /** Light theme */
 @media (prefers-color-scheme: light) {
-  --colour-primary-fg: var(--colour-primary-20);
-  --colour-primary-bg: var(--colour-primary-95);
-  --colour-hyperlink: var(--colour-hyperlink-40);
+  :root {
+    --colour-primary-fg: var(--colour-primary-20);
+    --colour-primary-bg: var(--colour-primary-95);
+    --colour-hyperlink: var(--colour-hyperlink-40);
+  }
 }
 
 /** Base typography */
@@ -57,6 +59,9 @@ body {
   color: var(--colour-primary-fg);
   background-color: var(--colour-primary-bg);
   line-height: 1.5;
+
+  /* Geometric Humanist stack from https://modernfontstacks.com */
+  font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
 }
 
 small {
