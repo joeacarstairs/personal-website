@@ -26,6 +26,12 @@ const LINKS: Link[] = [
     description: 'Cory Doctorow writes incessantly about the harms of monopolised markets. This essay is particularly good, because he collects many of monopolists’ greatest hits from recent years. Do keep reading to the end. It just gets better.',
     isoDateAdded: '2024-06-05',
   },
+  {
+    href: 'https://johan.hal.se/wrote/2024/06/05/parenting',
+    title: 'Parenting',
+    description: '‘Once you find yourself in the position of being someone’s father you’ll quickly realize that you’re not actually raising anyone here, you just happen to be the veteran in the trenches alongside them, showing them the ropes and hoping they’ll survive and turn out okay.’',
+    isoDateAdded: '2024-06-05',
+  },
 ];
 
 export default LINKS;
