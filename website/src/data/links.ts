@@ -20,6 +20,12 @@ const links: Link[] = [
     description: 'Colin McGinn makes the case for primary and secondary moral values, just as there are primary and secondary qualities, apparently thereby managing to assert both moral realism and anti-realism at the same time without contradiction.',
     isoDateAdded: '2024-06-05',
   },
+  {
+    href: 'https://pluralistic.net/2024/05/24/record-scratch/#autoenshittification',
+    title: 'Pluralistic: They brick you because they can',
+    description: 'Cory Doctorow writes incessantly about the harms of monopolised markets. This essay is particularly good, because he collects many of monopolists’ greatest hits from recent years. Do keep reading to the end. It just gets better.',
+    isoDateAdded: '2024-06-05',
+  },
 ];
 
 export default links;
