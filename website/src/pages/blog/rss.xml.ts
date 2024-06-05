@@ -1,9 +1,12 @@
+import path from 'node:path';
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import { getCollection } from 'astro:content';
 import MarkdownIt from 'markdown-it';
 
-const mdParser = new MarkdownIt();
+const mdParser = new MarkdownIt({
+	html: true
+});
 
 export async function GET(context: APIContext) {
 	// `site` is guaranteed to exist because we define it in our Astro config
@@ -17,7 +20,7 @@ export async function GET(context: APIContext) {
 			<image>/images/headshot.webp</image>
 		  <language>en-GB</language>
 		`,
-		site,
+		site: path.join(site.toString(), 'blog'),
 		trailingSlash: false,
 		items: posts.map((post) => ({
 		  link: post.slug,

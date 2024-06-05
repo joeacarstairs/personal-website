@@ -1,6 +1,12 @@
+import path from 'node:path';
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import LINKS from '../../data/links.ts';
+import MarkdownIt from 'markdown-it';
+
+const mdParser = new MarkdownIt({
+	html: true
+});
 
 export async function GET(context: APIContext) {
 	// `site` is guaranteed to exist because we define it in our Astro config
@@ -13,14 +19,14 @@ export async function GET(context: APIContext) {
 			<image>/images/headshot.webp</image>
 		  <language>en-GB</language>
 		`,
-		site,
+		site: path.join(site.toString(), 'links'),
 		trailingSlash: false,
 		items: LINKS.map((link) => ({
 		  link: link.href,
 			title: link.title,
-	    content: link.description,
+	    content: mdParser.render(link.description),
 	    pubDate: new Date(link.isoDateAdded),
-	    description: link.description,
+	    description: mdParser.render(link.description),
 	    author: 'Joe Carstairs',
 		})),
 	})
