@@ -38,6 +38,7 @@ function sortByPubDateDescending(post1: CollectionEntry<'blog'>, post2: Collecti
 }
 
 const headingElem = `h${headingLevel}`;
+const subHeadingElem = `h${headingLevel + 1}`
 
 const canonicalBlogUrl = new URL('blog', Astro.site)
 ---
@@ -45,12 +46,12 @@ const canonicalBlogUrl = new URL('blog', Astro.site)
 <section class="h-feed">
 	<Fragment set:html={`
 		<${headingElem} class="p-name">
-		My blog
+			My blog
 		</${headingElem}>
 	`} />
 
 	<aside>
-		<p class={hideAuthor ? 'hidden' : ''}>
+		<p hidden={hideAuthor}>
 			This blog is written by <a class="p-author h-card" href="/">Joe Carstairs</a>
 		</p>
 
@@ -60,7 +61,11 @@ const canonicalBlogUrl = new URL('blog', Astro.site)
 	</aside>
 
 	{ distinctYears.map(year => (
-		<h3>{year}</h3>
+		<Fragment set:html={`
+			<${subHeadingElem}>
+				${year}
+			</${subHeadingElem}>
+		`} />
 		<ul>
 			{ posts.filter(matchesYear(year)).sort(sortByPubDateDescending).map(post => (
 				<li class="h-entry">

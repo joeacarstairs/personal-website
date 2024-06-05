@@ -7,7 +7,7 @@ type Link = {
   isoDateAdded: `20${Digit}${Digit}-${'0'|'1'}${Digit}-${'0'|'1'|'2'|'3'}${Digit}`,
 };
 
-const links: Link[] = [
+const LINKS: Link[] = [
   {
     href: 'https://dl.acm.org/doi/pdf/10.1145/3613904.3642596',
     title: 'Is Stack Overflow Obsolete? An Empirical Study of the Characteristics of ChatGPT Answers to Stack Overflow Questions',
@@ -28,4 +28,4 @@ const links: Link[] = [
   },
 ];
 
-export default links;
+export default LINKS;
