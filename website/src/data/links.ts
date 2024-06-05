@@ -38,6 +38,12 @@ const LINKS: Link[] = [
     description: 'Catherine Carr did a fantastic job of unveiling how teenage boys are experiencing masculinity in Britain today. Plenty here to surprise, shock and inspire.',
     isoDateAdded: '2024-06-05',
   },
+  {
+    href: 'https://www.bcs.org/articles-opinion-and-research/the-computing-revolution-how-the-next-government-can-transform-society-with-ethics-education-and-equity-in-technology',
+    title: 'BCS manifesto',
+    description: 'Good for what it is. Good policies. Succinct. Should be the beginning (<em>not</em> the end) of some interesting conversations.',
+    isoDateAdded: '2024-06-05'
+  }
 ];
 
 export default LINKS;
