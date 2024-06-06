@@ -1,0 +1,5 @@
+packages:
+  - name: webmention
+    functions:
+      - name: hook
+        runtime: 'nodejs:20'

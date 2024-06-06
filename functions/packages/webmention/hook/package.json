@@ -1,0 +1,12 @@
+{
+	"name": "webmention-hook",
+	"version": "0.1.0",
+	"description": "Receives webmention hooks from webmention.io",
+	"main": "hook.js",
+	"scripts": {
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+	}
+}
