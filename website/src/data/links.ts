@@ -43,7 +43,13 @@ const LINKS: Link[] = [
     title: 'BCS manifesto',
     description: 'Good for what it is. Good policies. Succinct. Should be the beginning (<em>not</em> the end) of some interesting conversations.',
     isoDateAdded: '2024-06-05'
-  }
+  },
+  {
+    href: 'https://broughtonspurtle.org.uk/news/gone-not-forgotten',
+    title: '154 McDonald Road: Gone but not Forgotten',
+    description: 'A superb tribute to the building and analysis of the failures of the planning system. This was published in my free local newsletter, and is worthy of any broadsheet newspaper.',
+    isoDateAdded: '2024-06-07',
+  },
 ];
 
 export default LINKS;
