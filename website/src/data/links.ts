@@ -50,6 +50,12 @@ const LINKS: Link[] = [
     description: 'A superb tribute to the building and analysis of the failures of the planning system. This was published in my free local newsletter, and is worthy of any broadsheet newspaper.',
     isoDateAdded: '2024-06-07',
   },
+  {
+    href: 'https://thehistoryoftheweb.com/beware-the-cloud-of-hype',
+    title: 'Beware the cloud of hype',
+    description: 'Jay Hoffman spots some striking parallels between the current AI hype and the dot-com bubble.',
+    isoDateAdded: '2024-06-07',
+  },
 ];
 
 export default LINKS;
