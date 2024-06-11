@@ -9,7 +9,7 @@ export interface Props {
 
 const { headingLevel = 2, hideAuthor = false } = Astro.props;
 
-const posts = (await getCollection('blog'));
+const posts = (await getCollection('blog')).filter((post) => !post.data.hidden);
 
 const distinctYears: number[] = posts
 	.map(post => post.data.pubDate.year)
