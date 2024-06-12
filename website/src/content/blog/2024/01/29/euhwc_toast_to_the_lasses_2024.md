@@ -1,5 +1,6 @@
 ---
 title: EUHWC Toast to the Lassies 2024
+hidden: true
 description: >-
     At the <a href="https://www.euhwc.co.uk">EUHWC</a> Burns meet in
     Ullapool last weekend, I had the last privilege of giving the Toast to

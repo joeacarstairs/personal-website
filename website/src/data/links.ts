@@ -43,7 +43,25 @@ const LINKS: Link[] = [
     title: 'BCS manifesto',
     description: 'Good for what it is. Good policies. Succinct. Should be the beginning (<em>not</em> the end) of some interesting conversations.',
     isoDateAdded: '2024-06-05'
-  }
+  },
+  {
+    href: 'https://broughtonspurtle.org.uk/news/gone-not-forgotten',
+    title: '154 McDonald Road: Gone but not Forgotten',
+    description: 'A superb tribute to the building and analysis of the failures of the planning system. This was published in my free local newsletter, and is worthy of any broadsheet newspaper.',
+    isoDateAdded: '2024-06-07',
+  },
+  {
+    href: 'https://thehistoryoftheweb.com/beware-the-cloud-of-hype',
+    title: 'Beware the cloud of hype',
+    description: 'Jay Hoffman spots some striking parallels between the current AI hype and the dot-com bubble.',
+    isoDateAdded: '2024-06-07',
+  },
+  {
+    href: 'https://www.eff.org/files/2023/06/14/saving_the_news_from_big_tech_eff.pdf',
+    title: 'Saving the News from Big Tech',
+    description: 'Cory Doctorow, writing for the Electronic Frontier Foundation, argues that to save news media, we need to dismantle ad-tech monopolies, ban surveillance advertising, open up app stores and have an end-to-end web.',
+    isoDateAdded: '2024-06-07',
+  },
 ];
 
 export default LINKS;
