@@ -143,6 +143,19 @@ a:is(:link, :visited) {
   }
 }
 
+/** Definition lists */
+dl {
+  margin-block-start: var(--spacing-block-md);
+
+  dt {
+    font-weight: bold;
+
+    dd + & {
+      margin-block-start: var(--spacing-block-md);
+    }
+  }
+}
+
 /** Navigation bar */
 
 nav {
