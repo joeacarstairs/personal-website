@@ -68,6 +68,12 @@ const LINKS: Link[] = [
     description: 'Yuck, yuck, yuck. Makes me glad I’m not on Instagram. For people already stuck there, though, this just sucks. Highly recommend either opting out of AI training or quitting Insta, if only to give the twits the middle finger they deserve.',
     isoDateAdded: '2024-06-14',
   },
+  {
+    href: 'https://gomakethings.com/state-based-ui-is-an-anti-pattern',
+    title: 'State-based UI is an anti-pattern',
+    description: 'Chris Ferdinandi has a hot take here. I would be keen to test this idea out one day: push the limits of how much complex state you can manage within the light DOM.',
+    isoDateAdded: '2024-06-14',
+  },
 ];
 
 export default LINKS;
