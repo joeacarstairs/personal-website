@@ -62,6 +62,12 @@ const LINKS: Link[] = [
     description: 'Cory Doctorow, writing for the Electronic Frontier Foundation, argues that to save news media, we need to dismantle ad-tech monopolies, ban surveillance advertising, open up app stores and have an end-to-end web.',
     isoDateAdded: '2024-06-07',
   },
+  {
+    href: 'https://www.fastcompany.com/91132854/instagram-training-ai-on-your-data-its-nearly-impossible-to-opt-out',
+    title: 'Instagram is training AI on your data. It’s nearly impossible to opt out',
+    description: 'Yuck, yuck, yuck. Makes me glad I’m not on Instagram. For people already stuck there, though, this just sucks. Highly recommend either opting out of AI training or quitting Insta, if only to give the twits the middle finger they deserve.',
+    isoDateAdded: '2024-06-14',
+  },
 ];
 
 export default LINKS;
