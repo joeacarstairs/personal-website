@@ -74,6 +74,12 @@ const LINKS: Link[] = [
     description: 'Chris Ferdinandi has a hot take here. I would be keen to test this idea out one day: push the limits of how much complex state you can manage within the light DOM.',
     isoDateAdded: '2024-06-14',
   },
+  {
+    href: 'https://motherduck.com/blog/big-data-is-dead',
+    title: 'Big Data is Dead',
+    description: 'Did you know that most organisations store less than 100GB, and almost all analytics is run on the last 24h of data? I didn’t. Though take it all with a pinch of salt: the guy’s writing on his company blog which sells traditional data warehouses.',
+    isoDateAdded: '2024-06-17',
+  },
 ];
 
 export default LINKS;
