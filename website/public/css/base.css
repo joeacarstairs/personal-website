@@ -24,6 +24,7 @@
   --colour-hyperlink-95: #e0f1ff;
 
   --colour-primary-fg: var(--colour-primary-90);
+  --colour-primary-fg-accent: var(--colour-primary-80);
   --colour-primary-bg: var(--colour-primary-10);
   --colour-hyperlink: var(--colour-hyperlink-80);
 
@@ -47,6 +48,7 @@
 @media (prefers-color-scheme: light) {
   :root {
     --colour-primary-fg: var(--colour-primary-20);
+    --colour-primary-fg-accent: var(--colour-primary-40);
     --colour-primary-bg: var(--colour-primary-95);
     --colour-hyperlink: var(--colour-hyperlink-40);
   }
