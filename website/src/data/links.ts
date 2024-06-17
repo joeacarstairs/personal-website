@@ -57,7 +57,7 @@ const LINKS: Link[] = [
     isoDateAdded: '2024-06-07',
   },
   {
-    href: 'https://www.eff.org/files/2023/06/14/saving_the_news_from_big_tech_eff.pdf',
+    href: 'https://eff.org/saving-the-news',
     title: 'Saving the News from Big Tech',
     description: 'Cory Doctorow, writing for the Electronic Frontier Foundation, argues that to save news media, we need to dismantle ad-tech monopolies, ban surveillance advertising, open up app stores and have an end-to-end web.',
     isoDateAdded: '2024-06-07',
