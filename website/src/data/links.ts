@@ -57,10 +57,28 @@ const LINKS: Link[] = [
     isoDateAdded: '2024-06-07',
   },
   {
-    href: 'https://www.eff.org/files/2023/06/14/saving_the_news_from_big_tech_eff.pdf',
+    href: 'https://eff.org/saving-the-news',
     title: 'Saving the News from Big Tech',
     description: 'Cory Doctorow, writing for the Electronic Frontier Foundation, argues that to save news media, we need to dismantle ad-tech monopolies, ban surveillance advertising, open up app stores and have an end-to-end web.',
     isoDateAdded: '2024-06-07',
+  },
+  {
+    href: 'https://www.fastcompany.com/91132854/instagram-training-ai-on-your-data-its-nearly-impossible-to-opt-out',
+    title: 'Instagram is training AI on your data. It’s nearly impossible to opt out',
+    description: 'Yuck, yuck, yuck. Makes me glad I’m not on Instagram. For people already stuck there, though, this just sucks. Highly recommend either opting out of AI training or quitting Insta, if only to give the twits the middle finger they deserve.',
+    isoDateAdded: '2024-06-14',
+  },
+  {
+    href: 'https://gomakethings.com/state-based-ui-is-an-anti-pattern',
+    title: 'State-based UI is an anti-pattern',
+    description: 'Chris Ferdinandi has a hot take here. I would be keen to test this idea out one day: push the limits of how much complex state you can manage within the light DOM.',
+    isoDateAdded: '2024-06-14',
+  },
+  {
+    href: 'https://motherduck.com/blog/big-data-is-dead',
+    title: 'Big Data is Dead',
+    description: 'Did you know that most organisations store less than 100GB, and almost all analytics is run on the last 24h of data? I didn’t. Though take it all with a pinch of salt: the guy’s writing on his company blog which sells traditional data warehouses.',
+    isoDateAdded: '2024-06-17',
   },
 ];
 
