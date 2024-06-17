@@ -93,7 +93,12 @@ body {
 @media (min-width: 36rem) {
   body {
     display: grid;
-    grid-template-columns: [media-start] 6rem [content-start] 1fr [content-end];
+    grid-template-columns:
+      [media-start]
+      6rem
+      [content-start]
+      minmax(calc(36rem - var(--spacing-block-lg) - 6rem - var(--spacing-block-sm) - 6rem), auto)
+      [content-end];
     margin-inline-end: 6rem;
 		column-gap: var(--spacing-block-sm);
     max-width: calc(6rem + var(--spacing-block-sm) + 30rem);
