@@ -70,7 +70,7 @@ small {
   font-size: var(--font-size-sm);
 }
 
-:is(p, h1, h2, h3, h4, h5, h6) {
+:is(p, h1, h2, h3, h4, h5, h6, hr) {
   margin-block-start: var(--spacing-block-sm);
   max-width: 30rem;
 }
