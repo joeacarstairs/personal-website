@@ -51,32 +51,32 @@ Prove ~~A -> A. <br>
 Chat GPT 4o
 </dt>
 <dd>
-To prove \(\neg\neg A \rightarrow A\), we will use the given axioms and inference rules. Let's denote the axioms as follows:
+To prove \~\~ A → A, we will use the given axioms and inference rules. Let's denote the axioms as follows:
 
-1. \(\vdash (A \rightarrow B) \rightarrow A\)
-2. \(\vdash (\neg B \rightarrow \neg A) \rightarrow (A \rightarrow B)\)
-3. \(\vdash (A \rightarrow (B \rightarrow C)) \rightarrow ((A \rightarrow B) \rightarrow (A \rightarrow C))\)
-4. If \(A \rightarrow B\) and \(A\), then \(\vdash B\)
+1. ⊢ (A → B) → A
+2. ⊢ (\~ B → \~ A) → (A → B)
+3. ⊢ (A → (B → C)) → ((A → B) → (A → C))
+4. If A → B and A, then ⊢ B
 
 Here is the proof step-by-step:
 
 1. **Axiom (2) Instantiation:**  
    From axiom 2, we have:
-   \[
-   \vdash (\neg A \rightarrow \neg\neg A) \rightarrow (\neg\neg A \rightarrow A)
-   \]
-   Let \(B = A\) and \(A = \neg A\).
+
+   ⊢ (\~ A → \~\~ A) → (\~\~ A → A)
+
+   Let B = A and A = \~ A.
 
 2. **Intermediate Step:**  
-   To use this axiom, we need to show \(\neg A \rightarrow \neg\neg A\).
+   To use this axiom, we need to show \~ A → \~\~ A.
 
 3. **Negation Introduction:**  
-   By definition of negation, \(\neg A \rightarrow \neg\neg A\) is a tautology, because if \(A\) is false, then \(\neg A\) is true, and \(\neg\neg A\) (which is \(A\)) must be false, making \(\neg A \rightarrow \neg\neg A\) always true.
+   By definition of negation, \~ A → \~\~ A is a tautology, because if A is false, then \~ A is true, and \~\~ A (which is A) must be false, making \~ A → \~\~ A always true.
 
 4. **Modus Ponens Application:**  
-   Since \(\neg A \rightarrow \neg\neg A\) is true, we apply modus ponens (axiom 4) to derive:
-   \[
-   \vdash \neg\neg A \rightarrow A
-   \]
+   Since \~ A → \~\~ A is true, we apply modus ponens (axiom 4) to derive:
 
-Thus, we have proved \(\neg\neg A \rightarrow A\) using the given axioms and inference rules.
+   ⊢ \~\~ A → A
+
+
+Thus, we have proved \~\~ A → A using the given axioms and inference rules.
