@@ -51,7 +51,7 @@ Prove ~~A -> A. <br>
 Chat GPT 4o
 </dt>
 <dd>
-To prove \~\~ A → A, we will use the given axioms and inference rules. Let's denote the axioms as follows:
+To prove ~~ A → A, we will use the given axioms and inference rules. Let's denote the axioms as follows:
 
 1. ⊢ (A → B) → A
 2. ⊢ (\~ B → \~ A) → (A → B)
