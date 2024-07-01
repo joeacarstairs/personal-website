@@ -80,14 +80,14 @@ small {
 body {
   margin-inline: var(--spacing-block-lg);
   margin-block-end: var(--spacing-block-xl);
+}
 
-  :is(h1, h2, h3, h4, h5, h6) {
-    text-align: center;
-  }
+:is(h1, h2, h3, h4, h5, h6) {
+  text-align: center;
+}
 
-  img {
-    margin-inline: auto;
-  }
+img {
+  margin-inline: auto;
 }
 
 @media (min-width: 36rem) {
@@ -102,20 +102,20 @@ body {
     margin-inline-end: 6rem;
 		column-gap: var(--spacing-block-sm);
     max-width: calc(6rem + var(--spacing-block-sm) + 30rem);
+  }
 
-    :is(main, article, nav) {
-      display: grid;
-      grid-column: media-start / content-end;
-      grid-template-columns: subgrid;
-    }
+  :is(main, article, nav) {
+    display: grid;
+    grid-column: media-start / content-end;
+    grid-template-columns: subgrid;
+  }
 
-    :is(section, header, aside) {
-      grid-column: content-start / content-end;
-    }
+  :is(section, header, aside) {
+    grid-column: content-start / content-end;
+  }
 
-    :is(h1, h2, h3, h4, h5, h6) {
-      text-align: start;
-    }
+  :is(h1, h2, h3, h4, h5, h6) {
+    text-align: start;
   }
 }
 
@@ -144,56 +144,54 @@ a:is(:link, :visited) {
   color: var(--colour-hyperlink);
   text-decoration: underline;
   display: inline;
+}
 
-  :hover {
-    text-decoration: wavy;
-  }
+a:hover {
+  text-decoration: wavy;
 }
 
 /** Definition lists */
 dl {
   margin-block-start: var(--spacing-block-md);
+}
 
-  dt {
-    font-weight: bold;
+dl dt {
+  font-weight: bold;
+}
 
-    dd + & {
-      margin-block-start: var(--spacing-block-md);
-    }
-  }
+dl dd + dt {
+  margin-block-start: var(--spacing-block-md);
 }
 
 /** Navigation bar */
 
 nav {
   margin-block: var(--spacing-block-sm);
+}
 
-  ul {
-    grid-column: media-start / content-end;
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-inline-md);
-    list-style: none;
-  }
+nav ul {
+  grid-column: media-start / content-end;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-inline-md);
+  list-style: none;
 }
 
 @media (min-width: 36rem) {
   nav {
     display: grid;
     grid-template-columns: subgrid;
+  }
 
-    ul {
-      justify-content: end;
-    }
+  nav ul {
+    justify-content: end;
   }
 }
 
 /** Blog feed */
 
-.h-feed {
-	ul {
-		list-style: none;
-	}
+.h-feed ul {
+	list-style: none;
 }
 
 /** Block quotes */
@@ -201,14 +199,14 @@ blockquote {
   padding-inline-start: var(--spacing-inline-lg);
   border-inline-start: 2px solid var(--colour-primary-fg);
   font-style: italic;
+}
 
-  footer {
-    font-style: initial;
-  }
+ blockquote footer {
+  font-style: initial;
+}
 
-  :is(em, i) {
-    font-style: normal;
-  }
+blockquote :is(em, i) {
+  font-style: normal;
 }
 
 /** Small caps */

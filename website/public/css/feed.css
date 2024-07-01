@@ -1,10 +1,8 @@
-.h-feed {
-	/* Assumes there is at most one level of subheading for sub-dividing entries */
-	:is(h2, h3, h4, h5, h6) {
-		margin-block-start: var(--spacing-block-md);
-	}
-	
-	.h-entry {
-		margin-block-start: var(--spacing-block-sm);
-	}
+/* Assumes there is at most one level of subheading for sub-dividing entries */
+.h-feed :is(h2, h3, h4, h5, h6) {
+	margin-block-start: var(--spacing-block-md);
+}
+
+.h-feed .h-entry {
+	margin-block-start: var(--spacing-block-sm);
 }
