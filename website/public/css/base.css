@@ -70,7 +70,7 @@ small {
   font-size: var(--font-size-sm);
 }
 
-:is(p, h1, h2, h3, h4, h5, h6, hr) {
+:is(p, h1, h2, h3, h4, h5, h6, hr, img, figure) {
   margin-block-start: var(--spacing-block-sm);
   max-width: 30rem;
 }
@@ -161,6 +161,14 @@ dl dt {
 
 dl dd + dt {
   margin-block-start: var(--spacing-block-md);
+}
+
+/** figcaptions */
+
+figcaption {
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  text-align: center;
 }
 
 /** Navigation bar */
