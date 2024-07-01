@@ -153,6 +153,7 @@ a:hover {
 /** Definition lists */
 dl {
   margin-block-start: var(--spacing-block-md);
+}
 
 dl dt {
   font-weight: bold;
