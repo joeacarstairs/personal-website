@@ -43,3 +43,7 @@ const { title, description, image = '/images/headshot.jpg' } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<!-- Feeds -->
+<link rel="alternate" type="text/xml" title="Blog RSS" href="/blog/rss.xml">
+<link rel="alternate" type="text/xml" title="Links RSS" href="/links/rss.xml">
