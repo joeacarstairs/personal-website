@@ -4,5 +4,5 @@
 }
 
 .h-feed .h-entry {
-	margin-block-start: var(--spacing-block-sm);
+	margin-block-start: var(--spacing-block-xs);
 }
