@@ -34,9 +34,9 @@
   --font-size-lg: 1.5rem;
   --font-size-xl: 2rem;
 
-  --spacing-block-sm: 0.75rem;
-  --spacing-block-md: 1.5rem;
-  --spacing-block-lg: 2.5rem;
+  --spacing-block-sm: 1.75rem;
+  --spacing-block-md: 2.5rem;
+  --spacing-block-lg: 3.5rem;
   --spacing-block-xl: 5rem;
   --spacing-inline-sm: 0.5rem;
   --spacing-inline-md: 1.5rem;
@@ -70,16 +70,18 @@ small {
   font-size: var(--font-size-sm);
 }
 
-:is(p, h1, h2, h3, h4, h5, h6, hr) {
+:is(p, h1, h2, h3, h4, h5, h6, hr, img, figure) {
   margin-block-start: var(--spacing-block-sm);
-  max-width: 30rem;
 }
 
 /** Base layout */
 
 body {
-  margin-inline: var(--spacing-block-lg);
-  margin-block-end: var(--spacing-block-xl);
+  --body-margin-inline-start: var(--spacing-inline-lg);
+  --body-margin-inline-end: var(--body-margin-inline-start);
+  --body-margin-block-end: var(--spacing-block-xl);
+  margin-inline: var(--body-margin-inline-start) var(--body-margin-inline-end);
+  margin-block-end: var(--body-margin-block-end);
 }
 
 :is(h1, h2, h3, h4, h5, h6) {
@@ -95,13 +97,23 @@ img {
     display: grid;
     grid-template-columns:
       [media-start]
-      6rem
+      var(--grid-margin-inline)
       [content-start]
-      minmax(calc(36rem - var(--spacing-block-lg) - 6rem - var(--spacing-block-sm) - 6rem), auto)
+      minmax(var(--grid-max-content-width), auto)
       [content-end];
-    margin-inline-end: 6rem;
 		column-gap: var(--spacing-block-sm);
-    max-width: calc(6rem + var(--spacing-block-sm) + 30rem);
+    max-width: var(--grid-total-width);
+
+    --body-margin-inline-end: 6rem;
+    --grid-margin-inline: 6rem;
+    --grid-total-width: 36rem;
+    --grid-max-content-width: calc(
+      var(--grid-total-width)
+        - var(--body-margin-inline-start)
+        - var(--grid-margin-inline)
+        - var(--spacing-block-sm)
+        - var(--grid-margin-inline)
+    );
   }
 
   :is(main, article, nav) {
@@ -116,6 +128,12 @@ img {
 
   :is(h1, h2, h3, h4, h5, h6) {
     text-align: start;
+  }
+}
+
+@media (min-width: 48rem) {
+  body {
+    --grid-total-width: 48rem;
   }
 }
 
@@ -161,6 +179,14 @@ dl dt {
 
 dl dd + dt {
   margin-block-start: var(--spacing-block-md);
+}
+
+/** figcaptions */
+
+figcaption {
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  text-align: center;
 }
 
 /** Navigation bar */
