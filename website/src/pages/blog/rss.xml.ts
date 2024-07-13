@@ -23,7 +23,7 @@ export async function GET(context: APIContext) {
 		site: path.join(site.toString(), 'blog'),
 		trailingSlash: false,
 		items: posts.map((post) => ({
-		  link: post.slug,
+		  link: `/blog/${post.slug}`,
 			title: post.data.title,
 	    content: mdParser.render(post.body),
 	    pubDate: new Date(`${post.data.pubDate.year}-${post.data.pubDate.month}-${post.data.pubDate.day}`),
