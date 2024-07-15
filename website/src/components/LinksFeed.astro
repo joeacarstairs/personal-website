@@ -1,27 +1,34 @@
 ---
 import FormattedDate from '../components/FormattedDate.astro';
-import LINKS from '../data/links.ts';
+import allLinks from '../data/links.ts';
+
+type Link = (typeof allLinks)[number];
 
 export interface Props {
 	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6,
 	hideAuthor?: boolean,
+	maxEntries?: number,
 };
 
-const { headingLevel = 2, hideAuthor = false } = Astro.props;
+const { headingLevel = 2, hideAuthor = false, maxEntries } = Astro.props;
 
 const headingElem = `h${headingLevel}`;
 const subHeadingElem = `h${headingLevel + 1}`
 
-const distinctYears: string[] = LINKS
+const links: Link[] = maxEntries === undefined
+	? allLinks
+	: allLinks.sort(sortByDateAddedDescending).slice(0, maxEntries);
+
+const distinctYears: string[] = links
 	.map(link => link.isoDateAdded.slice(0,4))
 	.reduce<string[]>((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], [])
 	.sort((a, b) => Number.parseInt(b) - Number.parseInt(a));
 
 function matchesYear(year: string) {
-	return (link: (typeof LINKS)[number]) => link.isoDateAdded.slice(0,4) === year;
+	return (link: (typeof links)[number]) => link.isoDateAdded.slice(0,4) === year;
 }
 
-function sortByDateAddedDescending(link1: (typeof LINKS)[number], link2: (typeof LINKS)[number]) {
+function sortByDateAddedDescending(link1: (typeof links)[number], link2: (typeof links)[number]) {
 	const year1 = Number.parseInt(link1.isoDateAdded.slice(0, 4));
 	const year2 = Number.parseInt(link2.isoDateAdded.slice(0, 4));
 	const month1 = Number.parseInt(link1.isoDateAdded.slice(5, 7));
@@ -65,7 +72,7 @@ const canonicalLinksUrl = new URL('links', Astro.site)
 			</${subHeadingElem}>
 		`} />
 		<ul>
-			{ LINKS.filter(matchesYear(year)).sort(sortByDateAddedDescending).map(link => (
+			{ links.filter(matchesYear(year)).sort(sortByDateAddedDescending).map(link => (
 				<li class="h-entry e-content">
 					<a class="u-url p-name" href={link.href} set:html={link.title} />.
 					<Fragment set:html={link.description} />
@@ -74,4 +81,9 @@ const canonicalLinksUrl = new URL('links', Astro.site)
 			)) }
 		</ul>
 	)) }
+
+	{ (maxEntries !== undefined && maxEntries < allLinks.length)
+		? <p class="full-feed-link"><a href="/links">All links</a></p>
+		: <></>
+	}
 </section>

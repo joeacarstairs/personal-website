@@ -1,15 +1,21 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
 
 export interface Props {
 	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6,
 	hideAuthor?: boolean,
+	maxEntries?: number,
 };
 
-const { headingLevel = 2, hideAuthor = false } = Astro.props;
+const { headingLevel = 2, hideAuthor = false, maxEntries } = Astro.props;
 
-const posts = (await getCollection('blog')).filter((post) => !post.data.hidden);
+const allPosts = (await getCollection('blog')).filter((post) => !post.data.hidden);
+
+const posts = maxEntries === undefined
+	? allPosts
+	: allPosts.sort(sortByPubDateDescending).slice(0, maxEntries);
 
 const distinctYears: number[] = posts
 	.map(post => post.data.pubDate.getFullYear())
@@ -58,9 +64,16 @@ const canonicalBlogUrl = new URL('blog', Astro.site)
 		<ul>
 			{ posts.filter(matchesYear(year)).sort(sortByPubDateDescending).map(post => (
 				<li class="h-entry">
-					<a class="u-url p-name" href={`/blog/${post.slug}`}>{post.data.title}</a>
+					<a class="u-url p-name" href={`/blog/${post.slug}`}>{post.data.title}</a>.
+					<Fragment set:html={post.data.description} />
+					Added: <FormattedDate date={post.data.pubDate} />
 				</li>
 			)) }
 		</ul>
 	)) }
+
+	{ (maxEntries !== undefined && maxEntries < allPosts.length)
+		? <p class="full-feed-link"><a href="/blog">All blog posts</a></p>
+		: <></>
+	}
 </section>

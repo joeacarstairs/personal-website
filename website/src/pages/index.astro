@@ -8,6 +8,6 @@ import Page from '../layouts/Page.astro';
 
 <Page title={SITE_TITLE} description={SITE_DESCRIPTION}>
 	<Me />
-	<BlogFeed hideAuthor />
-	<LinksFeed hideAuthor />
+	<BlogFeed hideAuthor maxEntries={3} />
+	<LinksFeed hideAuthor maxEntries={5} />
 </Page>

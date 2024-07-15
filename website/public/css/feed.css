@@ -6,3 +6,11 @@
 .h-feed .h-entry {
 	margin-block-start: var(--spacing-block-xs);
 }
+
+.h-feed .full-feed-link {
+	text-align: end;
+}
+
+.h-feed :is(a.full-feed-link, .full-feed-link a)::after {
+	content: ' >'
+}
