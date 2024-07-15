@@ -3,10 +3,7 @@ title: God Is Not Great, initial thoughts
 description: >-
   My spark notes on Hitchen's classic 2007 polemic against religion, plus some
   initial thoughts on how I want to respond to it.
-pubDate:
-  year: 2024
-  month: 04
-  day: 14
+pubDate: 2024-04-14
 ---
 
 These are my 'spark notes' on _God Is Not Great_, Christopher Hitchen's classic

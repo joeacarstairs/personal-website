@@ -3,10 +3,7 @@ title: Doctor Who, Gayness, and the Church
 description: >-
   Series 14 of Doctor Who has a schizophrenic relationship with Christianity.
   It’s also gay. I think there might be a connection.
-pubDate:
-  year: 2024
-  month: 07
-  day: 8
+pubDate: 2024-07-08
 ---
 
 I’ve recently finished the most recent series of Doctor Who, series fourteen (or

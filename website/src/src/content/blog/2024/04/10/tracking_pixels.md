@@ -1,10 +1,7 @@
 ---
 title: Tracking pixels
 description: Concerning a notice in the privacy policy of an HR app
-pubDate:
-  year: 2024
-  month: 04
-  day: 10
+pubDate: 2024-04-10
 ---
 
 I recently made the mistake of reading the privacy policy of the HR app my

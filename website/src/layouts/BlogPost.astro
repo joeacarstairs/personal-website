@@ -9,11 +9,6 @@ type Props = CollectionEntry<'blog'>['data'];
 const { title, description, pubDate, updatedDate } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
-
-const pubDateStr = `${pubDate.year}-${pubDate.month}-${pubDate.day}`;
-const updatedDateStr = updatedDate ?
-	`${updatedDate.year}-${updatedDate.month}-${updatedDate.day}`
-	: pubDateStr;
 ---
 
 <html lang="en">
@@ -32,9 +27,9 @@ const updatedDateStr = updatedDate ?
 				</span>
 				{ updatedDate
 					? (
-						<span>Updated: <FormattedDate date={updatedDateStr} className="dt-updated"/>.</span>
-						<span>Originally published: <FormattedDate date={pubDateStr} className="dt-published"/>.</span>
-					) : <span>Published: <FormattedDate date={pubDateStr} className="dt-published"/>.</span>
+						<span>Updated: <FormattedDate date={updatedDate} className="dt-updated"/>.</span>
+						<span>Originally published: <FormattedDate date={pubDate} className="dt-published"/>.</span>
+					) : <span>Published: <FormattedDate date={pubDate} className="dt-published"/>.</span>
 				}
 				<span hidden><a class="u-url uid" href={canonicalUrl}>Permalink</a></span>
 	  		</aside>

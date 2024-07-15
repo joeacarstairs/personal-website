@@ -3,10 +3,7 @@ title: Harari’s Sapiens on Religion
 description: >-
     In which I discuss why I think Harari’s characterisation of religion
     is inadequate because it’s too materialistic.
-pubDate:
-    year: 2024
-    month: 01
-    day: 14
+pubDate: 2024-01-14
 ---
 
 I’ve been slowly re-reading Yuval Noah Harari’s 2014 classic,

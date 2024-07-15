@@ -6,10 +6,7 @@ description: >-
     Ullapool last weekend, I had the last privilege of giving the Toast to
     the Lassies. Particularly for the benefit of those who weren’t there,
     here it is in full!
-pubDate:
-    year: 2024
-    month: 01
-    day: 29
+pubDate: 2024-01-29
 ---
 
 Had Burns, instead of his sweet bonnie Jean,<br>

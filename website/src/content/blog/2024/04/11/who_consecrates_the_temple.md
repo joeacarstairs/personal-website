@@ -1,10 +1,7 @@
 ---
 title: Who consecrates the tabernacle? (Ex 29)
 description: A quick, cursory and possibly completely rubbish observation I've made on Exodus 29.
-pubDate:
-  year: 2024
-  month: 04
-  day: 11
+pubDate: 2024-04-11
 ---
 
 I've been reading Exodus recently, and the ending of Chapter 29 stuck out to me.

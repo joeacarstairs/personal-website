@@ -2,10 +2,7 @@
 title: How I made YouTube work for me
 description: >-
   I just learned YouTube channels have an RSS feed. This is terrific news.
-pubDate:
-  year: 2024
-  month: 05
-  day: 02
+pubDate: 2024-05-02
 ---
 
 One of my bad habits in life is wandering through YouTube. I've always had

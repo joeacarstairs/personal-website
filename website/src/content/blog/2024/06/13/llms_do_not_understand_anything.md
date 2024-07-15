@@ -2,10 +2,7 @@
 title: LLMs do not understand anything
 description: >-
   Save this for the next time someone tells you that LLMs 'understand' things.
-pubDate:
-  year: 2024
-  month: 06
-  day: 13
+pubDate: 2024-06-13
 ---
 
 LLMs do not understand what they are talking about. They just don't. It's not

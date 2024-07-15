@@ -1,19 +1,13 @@
 import { defineCollection, z } from 'astro:content';
 
-const dateSchema = z.object({
-	year: z.number(),
-	month: z.number(),
-	day: z.number(),
-});
-
 const blog = defineCollection({
 	type: 'content',
 	schema: z.object({
 		title: z.string(),
 		hidden: z.optional(z.boolean()),
 		description: z.string(),
-		pubDate: dateSchema,
-		updatedDate: z.optional(dateSchema),
+		pubDate: z.date(),
+		updatedDate: z.optional(z.date()),
 	}),
 });
 

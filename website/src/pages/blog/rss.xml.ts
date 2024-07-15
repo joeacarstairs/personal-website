@@ -26,7 +26,7 @@ export async function GET(context: APIContext) {
 		  link: `/blog/${post.slug}`,
 			title: post.data.title,
 	    content: mdParser.render(post.body),
-	    pubDate: new Date(`${post.data.pubDate.year}-${post.data.pubDate.month}-${post.data.pubDate.day}`),
+	    pubDate: post.data.pubDate,
 	    description: post.data.description,
 	    author: 'Joe Carstairs',
 

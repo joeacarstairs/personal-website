@@ -4,10 +4,7 @@ description: >-
     Based on a talk given to my colleagues at
     <a href="https://www.scottlogic.co.uk">Scott Logic</a> for Maundy
     Thursday, 2024.
-pubDate:
-    year: 2024
-    month: 03
-    day: 30
+pubDate: 2024-03-30
 ---
 
 As you might have noticed, it is Easter this week! So I'd like to take five or

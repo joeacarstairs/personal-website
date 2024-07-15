@@ -12,29 +12,18 @@ const { headingLevel = 2, hideAuthor = false } = Astro.props;
 const posts = (await getCollection('blog')).filter((post) => !post.data.hidden);
 
 const distinctYears: number[] = posts
-	.map(post => post.data.pubDate.year)
+	.map(post => post.data.pubDate.getFullYear())
 	.reduce<number[]>((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], [])
 	.sort((a, b) => b - a);
 
 function matchesYear(year: number) {
-	return (post: CollectionEntry<'blog'>) => post.data.pubDate.year === year;
+	return (post: CollectionEntry<'blog'>) => post.data.pubDate.getFullYear() === year;
 }
 
 function sortByPubDateDescending(post1: CollectionEntry<'blog'>, post2: CollectionEntry<'blog'>) {
-	const year1 = post1.data.pubDate.year;
-	const year2 = post2.data.pubDate.year;
-	const month1 = post1.data.pubDate.month;
-	const month2 = post2.data.pubDate.month;
-	const day1 = post1.data.pubDate.day;
-	const day2 = post2.data.pubDate.day;
-
-	if (year1 !== year2) {
-		return year2 - year1;
-	} else if (month1 !== month2) {
-		return month2 - month1;
-	} else {
-		return day2 - day1;
-	}
+	const date1 = post1.data.pubDate.getMilliseconds();
+	const date2 = post2.data.pubDate.getMilliseconds();
+	return date2 - date1;
 }
 
 const headingElem = `h${headingLevel}`;
