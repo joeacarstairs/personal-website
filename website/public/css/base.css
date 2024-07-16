@@ -29,10 +29,10 @@
   --colour-hyperlink: var(--colour-hyperlink-80);
 
   --font-size-sm: 1rem;
-  --font-size-base: 1.1rem;
-  --font-size-md: 1.2rem;
-  --font-size-lg: 1.5rem;
-  --font-size-xl: 2rem;
+  --font-size-base: 1.25rem;
+  --font-size-md: 1.75rem;
+  --font-size-lg: 2.5rem;
+  --font-size-xl: 3.5rem;
 
   --spacing-block-xs: 0.5rem;
   --spacing-block-sm: 1.75rem;
@@ -60,6 +60,7 @@
 body {
   font-size: var(--font-size-base);
   color: var(--colour-primary-fg);
+  font-weight: light;
   background-color: var(--colour-primary-bg);
   line-height: 1.5;
 
@@ -155,6 +156,7 @@ h2 {
 h3, h4, h5, h6 {
   font-size: var(--font-size-md);
   font-weight: 600;
+  margin-block-start: var(--spacing-block-lg);
 }
 
 /** Hyperlinks */
@@ -190,6 +192,12 @@ figcaption {
   text-align: center;
 }
 
+/** Lists */
+
+:is(ol, ul) {
+  margin-inline-start: var(--spacing-inline-lg);
+}
+
 /** Navigation bar */
 
 nav {
@@ -202,6 +210,7 @@ nav ul {
   justify-content: center;
   gap: var(--spacing-inline-md);
   list-style: none;
+  margin: 0;
 }
 
 @media (min-width: 36rem) {
@@ -215,10 +224,18 @@ nav ul {
   }
 }
 
+/** Emphasis */
+
+strong {
+  font-weight: bold;
+  font-style: italic;
+}
+
 /** Blog feed */
 
 .h-feed ul {
 	list-style: none;
+	margin-inline: 0;
 }
 
 /** Block quotes */
@@ -232,7 +249,12 @@ blockquote {
   font-style: initial;
 }
 
-blockquote :is(em, i) {
+blockquote :is(b, strong) {
+  font-style: italic;
+  font-weight: bold;
+}
+
+blockquote :is(i, em) {
   font-style: normal;
 }
 

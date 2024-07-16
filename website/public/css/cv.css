@@ -78,6 +78,7 @@ header h1 {
 
 :is(.experience, .passions) :is(ol, ul) {
 	list-style: none;
+	margin-inline: 0;
 }
 
 :is(.experience, .passions) :is(ol, ul) li {
