@@ -86,6 +86,12 @@ const LINKS: Link[] = [
     description: 'Who doesn\'t like a classic David-and-Goliath hacker story? Also, if you\'re American, please <a href="https://www.breakupticketmaster.com">break up TicketMaster</a>. If you\'re in the UK, it\'s not quite as bad, but <a href="https://assets.publishing.service.gov.uk/media/5519473540f0b61401000087/final_report.pdf">it\'s still really bad</a>. Use alternatives where you can.',
     isoDateAdded: '2024-07-16',
   },
+  {
+    href: 'https://www.luu.io/posts/dont-use-booleans',
+    title: 'Don’t use booleans',
+    description: "A nice idea. But I think this advice only applies well when you've got many inter-dependent flags. If you have independent flags, re-writing those as enums will just end up with you re-implementing the boolean type for every parameter, and not getting much profit, I reckon.",
+    isoDateAdded: '2024-07-16',
+  },
 ];
 
 export default LINKS;
