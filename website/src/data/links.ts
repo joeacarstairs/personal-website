@@ -80,6 +80,12 @@ const LINKS: Link[] = [
     description: 'Did you know that most organisations store less than 100GB, and almost all analytics is run on the last 24h of data? I didn’t. Though take it all with a pinch of salt: the guy’s writing on his company blog which sells traditional data warehouses.',
     isoDateAdded: '2024-06-17',
   },
+  {
+    href: 'https://conduition.io/coding/ticketmaster',
+    title: "Reverse Engineering TicketMaster's Rotating Barcodes (SafeTix)",
+    description: 'Who doesn\'t like a classic David-and-Goliath hacker story? Also, if you\'re American, please <a href="https://www.breakupticketmaster.com">break up TicketMaster</a>. If you\'re in the UK, it\'s not quite as bad, but <a href="https://assets.publishing.service.gov.uk/media/5519473540f0b61401000087/final_report.pdf">it\'s still really bad</a>. Use alternatives where you can.',
+    isoDateAdded: '2024-07-16',
+  },
 ];
 
 export default LINKS;
