@@ -224,6 +224,13 @@ nav ul {
   }
 }
 
+/** Emphasis */
+
+strong {
+  font-weight: bold;
+  font-style: italic;
+}
+
 /** Blog feed */
 
 .h-feed ul {
@@ -242,7 +249,12 @@ blockquote {
   font-style: initial;
 }
 
-blockquote :is(em, i) {
+blockquote :is(b, strong) {
+  font-style: italic;
+  font-weight: bold;
+}
+
+blockquote :is(i, em) {
   font-style: normal;
 }
 
