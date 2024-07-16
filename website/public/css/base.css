@@ -29,10 +29,10 @@
   --colour-hyperlink: var(--colour-hyperlink-80);
 
   --font-size-sm: 1rem;
-  --font-size-base: 1.1rem;
-  --font-size-md: 1.2rem;
-  --font-size-lg: 1.5rem;
-  --font-size-xl: 2rem;
+  --font-size-base: 1.25rem;
+  --font-size-md: 1.75rem;
+  --font-size-lg: 2.5rem;
+  --font-size-xl: 3.5rem;
 
   --spacing-block-xs: 0.5rem;
   --spacing-block-sm: 1.75rem;
