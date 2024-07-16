@@ -60,6 +60,7 @@
 body {
   font-size: var(--font-size-base);
   color: var(--colour-primary-fg);
+  font-weight: light;
   background-color: var(--colour-primary-bg);
   line-height: 1.5;
 
