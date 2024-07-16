@@ -156,6 +156,7 @@ h2 {
 h3, h4, h5, h6 {
   font-size: var(--font-size-md);
   font-weight: 600;
+  margin-block-start: var(--spacing-block-lg);
 }
 
 /** Hyperlinks */
@@ -191,6 +192,12 @@ figcaption {
   text-align: center;
 }
 
+/** Lists */
+
+:is(ol, ul) {
+  margin-inline-start: var(--spacing-inline-lg);
+}
+
 /** Navigation bar */
 
 nav {
@@ -203,6 +210,7 @@ nav ul {
   justify-content: center;
   gap: var(--spacing-inline-md);
   list-style: none;
+  margin: 0;
 }
 
 @media (min-width: 36rem) {
@@ -220,6 +228,7 @@ nav ul {
 
 .h-feed ul {
 	list-style: none;
+	margin-inline: 0;
 }
 
 /** Block quotes */
