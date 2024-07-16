@@ -27,8 +27,8 @@ function matchesYear(year: number) {
 }
 
 function sortByPubDateDescending(post1: CollectionEntry<'blog'>, post2: CollectionEntry<'blog'>) {
-	const date1 = post1.data.pubDate.getMilliseconds();
-	const date2 = post2.data.pubDate.getMilliseconds();
+	const date1 = post1.data.pubDate.getTime();
+	const date2 = post2.data.pubDate.getTime();
 	return date2 - date1;
 }
 
