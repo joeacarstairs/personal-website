@@ -92,6 +92,12 @@ const LINKS: Link[] = [
     description: "A nice idea. But I think this advice only applies well when you've got many inter-dependent flags. If you have independent flags, re-writing those as enums will just end up with you re-implementing the boolean type for every parameter, and not getting much profit, I reckon.",
     isoDateAdded: '2024-07-16',
   },
+  {
+    href: 'https://blog.scottlogic.com/2024/07/05/story-points-are-wasting-time.html',
+    title: 'Story points are wasting time',
+    description: "Pretty convincing to me. The biggest potential weakness in his argument is his claim that none of the most common reasons why devs disagree on story points exposes anything which ought to be resolved in an estimation meeting. If you can provide other common reasons besides the ones Dave considered, you could rebut his argument. I don't feel experienced enough to judge this myself.",
+    isoDateAdded: '2024-07-17',
+  },
 ];
 
 export default LINKS;
