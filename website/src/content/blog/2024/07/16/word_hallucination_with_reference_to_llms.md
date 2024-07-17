@@ -1,10 +1,11 @@
 ---
-title: The word ‘hallucination’ with reference to LLMs
+title: What do academics think LLM ‘hallucination’ means?
 description: >-
-  What does the word ‘hallucination’ actually mean in reference to LLMs? And
-  where does that word come from? I’ve trawled the academic literature for
-  answers.
+  What does the word ‘hallucination’ actually mean in reference to LLMs when
+  used by academics? And where does that word come from? I’ve trawled the
+  academic literature for answers.
 pubDate: 2024-07-16
+updatedDate: 2024-07-17
 ---
 
 The word, ‘hallucination’ as applied to LLMs has me enthralled right now. It’s
