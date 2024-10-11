@@ -104,6 +104,18 @@ const LINKS: Link[] = [
     description: 'Read the interviews. Economists give interesting, and diverse, opinions on the economic potential of LLMs.',
     isoDateAdded: '2024-07-18',
   },
+  {
+    href: 'https://www.noemamag.com/the-human-cost-of-our-ai-driven-future',
+    title: 'The Human Cost Of Our AI-Driven Future',
+    description: "In case you'd forgotten: content moderation is still carried out by appalling worker exploitation. This is not news, but nonetheless an excellent and suitably chilling essay on the topic. Be aware that the essay describes some deeply traumatic content.",
+    isoDateAdded: '2024-10-11',
+  },
+  {
+    href: 'https://blog.scottlogic.com/2024/09/10/llms-dont-hallucinate.html',
+    title: "LLMs don't 'hallucinate'",
+    description: "I posted on the Scott Logic blog a while ago about how the word 'hallucination' doesn't accurately capture how LLMs work.",
+    isoDateAdded: '2024-10-11',
+  },
 ];
 
 export default LINKS;
