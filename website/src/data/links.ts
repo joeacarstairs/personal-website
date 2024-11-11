@@ -116,6 +116,12 @@ const LINKS: Link[] = [
     description: "I posted on the Scott Logic blog a while ago about how the word 'hallucination' doesn't accurately capture how LLMs work.",
     isoDateAdded: '2024-10-11',
   },
+  {
+    href: 'https://sgringwe.com/2019/10/10/Please-just-stop-saying-just.html',
+    title: "Please just stop saying 'just'",
+    description: "A pretty good case for avoiding the word 'just' in software engineering. I admit I've been guilty, too.",
+    isoDateAdded: '2024-11-11',
+  },
 ];
 
 export default LINKS;
