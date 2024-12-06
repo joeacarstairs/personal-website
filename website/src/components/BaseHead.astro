@@ -30,6 +30,9 @@ const { title, description, image = '/images/headshot.jpg' } = Astro.props;
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 
+<!-- Webmentions -->
+<link rel="webmention" href="https://webmention.io/joeac.net/webmention" />
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
