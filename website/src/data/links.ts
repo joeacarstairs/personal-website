@@ -122,6 +122,12 @@ const LINKS: Link[] = [
     description: "A pretty good case for avoiding the word 'just' in software engineering. I admit I've been guilty, too.",
     isoDateAdded: '2024-11-11',
   },
+  {
+    href: 'https://alexanderpruss.blogspot.com/2024/11/sexual-symmetry-and-asymmetry.html',
+    title: 'Sexual symmetry and asymmetry',
+    description: 'Alexander Pruss has a bizarre, but at first blush convincing, argument that complementarians about gender don’t have to appeal to morally significant intrinsic differences between men and women.',
+    isoDateAdded: '2024-12-17',
+  },
 ];
 
 export default LINKS;
