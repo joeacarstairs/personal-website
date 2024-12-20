@@ -128,6 +128,12 @@ const LINKS: Link[] = [
     description: 'Alexander Pruss has a bizarre, but at first blush convincing, argument that complementarians about gender don’t have to appeal to morally significant intrinsic differences between men and women.',
     isoDateAdded: '2024-12-17',
   },
+  {
+    href: 'https://jvns.ca/blog/2024/11/26/terminal-rules',
+    title: '"Rules" that terminal programs follow',
+    description: 'Handy for the next time you develop a CLI or TUI. Also handy as a user: now I know about <a href="https://readline.kablamo.org/emacs.html">readline key bindings</a>, which are everywhere apparently.',
+    isoDateAdded: '2024-12-20',
+  },
 ];
 
 export default LINKS;
