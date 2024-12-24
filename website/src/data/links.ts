@@ -104,6 +104,36 @@ const LINKS: Link[] = [
     description: 'Read the interviews. Economists give interesting, and diverse, opinions on the economic potential of LLMs.',
     isoDateAdded: '2024-07-18',
   },
+  {
+    href: 'https://www.noemamag.com/the-human-cost-of-our-ai-driven-future',
+    title: 'The Human Cost Of Our AI-Driven Future',
+    description: "In case you'd forgotten: content moderation is still carried out by appalling worker exploitation. This is not news, but nonetheless an excellent and suitably chilling essay on the topic. Be aware that the essay describes some deeply traumatic content.",
+    isoDateAdded: '2024-10-11',
+  },
+  {
+    href: 'https://blog.scottlogic.com/2024/09/10/llms-dont-hallucinate.html',
+    title: "LLMs don't 'hallucinate'",
+    description: "I posted on the Scott Logic blog a while ago about how the word 'hallucination' doesn't accurately capture how LLMs work.",
+    isoDateAdded: '2024-10-11',
+  },
+  {
+    href: 'https://sgringwe.com/2019/10/10/Please-just-stop-saying-just.html',
+    title: "Please just stop saying 'just'",
+    description: "A pretty good case for avoiding the word 'just' in software engineering. I admit I've been guilty, too.",
+    isoDateAdded: '2024-11-11',
+  },
+  {
+    href: 'https://alexanderpruss.blogspot.com/2024/11/sexual-symmetry-and-asymmetry.html',
+    title: 'Sexual symmetry and asymmetry',
+    description: 'Alexander Pruss has a bizarre, but at first blush convincing, argument that complementarians about gender don’t have to appeal to morally significant intrinsic differences between men and women.',
+    isoDateAdded: '2024-12-17',
+  },
+  {
+    href: 'https://jvns.ca/blog/2024/11/26/terminal-rules',
+    title: '"Rules" that terminal programs follow',
+    description: 'Handy for the next time you develop a CLI or TUI. Also handy as a user: now I know about <a href="https://readline.kablamo.org/emacs.html">readline key bindings</a>, which are everywhere apparently.',
+    isoDateAdded: '2024-12-20',
+  },
 ];
 
 export default LINKS;
