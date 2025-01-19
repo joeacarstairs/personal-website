@@ -64,7 +64,7 @@ const canonicalBlogUrl = new URL('blog', Astro.site)
 		<ul>
 			{ posts.filter(matchesYear(year)).sort(sortByPubDateDescending).map(post => (
 				<li class="h-entry">
-					<a class="u-url p-name" href={`/blog/${post.slug}`}>{post.data.title}</a>.
+					<a class="u-url p-name" href={`/blog/${post.id}`}>{post.data.title}</a>.
 					<Fragment set:html={post.data.description} />
 					Added: <FormattedDate date={post.data.pubDate} />
 				</li>

@@ -2,6 +2,7 @@
 
 :root {
   --colour-primary-10: #060300;
+  --colour-primary-15: #150800;
   --colour-primary-20: #1f1400;
   --colour-primary-30: #3c2b00;
   --colour-primary-40: #5c4300;
@@ -26,19 +27,22 @@
   --colour-primary-fg: var(--colour-primary-90);
   --colour-primary-fg-accent: var(--colour-primary-80);
   --colour-primary-bg: var(--colour-primary-10);
+  --colour-code-fg: var(--colour-primary-90);
+  --colour-code-bg: var(--colour-primary-15);
   --colour-hyperlink: var(--colour-hyperlink-80);
 
   --font-size-sm: 1rem;
-  --font-size-base: 1.25rem;
-  --font-size-md: 1.75rem;
-  --font-size-lg: 2.5rem;
-  --font-size-xl: 3.5rem;
+  --font-size-base: 1.125rem;
+  --font-size-md: 1.5rem;
+  --font-size-lg: 2rem;
+  --font-size-xl: 3rem;
 
   --spacing-block-xs: 0.5rem;
   --spacing-block-sm: 1.75rem;
   --spacing-block-md: 2.5rem;
   --spacing-block-lg: 3.5rem;
   --spacing-block-xl: 5rem;
+  --spacing-inline-xs: 0.25rem;
   --spacing-inline-sm: 0.5rem;
   --spacing-inline-md: 1.5rem;
   --spacing-inline-lg: 3rem;
@@ -92,9 +96,10 @@ body {
 
 img {
   margin-inline: auto;
+  height: auto;
 }
 
-@media (min-width: 36rem) {
+@media (min-width: 48rem) {
   body {
     display: grid;
     grid-template-columns:
@@ -108,7 +113,7 @@ img {
 
     --body-margin-inline-end: 6rem;
     --grid-margin-inline: 6rem;
-    --grid-total-width: 36rem;
+    --grid-total-width: 48rem;
     --grid-max-content-width: calc(
       var(--grid-total-width)
         - var(--body-margin-inline-start)
@@ -130,12 +135,6 @@ img {
 
   :is(h1, h2, h3, h4, h5, h6) {
     text-align: start;
-  }
-}
-
-@media (min-width: 48rem) {
-  body {
-    --grid-total-width: 48rem;
   }
 }
 
@@ -261,4 +260,29 @@ blockquote :is(i, em) {
 /** Small caps */
 .small-caps {
   font-variant: small-caps;
+}
+
+/** Pre-formatted blocks */
+pre {
+  border: 2px solid var(--colour-primary-fg);
+  border-radius: 2px;
+  background-color: var(--colour-code-bg) !important;
+  margin-block-start: var(--spacing-block-sm);
+  padding-inline: var(--spacing-inline-sm);
+  padding-block: var(--spacing-block-xs);
+}
+
+/** Code blocks */
+code {
+  border: 2px solid var(--colour-primary-fg);
+  border-radius: 2px;
+  padding-inline: var(--spacing-inline-xs);
+  color: var(--colour-code-fg);
+  background-color: var(--colour-code-bg);
+  font-size: var(--font-size-sm);
+}
+pre code {
+  border: none;
+  border-radius: none;
+  padding: none;
 }
