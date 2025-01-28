@@ -140,6 +140,12 @@ const LINKS: Link[] = [
     description: 'There was no long-term price inflation from 1200 (when these data begin) until 1550. WHAT?!',
     isoDateAdded: '2025-01-23',
   },
+  {
+    href: 'https://freeourfeeds.com',
+    title: 'Free social media from billionaire control',
+    description: 'I just donated $40. These guys are promising to do whatever it takes to make sure the AT Protocol is genuinely owned by everyone.',
+    isoDateAdded: '2025-01-28',
+  },
 ];
 
 export default LINKS;
