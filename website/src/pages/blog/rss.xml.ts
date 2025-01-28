@@ -23,9 +23,9 @@ export async function GET(context: APIContext) {
 		site: path.join(site.toString(), 'blog'),
 		trailingSlash: false,
 		items: posts.map((post) => ({
-		  link: `/blog/${post.slug}`,
+		  link: `/blog/${post.id}`,
 			title: post.data.title,
-	    content: mdParser.render(post.body),
+	    content: mdParser.render(post.body ?? ''),
 	    pubDate: post.data.pubDate,
 	    description: post.data.description,
 	    author: 'Joe Carstairs',

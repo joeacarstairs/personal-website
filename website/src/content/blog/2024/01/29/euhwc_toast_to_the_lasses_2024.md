@@ -91,7 +91,7 @@ She uses what her Maker has endowed her<br>
 with: her recorder skills are off the charts;<br>
 youse think I’m joking, but I wouldn’t doubt her!<br>
 This lass of the land of the Rot-Gold-Schwarz<br>
-will soon depart, though long we might beseech ya<br>
+will soon depart, though long we might beseech you<br>
 to stay. Of course, you’ll break all of our hearts,<br>
 but mine most of all. Any time, Felicia,<br>
 Creag Meagaidh calls, I know routes up the rear<br>

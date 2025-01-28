@@ -134,6 +134,12 @@ const LINKS: Link[] = [
     description: 'Handy for the next time you develop a CLI or TUI. Also handy as a user: now I know about <a href="https://readline.kablamo.org/emacs.html">readline key bindings</a>, which are everywhere apparently.',
     isoDateAdded: '2024-12-20',
   },
+  {
+    href: 'https://www.bankofengland.co.uk/statistics/research-datasets',
+    title: "Bank of England's 'Millenium of Macroeconomic Data'",
+    description: 'There was no long-term price inflation from 1200 (when these data begin) until 1550. WHAT?!',
+    isoDateAdded: '2025-01-23',
+  },
 ];
 
 export default LINKS;
