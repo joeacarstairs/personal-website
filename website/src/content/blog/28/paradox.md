@@ -1,8 +1,9 @@
 ---
 title: A paradox about 'should'
 description: >-
-  I seem to have accidentally proven that wine both is and is not a thing you
-  should do. Let's hope that wine doesn't disappear in a puff of logical smoke.
+  I seem to have accidentally proven that drinking wine both is and is not a
+  thing you should do. Let's hope that wine doesn't disappear in a puff of
+  logical smoke.
 pubDate: 2025-01-28
 ---
 
