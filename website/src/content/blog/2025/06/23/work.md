@@ -163,21 +163,23 @@ front-line jobs doing amazing work, but I've also seen how important those
 tertiary systems are.
 
 I also shouldn't dwell too long on my career choices, paralysed by an irrational
-angst that the value of my life hangs on making the right decision. I should remember
-that Jesus calls everyone alike, although most people don't have anywhere near as
-much power over their own career as I do. And I should remember that, as a result, God
-will use pretty much any line of work for his glory if I commit it to him.
+angst that the value of my life hangs on making the right decision. I should
+remember that Jesus calls everyone alike, although most people don't have
+anywhere near as much power over their own career as I do. And I should remember
+that, as a result, God will use pretty much any line of work for his glory if I
+commit it to him.
 
-So I shouldn't choose what's easy, nor what's perceived as noble, and nor should I be
-paralysed by choice. But what ought I do instead?
+So I shouldn't choose what's easy, nor what's perceived as noble, and nor should
+I be paralysed by choice. But what ought I do instead?
 
-Instead, I should commit my work to God right now, starting from this morning. I don't
-have to wait until I find a perfect career, because I will never have a perfect career.
-God can use the line of work I'm already in for his glory, and if I don't believe that,
-I'm not just doubting myself, I'm doubting him. I should trust his power. And when I
-do have career choices, I should commit those to him too, not fretting endlessly as if
-one career is holy and another damned, but prioritising service to God and others over
-myself and trusting God with the rest.
+Instead, I should commit my work to God right now, starting from this morning. I
+don't have to wait until I find a perfect career, because I will never have a
+perfect career. God can use the line of work I'm already in for his glory, and
+if I don't believe that, I'm not just doubting myself, I'm doubting him. I
+should trust his power. And when I do have career choices, I should commit those
+to him too, not fretting endlessly as if one career is holy and another damned,
+but prioritising service to God and others over myself and trusting God with the
+rest.
 
 Comfort, elitism and moralism are all forms of idolatry. I can toil endlessly
 pursuing any of them and never be satisfied. But instead, I can rest easy in the
