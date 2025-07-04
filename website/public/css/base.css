@@ -69,14 +69,15 @@ body {
   line-height: 1.5;
 
   /* Geometric Humanist stack from https://modernfontstacks.com */
-  font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  font-family: Avenir, Montserrat, Corbel, "URW Gothic", source-sans-pro,
+    sans-serif;
 }
 
 small {
   font-size: var(--font-size-sm);
 }
 
-:is(p, h1, h2, h3, h4, h5, h6, hr, img, figure, ul, ol) {
+:is(p, h1, h2, h3, h4, h5, h6, hr, img, figure, ul, ol, blockquote) {
   margin-block-start: var(--spacing-block-sm);
 }
 
@@ -99,15 +100,15 @@ img {
   height: auto;
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 60rem) {
   body {
     display: grid;
     grid-template-columns:
-      [media-start]
+      [grid-start media-start]
       var(--grid-margin-inline)
-      [content-start]
+      [media-end content-start]
       minmax(var(--grid-max-content-width), auto)
-      [content-end];
+      [content-end grid-end];
 		column-gap: var(--spacing-block-sm);
     max-width: var(--grid-total-width);
 
@@ -115,26 +116,46 @@ img {
     --grid-margin-inline: 6rem;
     --grid-total-width: 48rem;
     --grid-max-content-width: calc(
-      var(--grid-total-width)
-        - var(--body-margin-inline-start)
-        - var(--grid-margin-inline)
-        - var(--spacing-block-sm)
-        - var(--grid-margin-inline)
+      var(--grid-total-width) - var(--body-margin-inline-start) -
+        var(--grid-margin-inline) - var(--spacing-block-sm) -
+        var(--grid-margin-inline)
     );
   }
 
   :is(main, article, nav) {
     display: grid;
-    grid-column: media-start / content-end;
+    grid-column: grid;
     grid-template-columns: subgrid;
-  }
 
-  :is(section, header, aside) {
-    grid-column: content-start / content-end;
+    > :is(section, header, aside) {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: grid;
+
+      > :not(.not-grid-content) {
+        grid-column: content;
+      }
+    }
   }
 
   :is(h1, h2, h3, h4, h5, h6) {
     text-align: start;
+  }
+}
+
+@media (min-width: 80rem) {
+  body {
+    grid-template-columns:
+      [grid-start media-start]
+      var(--grid-margin-inline)
+      [media-end content-start]
+      minmax(auto, var(--grid-max-content-width))
+      [content-end margin-start]
+      minmax(auto, var(--grid-max-content-width))
+      [margin-end grid-end];
+
+    --grid-total-width: 80rem;
+    --grid-max-content-width: 36rem;
   }
 }
 
@@ -152,7 +173,10 @@ h2 {
   margin-block-start: var(--spacing-block-xl);
 }
 
-h3, h4, h5, h6 {
+h3,
+h4,
+h5,
+h6 {
   font-size: var(--font-size-md);
   font-weight: 600;
   margin-block-start: var(--spacing-block-lg);
@@ -233,8 +257,8 @@ strong {
 /** Blog feed */
 
 .h-feed ul {
-	list-style: none;
-	margin-inline: 0;
+  list-style: none;
+  margin-inline: 0;
 }
 
 /** Block quotes */
@@ -244,7 +268,7 @@ blockquote {
   font-style: italic;
 }
 
- blockquote footer {
+blockquote footer {
   font-style: initial;
 }
 
@@ -285,4 +309,85 @@ pre code {
   border: none;
   border-radius: none;
   padding: none;
+}
+
+/* verse */
+.verse {
+  span {
+    display: block;
+  }
+}
+.verse--hanging-indents {
+  span + span:not(.not-hanging) {
+    margin-inline-start: var(--spacing-inline-md);
+  }
+}
+
+/* block-comment */
+block-comment {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: grid;
+
+  > * {
+    grid-column: content;
+  }
+
+  > blockquote:last-of-type {
+    padding-block: var(--spacing-block-sm);
+    padding-inline: var(--spacing-inline-md);
+    overflow-y: scroll;
+    border: 2px solid var(--colour-primary-fg);
+    --colour-scroll-shadow: color-mix(
+      in srgb,
+      var(--colour-primary-fg),
+      transparent 20%
+    );
+
+    background:
+      linear-gradient(var(--colour-primary-bg) 30%, transparent) center top,
+      linear-gradient(transparent, var(--colour-primary-bg) 70%) center bottom,
+      radial-gradient(
+          farthest-side at 50% 0,
+          var(--colour-scroll-shadow),
+          transparent
+        )
+        center top,
+      radial-gradient(
+          farthest-side at 50% 100%,
+          var(--colour-scroll-shadow),
+          transparent
+        )
+        center bottom;
+    background-repeat: no-repeat;
+    background-size:
+      100% 2rem,
+      100% 2rem,
+      100% 1rem,
+      100% 1rem;
+    background-attachment: local, local, scroll, scroll;
+
+    > :first-child {
+      margin-block-start: 0;
+    }
+  }
+}
+
+@media (min-width: 80rem) {
+  block-comment {
+    align-items: center;
+
+    > blockquote:last-of-type {
+      grid-column: margin;
+      max-height: 67vh;
+    }
+  }
+}
+
+/* utilities */
+:is(
+  .para-spacing-tight:is(p, h1, h2, h3, h4, h5, h6, hr, img, figure, ul, ol),
+  .para-spacing-tight :is(p, h1, h2, h3, h4, h5, h6, hr, img, figure, ul, ol)
+) {
+  margin-block-start: var(--spacing-block-xs);
 }
