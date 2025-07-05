@@ -374,13 +374,9 @@ block-comment {
 }
 
 @media (min-width: 80rem) {
-  block-comment {
-    align-items: center;
-
-    > blockquote:last-of-type {
-      grid-column: margin;
-      max-height: 67vh;
-    }
+  block-comment > blockquote:last-of-type {
+    grid-column: margin;
+    max-height: 67vh;
   }
 }
 
