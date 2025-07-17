@@ -7,6 +7,9 @@
     "preview": "cd cd website && webiste && astro preview",
     "astro": "cd website && astro"
   },
+  "engines": {
+    "node": "^22.14.0"
+  },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
     "@astrojs/rss": "^4.0.10",
