@@ -5,8 +5,6 @@ description:
 pubDate: 2025-06-23
 ---
 
-# Figuring things out
-
 'You could always do a Panic Masters.' In my last year of undergraduate studies,
 that was often the sort of advice we liked to console one another with. A lucky
 few people in my year had a clear sense of vocation, but most of us felt
