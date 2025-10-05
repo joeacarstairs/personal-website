@@ -1,5 +1,6 @@
 ---
 title: Why the creeds matter
+hidden: true
 description: >-
   Plenty of Christians don't think the creeds are important for their faith.
   Plenty others take the creeds for granted. But Christians ought to appreciate
