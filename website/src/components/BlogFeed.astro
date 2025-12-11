@@ -6,10 +6,11 @@ import FormattedDate from './FormattedDate.astro';
 export interface Props {
 	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6,
 	hideAuthor?: boolean,
+	hideSubheadings?: boolean,
 	maxEntries?: number,
 };
 
-const { headingLevel = 2, hideAuthor = false, maxEntries } = Astro.props;
+const { headingLevel = 2, hideSubheadings = false, hideAuthor = false, maxEntries } = Astro.props;
 
 const allPosts = (await getCollection('blog')).filter((post) => !post.data.hidden);
 
@@ -32,41 +33,46 @@ function sortByPubDateDescending(post1: CollectionEntry<'blog'>, post2: Collecti
 	return date2 - date1;
 }
 
-const headingElem = `h${headingLevel}`;
-const subHeadingElem = `h${headingLevel + 1}`
+const HeadingElem = `h${headingLevel} class="p-name"`;
+const SubHeadingElem = `h${headingLevel + 1}`;
+const AuthorElem = `p${hideAuthor ? " hidden" : ""}`;
 
 const canonicalBlogUrl = new URL('blog', Astro.site)
 ---
 
 <section class="h-feed">
-	<Fragment set:html={`
-		<${headingElem} class="p-name">
-			My blog
-		</${headingElem}>
-	`} />
+	<HeadingElem>
+		My blog
+	</HeadingElem>
 
 	<aside>
-		<p hidden={hideAuthor}>
+		<AuthorElem>
 			This blog is written by <a class="p-author h-card" href="/">Joe Carstairs</a>
-		</p>
+		</AuthorElem>
 
 		<p hidden>
 			<a class="u-url" href={canonicalBlogUrl}>Permalink</a>
 		</p>
 	</aside>
 
-	{ distinctYears.map(year => (
-		<Fragment set:html={`
-			<${subHeadingElem}>
-				${year}
-			</${subHeadingElem}>
-		`} />
+	{ hideSubheadings
+	  ? <ul>
+			{ posts.sort(sortByPubDateDescending).map(post => (
+				<li class="h-entry">
+					<a class="u-url p-name" href={`/blog/${post.id}`}>{post.data.title}</a>
+					<p class="p-summary" set:html={post.data.description} />
+					<FormattedDate className="dt-published" date={post.data.pubDate} />
+				</li>
+			)) }
+			</ul>
+	  : distinctYears.map(year => (
+		<SubHeadingElem>{year}</SubHeadingElem>
 		<ul>
 			{ posts.filter(matchesYear(year)).sort(sortByPubDateDescending).map(post => (
 				<li class="h-entry">
-					<a class="u-url p-name" href={`/blog/${post.id}`}>{post.data.title}</a>.
-					<Fragment set:html={post.data.description} />
-					Added: <FormattedDate date={post.data.pubDate} />
+					<a class="u-url p-name" href={`/blog/${post.id}`}>{post.data.title}</a>
+					<p class="p-summary" set:html={post.data.description} />
+					<FormattedDate className="dt-published" date={post.data.pubDate} />
 				</li>
 			)) }
 		</ul>

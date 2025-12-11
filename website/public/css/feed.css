@@ -1,16 +1,35 @@
 /* Assumes there is at most one level of subheading for sub-dividing entries */
 .h-feed :is(h2, h3, h4, h5, h6) {
-	margin-block-start: var(--spacing-block-md);
+  margin-block-start: var(--spacing-block-md);
 }
 
 .h-feed .h-entry {
-	margin-block-start: var(--spacing-block-xs);
+  display: flex;
+  flex-direction: column;
+}
+
+.h-feed .h-entry + .h-entry {
+  margin-block-start: var(--spacing-block-md);
+}
+
+.h-feed .h-entry > * {
+  order: 1;
+  margin: 0;
+}
+
+.h-feed .h-entry .dt-published {
+  order: 0;
+  font-size: var(--font-size-sm);
+}
+
+.h-feed .h-entry .p-name {
+  font-size: var(--font-size-md);
 }
 
 .h-feed .full-feed-link {
-	text-align: end;
+  text-align: end;
 }
 
 .h-feed :is(a.full-feed-link, .full-feed-link a)::after {
-	content: ' >'
+  content: " >";
 }

@@ -63,9 +63,9 @@ const canonicalLinksUrl = new URL('links', Astro.site)
 		<ul>
 			{ links.filter(matchesYear(year)).sort(sortByDateAddedDescending).map(link => (
 				<li class="h-entry e-content">
-					<a class="u-url p-name" href={link.href} set:html={link.title} />.
-					<Fragment set:html={link.description} />
-					Added: <FormattedDate date={link.isoDateAdded} />
+  				<FormattedDate className="dt-published" date={link.isoDateAdded} />
+					<a class="u-url p-name" href={link.href} set:html={link.title} />
+					<p class="p-description" set:html={link.description} />
 				</li>
 			)) }
 		</ul>

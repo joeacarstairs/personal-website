@@ -109,7 +109,7 @@ img {
       [media-end content-start]
       minmax(var(--grid-max-content-width), auto)
       [content-end grid-end];
-		column-gap: var(--spacing-block-sm);
+    column-gap: var(--spacing-block-sm);
     max-width: var(--grid-total-width);
 
     --body-margin-inline-end: 6rem;
@@ -151,11 +151,11 @@ img {
       [media-end content-start]
       minmax(auto, var(--grid-max-content-width))
       [content-end margin-start]
-      minmax(auto, var(--grid-max-content-width))
+      auto
       [margin-end grid-end];
 
     --grid-total-width: 80rem;
-    --grid-max-content-width: 36rem;
+    --grid-max-content-width: 40rem;
   }
 }
 
