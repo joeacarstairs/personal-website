@@ -9,14 +9,16 @@ pubDate: 2025-12-11
 
 In the year 325, Constantine stood before an assembly of Christian bishops. He
 had just the year before killed his last remaining rival in battle, leaving him
-as the sole Augustus of the Roman Empire, from Brittania to Arabia. Many of the
-bishops assembled before him in reverent awe sported scars from torture they had
-endured in the reign of Diocletian, Constantine's predecessor. Diocletian had
-sponsored an enormous and brutal persecution of Christians. But that generation
-of bishops were witnessing an epochal shift of power. Over his reign,
-Constantine would divert large chunks of the wealth and influence of the Roman
-state into the safe-keeping of the bishops. Under Constantine's leadership, the
-bishops would be transformed from enemies of the state to the state's agents.
+as the sole Augustus of the Roman Empire, from Brittania to Arabia. The bishops
+must have assembled before him in reverent awe.
+
+Many of them sported scars from torture they had endured in the reign of
+Diocletian, Constantine's predecessor. Diocletian had sponsored an enormous and
+brutal persecution of Christians. But that generation of bishops was witnessing
+an epochal shift of power. Over his reign, Constantine would divert large chunks
+of the wealth and influence of the Roman state into the safe-keeping of the
+bishops. Under Constantine's leadership, the bishops would be transformed from
+enemies of the state to the state's agents.
 
 Official Roman persecution of Christians was decisively coming to an end. But
 the tragedy of the fourth century is that rather than ushering in a new age of
@@ -38,11 +40,10 @@ emperors.
 The bishops were already in control of an impressive poor-relief system within
 Christian communities, and, unlike the Roman system, which rewarded rich
 philanthropists with honours, the Christian system encouraged patrons to give
-anonymously via their bishop, meaning the bishops were in control of how
-alms-money was spent. Some historians think of early bishops playing a social
-role rather like bankers in their communities. When Constantine ascended, they
-were ready to go with their own bureaucratic systems independent of the imperial
-civil service.
+anonymously via their bishop, meaning the bishops were in control of how large
+amounts of Christian money was spent. When Constantine ascended, they were ready
+to go with their own bureaucratic systems independent of the imperial civil
+service.
 
 Constantine may have regarded the bishops, fresh out of persecution, as less
 corrupt than imperial pen-pushers. However, in the long run, the effect of his
@@ -53,19 +54,28 @@ into persecution?
 As the bishops became ever more powerful, Constantine and his successors became
 increasingly dependent on their power. Bishops had huge moral influence over
 their congregations, and their word had the power to stop -- or start -- riots.
-They also needed them to keep distributing poor relief on the emperor's behalf,
-an important foundation for the emperor's moral authority. When the hugely
-unpopular George of Cappadocia was installed in Alexandria in 357, the local
-widows refused to receive alms from him: as a result, they were physically
-beaten by George's imperial goons. Since the emperors needed the bishops'
-support, they became increasingly willing to acquiesce to their demands. And one
-of the bishops' demands was that the emperor use his authority to help them
-crush heresy.
+Emperors also needed them to keep distributing poor relief, an important
+foundation for the emperor's moral authority. When the hugely unpopular George
+of Cappadocia was installed in Alexandria in 357, the local widows refused to
+receive alms from him: as a result, they were physically beaten by George's
+imperial goons.
+
+Since the emperors needed the bishops' support, they became increasingly willing
+to acquiesce to their demands. And one of the bishops' demands was that the
+emperor use his authority to help them crush heresy.
 
 The bishops of the fourth century inherited a dichotomy between orthodoxy and
 heresy which had developed in the early church. Orthodoxy meant true belief,
 defined and enforced by the bishop. Whoever promoted false beliefs, and together
 with it insurrection against the bishop's authority, was defined as a heretic.
+
+Orthodoxy was conceived of as the unchanging teaching of the apostles, who were
+in turn taught directly by the Holy Spirit. Orthodoxy might have to be re-stated
+as sneaky heretics sought to twist its language, but orthodoxy was never
+supposed to be innovative: only heresy was innovative. Further, heresy was
+always thought of as a combination teaching falsehoods, behaving immorally, and
+refusing to take part in mainstream Christian community. It all came as a
+package. Truth means right behaviour means loyalty.
 
 It's difficult to explain exactly why this system emerged. It's true that faith
 lies at the root of Christian religion, and that Christ taught that he is truth.
@@ -76,14 +86,18 @@ unchanging apostolic orthodox teaching should have prevailed over the idea that
 Christian teaching can grow over time as it encounters new problems and
 contexts.
 
-This system may have been partly motivated by the need for a distinguishing
-feature for the Christian community in the absence of an identity based on
-nationality, social class, sex, or religion. It may have been some kind of
-reaction or defence mechanism in the face of persecution. Whatever the case may
-be, the result by the Constantinian turning point was that bishops had
-significant influence over their local Christian communities, and an ideological
-commitment to maintaining their communities' loyalty to the bishop and his
-teachings.
+This system may have been motivated by the need for a distinguishing feature to
+ground Christian family identity in the absence of an identity based on
+nationality, social class, sex, or religion. It may also have been some kind of
+reaction or defence mechanism against persecution. In a world that was often
+hunting for an excuse to persecute Christians, it was a matter of life and death
+that Christian communities were tight-knit, loyal to one another, and visibly
+living according to the highest moral standards.
+
+Whatever the case may be, the result by the Constantinian turning point was that
+bishops had significant influence over their local Christian communities, and an
+ideological commitment to maintaining their communities' loyalty to the bishop
+and his teachings.
 
 And the bishops' desire to crush heretics only increased as the fourth century
 wore on. With the wealth and power of the civil service increasingly transferred
@@ -180,8 +194,7 @@ accept what they teach or to support their political programme.
 
 Finally, established churches are vulnerable to the perverse incentive
 structures of the state, and must be disestablished. The Church of England
-should not have seats in the Lords, should not crown British monarchs and should
-not be exempt from taxation.
+should not have seats in the Lords and should not crown British monarchs.
 
 I believe in one holy, catholic and apostolic church -- but I do not believe in
 one opinion or one authority. My realistic ideal of church unity now involves a
