@@ -2,9 +2,9 @@
   "private": "true",
   "scripts": {
     "dev": "cd website && astro dev",
-    "start": "cd website && astro dev",
+    "start": "cd website && astro build && node ./dist/server/entry.mjs",
     "build": "cd website && astro build",
-    "preview": "cd cd website && webiste && astro preview",
+    "preview": "cd website && astro preview",
     "astro": "cd website && astro"
   },
   "engines": {
