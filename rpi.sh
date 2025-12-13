@@ -1,14 +1,19 @@
-#!/bin/sh
+#!/bin/bash
 
 DOCKER_BIN=podman
-WEBSITE_DIR="$HOME/joeac.net"
+CONTAINER=joeac.net
 PORT=80
 
-set -eux
+set -eu
 
-$DOCKER_BIN stop --all
-cd "$WEBSITE_DIR"
-git pull
-$DOCKER_BIN build -t joeac.net .
-$DOCKER_BIN run -dt -p $PORT:4321 joeac.net
+running_containers=`$DOCKER_BIN ps | tail -n +2`
+IFS=$'\n'
+for line in $running_containers; do
+	if [[ "$line" =~ ^[a-z0-9]+[[:space:]]+localhost/$CONTAINER:[0-9a-z]+[[:space:]] ]]; then
+		$DOCKER_BIN stop $(echo "$line" | cut -d' ' -f 1)
+	fi
+done
+
+set -x
+$DOCKER_BIN run -dt -p $PORT:4321 $CONTAINER
 
