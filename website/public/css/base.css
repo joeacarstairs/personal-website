@@ -131,7 +131,7 @@ img {
     grid-column: grid;
     grid-template-columns: subgrid;
 
-    > :is(section, header, aside) {
+    > :is(section, header, aside, form) {
       display: grid;
       grid-template-columns: subgrid;
       grid-column: grid;
