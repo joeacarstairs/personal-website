@@ -81,6 +81,10 @@ small {
   margin-block-start: var(--spacing-block-sm);
 }
 
+hr {
+  height: 2px;
+}
+
 /** Base layout */
 
 body {
