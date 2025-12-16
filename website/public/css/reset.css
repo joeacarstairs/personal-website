@@ -88,3 +88,6 @@ textarea:not([rows]) {
   padding: 0;
 }
 
+[hidden] {
+  display: none;
+}
