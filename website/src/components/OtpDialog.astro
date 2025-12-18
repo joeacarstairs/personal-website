@@ -1,0 +1,31 @@
+---
+---
+
+<script src="../scripts/otp-form-wc.ts"></script>
+<link rel="stylesheet" href="/css/otp.css" />
+
+<dialog class="otp-dialog">
+  <otp-form>
+    <form class="otp-form" class="otp-form">
+      <p>
+        I've sent a six-digit code to <span class="otp-recipient">your email address</span>.
+        Let me know what it is, so I can confirm this really is your email address. The
+        code will be valid <span class="otp-valid-until">for five minutes</span>.
+      </p>
+
+      <p hidden class="error"/>
+
+      <div class="otp-inputs">
+        <input maxlength="1" name="1" required autocapitalize="characters" autocomplete="one-time-code" aria-label="First digit of one-time passcode" autofocus>
+        <input maxlength="1" name="2" required autocapitalize="characters" autocomplete="one-time-code" aria-label="Second digit of one-time passcode">
+        <input maxlength="1" name="3" required autocapitalize="characters" autocomplete="one-time-code" aria-label="Third digit of one-time passcode">
+        <input maxlength="1" name="4" required autocapitalize="characters" autocomplete="one-time-code" aria-label="Fourth digit of one-time passcode">
+        <input maxlength="1" name="5" required autocapitalize="characters" autocomplete="one-time-code" aria-label="Fifth digit of one-time passcode">
+        <input maxlength="1" name="6" required autocapitalize="characters" autocomplete="one-time-code" aria-label="Sixth digit of one-time passcode">
+      </div>
+
+      <input type="submit" value="Verify">
+      <button disabled class="resend-button">Resend (60s)</button>
+    </form>
+  </otp-form>
+</dialog>
