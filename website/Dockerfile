@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS runtime
+FROM node:lts-alpine3.22 AS runtime
 WORKDIR /app
 
 ################### TODO ###################
