@@ -1,57 +1,57 @@
 .h-card div:has(img) {
-	width: 6rem;
-	height: 6rem;
-	margin-inline: auto;
+  width: 6rem;
+  height: 6rem;
+  margin-inline: auto;
 }
 
 .h-card img {
-	width: 6rem;
-	height: 6rem;
-	border-radius: 1rem;
-	filter: contrast(1.25);
+  width: 6rem;
+  height: 6rem;
+  border-radius: 1rem;
+  filter: contrast(1.25);
 }
 
 .h-card div:has(img)::after {
-	/* Colour overlay */
-	background-color: var(--colour-primary-80);
-	opacity: 0.3;
+  /* Colour overlay */
+  background-color: var(--colour-primary-80);
+  opacity: 0.3;
 
-	/* Same size and shape as the img */
-	border-radius: 1rem;
-	width: 6rem;
-	height: 6rem;
+  /* Same size and shape as the img */
+  border-radius: 1rem;
+  width: 6rem;
+  height: 6rem;
 
-	/* Positioned on top of the img */
-	display: block;
-	position: relative;
-	top: -6rem;
+  /* Positioned on top of the img */
+  display: block;
+  position: relative;
+  top: -6rem;
 
-	/* A content value is needed to get the ::after to render */
-	content: '';
+  /* A content value is needed to get the ::after to render */
+  content: "";
 }
 
-
 @media (min-width: 36rem) {
-	.h-card {
-		grid-column: media-start / content-end;
-		display: grid;
-		grid-template-columns: subgrid; /** Subgrid of main column layout */
-		grid-template-rows: min-content 1fr;
-		grid-template-areas:
-			"empty heading"
-			"photo text";
-	}
+  .h-card {
+    grid-column: media-start / content-end;
+    display: grid;
+    grid-template-columns: subgrid; /** Subgrid of main column layout */
+    grid-template-rows: min-content 1fr;
+    grid-template-areas:
+      "empty heading"
+      "photo text";
+    column-gap: var(--spacing-block-sm);
+  }
 
-	.h-card div:has(img) {
-		grid-area: photo;
-		margin-block-start: var(--spacing-block-sm);
-	}
+  .h-card div:has(img) {
+    grid-area: photo;
+    margin-block-start: var(--spacing-block-sm);
+  }
 
-	.h-card header {
-		grid-area: heading;
-	}
+  .h-card header {
+    grid-area: heading;
+  }
 
-	.h-card__text {
-		grid-area: text;
-	}
+  .h-card__text {
+    grid-area: text;
+  }
 }

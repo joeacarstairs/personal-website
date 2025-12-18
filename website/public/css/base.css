@@ -24,12 +24,39 @@
   --colour-hyperlink-90: #bfe3ff;
   --colour-hyperlink-95: #e0f1ff;
 
+  --colour-grey-10: oklch(0.1 0.01 84);
+  --colour-grey-20: oklch(0.2 0.01 84);
+  --colour-grey-30: oklch(0.3 0.01 84);
+  --colour-grey-40: oklch(0.4 0.01 84);
+  --colour-grey-50: oklch(0.5 0.01 84);
+  --colour-grey-60: oklch(0.6 0.01 84);
+  --colour-grey-70: oklch(0.7 0.01 84);
+  --colour-grey-80: oklch(0.8 0.01 84);
+  --colour-grey-90: oklch(0.9 0.01 84);
+  --colour-grey-95: oklch(0.95 0.01 84);
+
+  --colour-error-10: oklch(0.1 0.2 26);
+  --colour-error-20: oklch(0.2 0.2 26);
+  --colour-error-30: oklch(0.3 0.2 26);
+  --colour-error-40: oklch(0.4 0.2 26);
+  --colour-error-50: oklch(0.5 0.2 26);
+  --colour-error-60: oklch(0.6 0.2 26);
+  --colour-error-70: oklch(0.7 0.2 26);
+  --colour-error-80: oklch(0.8 0.2 26);
+  --colour-error-90: oklch(0.9 0.2 26);
+  --colour-error-95: oklch(0.95 0.2 26);
+
   --colour-primary-fg: var(--colour-primary-90);
   --colour-primary-fg-accent: var(--colour-primary-80);
   --colour-primary-bg: var(--colour-primary-10);
+  --colour-primary-bg-accent: var(--colour-primary-20);
   --colour-code-fg: var(--colour-primary-90);
   --colour-code-bg: var(--colour-primary-15);
   --colour-hyperlink: var(--colour-hyperlink-80);
+  --colour-grey-fg: var(--colour-grey-70);
+  --colour-grey-bg: var(--colour-grey-30);
+  --colour-error-fg: var(--colour-error-90);
+  --colour-error-bg: var(--colour-error-40);
 
   --font-size-sm: 1rem;
   --font-size-base: 1.125rem;
@@ -56,6 +83,10 @@
     --colour-primary-fg-accent: var(--colour-primary-40);
     --colour-primary-bg: var(--colour-primary-95);
     --colour-hyperlink: var(--colour-hyperlink-40);
+    --colour-grey-fg: var(--colour-grey-40);
+    --colour-grey-bg: var(--colour-grey-80);
+    --colour-error-fg: var(--colour-error-20);
+    --colour-error-bg: var(--colour-error-80);
   }
 }
 
@@ -113,6 +144,7 @@ img {
       [media-end content-start]
       minmax(var(--grid-max-content-width), auto)
       [content-end grid-end];
+    grid-auto-rows: max-content;
     column-gap: var(--spacing-block-sm);
     max-width: var(--grid-total-width);
 
@@ -384,10 +416,77 @@ block-comment {
   }
 }
 
+/* forms */
+form {
+  margin-inline: auto;
+  max-width: max-content;
+
+  :is(button, fieldset, input, label, object, output, select, textarea, img) {
+    display: block;
+  }
+
+  label {
+    margin-block-end: var(--spacing-block-xs);
+  }
+
+  * + :is(label, input[type="submit"], button) {
+    margin-block-start: var(--spacing-block-md);
+  }
+
+  :is(input[type="submit"], input[type="button"], button) {
+    padding-inline: var(--spacing-inline-sm);
+    max-width: max-content;
+    margin-inline-start: auto;
+  }
+
+  :is(input[type="email"], input[type="text"], select) {
+    max-width: 100%;
+    width: 16rem;
+  }
+
+  textarea {
+    max-width: 100%;
+    width: 40rem;
+  }
+}
+
+/* dialogs */
+
+dialog {
+  background: var(--colour-primary-bg-accent);
+  border: 2px solid var(--colour-primary-fg-accent);
+  bottom: auto;
+  color: var(--colour-primary-fg);
+  left: calc(0.5 * (100vw - min(90vw, 36rem)));
+  margin: 0;
+  padding-block: var(--spacing-block-sm);
+  padding-inline: var(--spacing-inline-sm);
+  text-align: center;
+  top: auto;
+  width: min(90vw, 36rem);
+}
+
+@media (min-width: 80rem) {
+  dialog {
+    left: calc(
+      var(--body-margin-inline-start) + var(--grid-margin-inline) + 2 *
+        var(--spacing-inline-md)
+    );
+  }
+}
+
 /* utilities */
 :is(
   .para-spacing-tight:is(p, h1, h2, h3, h4, h5, h6, hr, img, figure, ul, ol),
   .para-spacing-tight :is(p, h1, h2, h3, h4, h5, h6, hr, img, figure, ul, ol)
 ) {
   margin-block-start: var(--spacing-block-xs);
+}
+
+.error {
+  background: var(--colour-error-bg);
+  border: 2px solid var(--colour-error-fg);
+  color: var(--colour-error-fg);
+  padding-block: var(--spacing--block-sm);
+  padding-inline: var(--spacing-inline-sm);
 }
