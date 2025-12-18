@@ -1,9 +1,15 @@
 import { z } from "astro/zod";
-import { actions, defineAction } from "astro:actions";
+import { defineAction } from "astro:actions";
 import nodemailer from "nodemailer";
-import { MAX_DAILY_EMAILS, SENDMAIL_BIN } from "astro:env/server";
-import { and, db, eq, gte, lte, SendmailToken, SentEmails } from "astro:db";
-import { isToken } from "typescript";
+import {
+  MAX_DAILY_EMAILS,
+  SMTP_HOST,
+  SMTP_PASSWORD,
+  SMTP_PORT,
+  SMTP_USE_TLS,
+  SMTP_USER,
+} from "astro:env/server";
+import { and, db, eq, gte, SendmailToken, SentEmails } from "astro:db";
 
 export default defineAction({
   input: z.object({
@@ -73,6 +79,13 @@ async function sendmail({
 }
 
 const transporter = nodemailer.createTransport({
-  sendmail: true,
-  path: SENDMAIL_BIN,
+  host: SMTP_HOST,
+  port: SMTP_PORT,
+  secure: false,
+  authMethod: "PLAIN",
+  auth: {
+    type: "login",
+    user: SMTP_USER,
+    pass: SMTP_PASSWORD,
+  },
 });
