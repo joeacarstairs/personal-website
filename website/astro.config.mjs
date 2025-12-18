@@ -12,6 +12,10 @@ export default defineConfig({
   }),
   env: {
     schema: {
+      MAX_DAILY_EMAILS: envField.number({
+        context: "server",
+        access: "secret",
+      }),
       SENDMAIL_BIN: envField.string({ context: "server", access: "secret" }),
     },
   },
