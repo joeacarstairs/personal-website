@@ -3,3 +3,5 @@ services:
     build: website
     ports:
       - "8000:4321"
+  smtp:
+    build: smtp
