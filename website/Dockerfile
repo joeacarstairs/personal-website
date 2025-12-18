@@ -14,26 +14,26 @@ WORKDIR /app
 #   from your very own no-reply email address?
 ############################################
 
-COPY package.json .
-COPY website/db website/astro.config.mjs website/
+COPY package.json package-lock.json ./
+RUN npm install
+
+COPY astro.config.mjs ./
+COPY db ./db/
 ARG DB_URL=file:/app/db.sqlite
 ENV ASTRO_DB_REMOTE_URL=$DB_URL
 RUN mkdir -p "$(dirname "$(echo "$ASTRO_DB_REMOTE_URL" | cut -d':' -f 2)")"
 RUN npm run astro db push
 
-COPY ./website ./website
-RUN npm install
+COPY . .
 RUN npm run build
 
 ARG MAX_DAILY_EMAILS="100"
+ENV MAX_DAILY_EMAILS=$MAX_DAILY_EMAILS
 ARG SENDMAIL_BIN="/usr/sbin/sendmail"
+ENV SENDMAIL_BIN=$SENDMAIL_BIN
 
 ENV HOST=0.0.0.0
 ENV PORT=4321
 
 EXPOSE 4321
-CMD [ \
-  "MAX_DAILY_EMAILS=$MAX_DAILY_EMAILS", \
-  "SENDMAIL_BIN=$SENDMAIL_BIN", \
-  "node", \
-  "./website/dist/server/entry.mjs"]
+CMD ["node", "./dist/server/entry.mjs"]

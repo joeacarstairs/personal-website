@@ -1,11 +1,11 @@
 {
   "private": "true",
   "scripts": {
-    "dev": "cd website && astro dev",
-    "start": "cd website && astro build --remote && node ./dist/server/entry.mjs",
-    "build": "cd website && astro build --remote",
-    "preview": "cd website && astro preview",
-    "astro": "cd website && astro"
+    "dev": "astro dev",
+    "start": "astro build --remote && node ./dist/server/entry.mjs",
+    "build": "astro build --remote",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "engines": {
     "node": "^22.14.0"
