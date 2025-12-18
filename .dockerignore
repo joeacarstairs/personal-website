@@ -3,3 +3,4 @@ dist/
 .helix/
 .vscode/
 .zed/
+.env
