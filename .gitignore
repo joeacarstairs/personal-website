@@ -24,3 +24,5 @@ pnpm-debug.log*
 **/*.tfvars
 **/*.tfstate
 **/*.tfstate.backup
+
+*.sqlite
