@@ -2,8 +2,8 @@
   "private": "true",
   "scripts": {
     "dev": "cd website && astro dev",
-    "start": "cd website && astro build && node ./dist/server/entry.mjs",
-    "build": "cd website && astro build",
+    "start": "cd website && astro build --remote && node ./dist/server/entry.mjs",
+    "build": "cd website && astro build --remote",
     "preview": "cd website && astro preview",
     "astro": "cd website && astro"
   },
@@ -11,6 +11,7 @@
     "node": "^22.14.0"
   },
   "dependencies": {
+    "@astrojs/db": "^0.18.3",
     "@astrojs/mdx": "^4.3.0",
     "@astrojs/node": "^9.5.1",
     "@astrojs/rss": "^4.0.10",

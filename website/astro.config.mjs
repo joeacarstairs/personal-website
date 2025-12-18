@@ -1,4 +1,5 @@
 import { defineConfig, envField } from "astro/config";
+import db from "@astrojs/db";
 import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 
@@ -15,5 +16,5 @@ export default defineConfig({
     },
   },
   site: "https://joeac.net",
-  integrations: [mdx(), sitemap()],
+  integrations: [db(), mdx(), sitemap()],
 });
