@@ -436,7 +436,9 @@ form {
   :is(input[type="submit"], input[type="button"], button) {
     padding-inline: var(--spacing-inline-sm);
     max-width: max-content;
-    margin-inline-start: auto;
+    &:not(dialog *) {
+      margin-inline-start: auto;
+    }
   }
 
   :is(input[type="email"], input[type="text"], select) {
