@@ -2,7 +2,6 @@ FROM node:lts AS runtime
 WORKDIR /app
 
 ################### TODO ###################
-# - Refactor this Dockerfile into a compose.yml
 # - Add another service on the same network running an SMTP server such
 #   as msmtpd or Postfix
 # - Configure the SMTP server to send emails from me@joeac.net via Zoho

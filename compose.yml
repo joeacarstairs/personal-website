@@ -1,0 +1,5 @@
+services:
+  website:
+    build: website
+    ports:
+      - "8000:4321"
