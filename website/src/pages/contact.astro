@@ -1,0 +1,96 @@
+---
+import OtpDialog from "../components/OtpDialog.astro";
+import Page from "../layouts/Page.astro";
+---
+
+<Page title="Contact" description="Contact Joe Carstairs">
+  <OtpDialog />
+
+  <form class="contact-form">
+    <h1>Contact me</h1>
+    <p hidden class="error"/>
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" required>
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required>
+    <label for="message">Message</label>
+    <textarea id="message" name="message" required></textarea>
+    <input type="submit" value="Send">
+  </form>
+
+  <section class="success" hidden="true">
+    <h1>You sent me a message!</h1>
+    <p>Thanks for that. I may be in touch.</p>
+    <p>In case you forgot, your message was this:</p>
+    <hr>
+    <dl>
+      <dt>Name</dt> <dd class="sentname">???</dd>
+      <dt>Email</dt> <dd class="sentemail">???</dd>
+      <dt>Message</dt> <dd class="sentmessage">???</dd>
+    </dl>
+  </section>
+
+  <script>
+    import { resendOtp } from '../scripts/contact/resend-otp';
+    import { submitContactForm } from '../scripts/contact/submit-contact-form';
+    import { submitOtpForm } from '../scripts/contact/submit-otp-form';
+    import type { Selectors } from '../scripts/contact/selectors';
+
+    function locateOrPanic<T extends Element>(selector: string, desc: string, root?: Element): T {
+      const elem = (root ?? document).querySelector<T>(selector);
+      if (!elem) {
+        alert(`Technical error: could not locate ${desc}. Please let Joe know if you have another means of contacting him.`);
+        throw new Error(`Could not locate ${desc}`);
+      }
+      return elem;
+    }
+
+    const contactForm = locateOrPanic<HTMLFormElement>('form.contact-form', 'contact form');
+    const otpDialog = locateOrPanic<HTMLDialogElement>('dialog.otp-dialog', 'OTP dialog');
+    const otpForm = locateOrPanic<HTMLFormElement>('form.otp-form', 'OTP form');
+    const successSection = document.querySelector('section.success');
+    let resendButtonInterval: undefined | NodeJS.Timeout = undefined;
+
+    const selectors: Selectors = {
+      contactForm: {
+        emailElem: () => locateOrPanic<HTMLInputElement>('input[name="email"]', 'email input', contactForm),
+        errorElem: () => contactForm.querySelector('.error'),
+        nameElem: () => locateOrPanic<HTMLInputElement>('input[name="name"]', 'name input', contactForm),
+        messageElem: () => locateOrPanic<HTMLTextAreaElement>('textarea[name="message"]', 'message textarea', contactForm),
+        self: () => contactForm,
+        submitButton: () => contactForm.querySelector('input[type="submit"]'),
+      },
+      otpDialog: {
+        allOtpInputs: () => otpForm.querySelectorAll('input:not([type="submit"])'),
+        errorElem: () => otpDialog.querySelector('.error'),
+        firstOtpInput: () => otpForm.querySelector('input:not([type="submit"]):first-child'),
+        otpForm: () => otpForm,
+        otpRecipient: () => otpDialog.querySelector('.otp-recipient'),
+        otpValidUntil: () => otpDialog.querySelector('.otp-valid-until'),
+        resendButton: () => otpDialog.querySelector<HTMLButtonElement>('button.resend-button'),
+        self: () => otpDialog,
+        submitButton: () => otpForm.querySelector('input[type="submit"]'),
+      },
+      successSection: {
+        email: () => successSection?.querySelector('.sentemail') ?? null,
+        name: () => successSection?.querySelector('.sentname') ?? null,
+        message: () => successSection?.querySelector('.sentmessage') ?? null,
+        self: () => successSection,
+      }
+    };
+
+    contactForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      ({ resendButtonInterval } = await submitContactForm(selectors, resendButtonInterval));
+    });
+
+    selectors.otpDialog.resendButton()?.addEventListener('click', async () => {
+      ({ resendButtonInterval } = await resendOtp(selectors, resendButtonInterval));
+    });
+
+    otpForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      await submitOtpForm(selectors);
+    });
+  </script>
+</Page>
