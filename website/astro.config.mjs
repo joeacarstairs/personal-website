@@ -1,4 +1,4 @@
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, passthroughImageService } from "astro/config";
 import db from "@astrojs/db";
 import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
@@ -29,6 +29,9 @@ export default defineConfig({
       }),
       CONTACT_MAILBOX: envField.string({ context: "server", access: "secret" }),
     },
+  },
+  image: {
+    service: passthroughImageService(),
   },
   site: "https://joeac.net",
   integrations: [db(), mdx(), sitemap()],
