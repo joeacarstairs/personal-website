@@ -14,13 +14,9 @@ RUN npm run astro db push
 COPY . .
 RUN npm run build
 
-ARG MAX_DAILY_EMAILS="100"
-ENV MAX_DAILY_EMAILS=$MAX_DAILY_EMAILS
-ARG SENDMAIL_BIN="/usr/sbin/sendmail"
-ENV SENDMAIL_BIN=$SENDMAIL_BIN
-
 ENV HOST=0.0.0.0
 ENV PORT=4321
+ENV MAX_DAILY_EMAILS=100
 
 EXPOSE 4321
 CMD ["node", "./dist/server/entry.mjs"]
