@@ -1,18 +1,6 @@
 FROM node:lts-alpine3.22 AS runtime
 WORKDIR /app
 
-################### TODO ###################
-# - Add another service on the same network running an SMTP server such
-#   as msmtpd or Postfix
-# - Configure the SMTP server to send emails from me@joeac.net via Zoho
-# - Configure the website to use the SMTP server to send emails
-# - Test
-# - Push
-# - Test on RPi
-# - Consider: now you're running an SMTP server anyway, can you send it
-#   from your very own no-reply email address?
-############################################
-
 COPY package.json package-lock.json ./
 RUN npm install
 

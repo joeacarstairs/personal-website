@@ -1,7 +1,30 @@
 services:
   website:
-    build: website
+    build:
+      context: website
+    env_file:
+      - .env
+    environment:
+      LOCAL_SMTP_HOST: smtp
+      LOCAL_SMTP_PORT: 2500
+      LOCAL_SMTP_PASSWORD: smtp
     ports:
       - "8000:4321"
+
   smtp:
-    build: smtp
+    build:
+      context: smtp
+      args:
+        LOCAL_SMTP_PORT: 2500
+    env_file:
+      - .env
+    environment:
+      LOCAL_SMTP_PORT: 2500
+      LOCAL_SMTP_PASSWORD: smtp
+      REMOTE_SMTP_PASSWORD_FILE: /run/secrets/remote_smtp_password
+    secrets:
+      - remote_smtp_password
+
+secrets:
+  remote_smtp_password:
+    external: true
