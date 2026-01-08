@@ -1,14 +1,8 @@
 import crypto from "node:crypto";
-import nodemailer from "nodemailer";
 import { z } from "astro/zod";
 import { defineAction } from "astro:actions";
 import { db, Otp } from "astro:db";
-import {
-  SMTP_HOST,
-  SMTP_PASSWORD,
-  SMTP_PORT,
-  SMTP_USER,
-} from "astro:env/server";
+import { transporter } from "../sendmail";
 
 export default defineAction({
   input: z.object({
@@ -49,15 +43,3 @@ to do anything.`,
     validUntil: Date.now() + 1000 * 60 * 5,
   });
 }
-
-const transporter = nodemailer.createTransport({
-  host: SMTP_HOST,
-  port: SMTP_PORT,
-  secure: false,
-  authMethod: "PLAIN",
-  auth: {
-    type: "login",
-    user: SMTP_USER,
-    pass: SMTP_PASSWORD,
-  },
-});

@@ -3,11 +3,12 @@ import { defineAction } from "astro:actions";
 import nodemailer from "nodemailer";
 import {
   MAX_DAILY_EMAILS,
-  SMTP_HOST,
-  SMTP_PASSWORD,
-  SMTP_PORT,
-  SMTP_USE_TLS,
-  SMTP_USER,
+  LOCAL_SMTP_HOST,
+  LOCAL_SMTP_PASSWORD,
+  LOCAL_SMTP_PORT,
+  LOCAL_SMTP_USER,
+  CONTACT_MAILBOX,
+  LOCAL_SMTP_ENVELOPE_FROM,
 } from "astro:env/server";
 import { and, db, eq, gte, SendmailToken, SentEmails } from "astro:db";
 
@@ -66,9 +67,9 @@ async function sendmail({
   }
 
   const info = await transporter.sendMail({
-    from: `"Joe Carstairs" <me@joeac.net>`,
-    to: `"Joe Carstairs" <me@joeac.net>`,
-    subject: "joeac.net: a visitor left a message",
+    from: LOCAL_SMTP_ENVELOPE_FROM,
+    to: CONTACT_MAILBOX,
+    subject: `joeac.net: ${name} left a message`,
     text: `${name} <${email}> sent you a message:\n\n\n${message}`,
   });
   await db
@@ -78,14 +79,15 @@ async function sendmail({
   console.log("Sent an email to Joe. Message ID: ", info.messageId);
 }
 
-const transporter = nodemailer.createTransport({
-  host: SMTP_HOST,
-  port: SMTP_PORT,
+export const transporter = nodemailer.createTransport({
+  host: LOCAL_SMTP_HOST,
+  from: LOCAL_SMTP_ENVELOPE_FROM,
+  port: LOCAL_SMTP_PORT,
   secure: false,
   authMethod: "PLAIN",
   auth: {
     type: "login",
-    user: SMTP_USER,
-    pass: SMTP_PASSWORD,
+    user: LOCAL_SMTP_USER,
+    pass: LOCAL_SMTP_PASSWORD,
   },
 });
