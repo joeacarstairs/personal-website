@@ -1,8 +1,9 @@
 import crypto from "node:crypto";
 import { z } from "astro/zod";
 import { defineAction } from "astro:actions";
-import { db, Otp } from "astro:db";
+import { db, gte, Otp, SentEmails } from "astro:db";
 import { transporter } from "../sendmail";
+import { MAX_DAILY_EMAILS } from "astro:env/server";
 
 export default defineAction({
   input: z.object({
@@ -22,6 +23,16 @@ type OtpParams = {
 async function sendOtp({ email, name }: OtpParams) {
   const otp = crypto.randomBytes(3).toString("hex").toLocaleUpperCase();
   const otpPretty = `${otp.slice(0, 3)}-${otp.slice(3)}`;
+
+  const emailsSentLast24Hours = await db.$count(
+    SentEmails,
+    gte(SentEmails.sentAt, Date.now() - 1000 * 60 * 60 * 24),
+  );
+  if (emailsSentLast24Hours > MAX_DAILY_EMAILS) {
+    throw new Error(
+      `${emailsSentLast24Hours} emails have been sent in the last 24 hours, but the max daily load is ${MAX_DAILY_EMAILS}.`,
+    );
+  }
 
   const info = await transporter.sendMail({
     from: `"Joe Carstairs" <me@joeac.net>`,
