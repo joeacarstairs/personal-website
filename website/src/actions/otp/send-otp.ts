@@ -28,7 +28,7 @@ async function sendOtp({ email, name }: OtpParams) {
     SentEmails,
     gte(SentEmails.sentAt, Date.now() - 1000 * 60 * 60 * 24),
   );
-  if (emailsSentLast24Hours > MAX_DAILY_EMAILS) {
+  if (emailsSentLast24Hours >= MAX_DAILY_EMAILS) {
     throw new Error(
       `${emailsSentLast24Hours} emails have been sent in the last 24 hours, but the max daily load is ${MAX_DAILY_EMAILS}.`,
     );
