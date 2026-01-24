@@ -61,6 +61,9 @@ async function sendmail({
     gte(SentEmails.sentAt, Date.now() - 1000 * 60 * 60 * 24),
   );
   if (emailsSentLast24Hours > MAX_DAILY_EMAILS) {
+    console.warn(
+      `${name} <${email}> tried to send an email, but ${emailsSentLast24Hours} have already been sent, whereas the max daily load is ${MAX_DAILY_EMAILS}.`,
+    );
     throw new Error(
       `${emailsSentLast24Hours} emails have been sent in the last 24 hours, but the max daily load is ${MAX_DAILY_EMAILS}.`,
     );
