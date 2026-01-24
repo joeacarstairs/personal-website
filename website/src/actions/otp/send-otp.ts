@@ -50,6 +50,10 @@ to do anything.`,
     `Sent OTP (${otpPretty}) to ${email}. Message ID: ${info.messageId}`,
   );
 
+  await db
+    .insert(SentEmails)
+    .values({ messageId: info.messageId, sentAt: Date.now() });
+
   await db.insert(Otp).values({
     userId: email,
     value: otp,

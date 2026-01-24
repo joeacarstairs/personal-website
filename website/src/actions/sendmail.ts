@@ -75,6 +75,7 @@ async function sendmail({
     subject: `joeac.net: ${name} left a message`,
     text: `${name} <${email}> sent you a message:\n\n\n${message}`,
   });
+
   await db
     .insert(SentEmails)
     .values({ messageId: info.messageId, sentAt: Date.now() });
