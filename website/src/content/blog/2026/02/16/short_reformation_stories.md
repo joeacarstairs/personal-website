@@ -1,11 +1,10 @@
 ---
 title: 10 very short stories about the Reformation
-description:
+description: >-
+  I'm summarising a few of the big stories about the Reformation I've been
+  studying recently.
 pubDate: 2026-02-16
 ---
-
-I'm summarising a few of the big stories about the Reformation I've been
-studying recently.
 
 1. Moral corruption in public office
 
