@@ -1,4 +1,4 @@
-# personal-website
+# joeac.net
 
 Joe Carstairs' personal website
 
