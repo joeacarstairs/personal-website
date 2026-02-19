@@ -8,6 +8,15 @@ import Page from "../layouts/Page.astro";
 
   <form class="contact-form">
     <h1>Contact me</h1>
+
+    <p class="warn">
+      This contact form only accepts a very small number of submissions per day
+      to avoid spamming my inbox with bots. I have an idea for a workaround, but
+      in the meantime, please forgive me if the form refuses to accept your
+      submission. If you want to get in touch with me professionally, you can
+      message me on <a href="https://www.linkedin.com/in/joe-carstairs-0aa936277">LinkedIn</a>.
+    </p>
+
     <p hidden class="error"/>
     <label for="name">Name</label>
     <input id="name" name="name" type="text" required>
