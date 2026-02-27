@@ -4,6 +4,7 @@ description: >-
   I'm summarising a few of the big stories about the Reformation I've been
   studying recently.
 pubDate: 2026-02-16
+updatedDate: 2026-02-27
 ---
 
 1. Moral corruption in public office
@@ -137,6 +138,11 @@ and Spanish counterparts (apart from its brazenness). But in the context of the
 time, he was compelled to make entreaties with the German Protestants. After a
 period of ambiguity, under his grand-daughter Elizabeth, England ended up firmly
 in the Protestant camp.
+
+NB. It has since been pointed out to me that Elizabeth is famously Henry VIII's
+daughter, not his grand-daughter. I leave this error in situ, so as not to give
+the false impression that these short stories are in any way to be admired or
+trusted.
 
 8. Mysticism
 
