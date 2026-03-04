@@ -1,0 +1,29 @@
+---
+title: What is an agnostic?
+description: >-
+pubDate: 2026-03-04
+---
+
+I learned today that the first agnostic was 'Darwin's Bulldog', Thomas Henry
+Huxley. He attended the Metaphysical Society, an extremely broad selection of
+England's foremost thinkers who gathered in London nine times a year throughout
+the 1870s to discuss the ultimate questions. He tried all the usual
+appellations: atheist, theist, pantheist, materialist, idealist, Christian. He
+found all of them wanting. All the various '-ists', he felt, 'were quite sure
+they had attained a certain "gnosis,"-had, more or less successfully, solved the
+problem of existence; while I was quite sure I had not, and had a pretty strong
+conviction that the problem was insolube.' Thus, negating the term 'gnostic', he
+coined 'agnostic'.
+
+Thus for Huxley, as with all the first agnostics, the term did not intend the
+metaphysical neutrality it's often taken to mean today. For Huxley, it's a
+positive epistemological assertion: sure, I don't know, but neither do you: the
+matter is in principle unknowable. 'Agnostic' is not a way for Huxley to
+diplomatically sidestep metaphysical debates without having to take a side, it's
+a confrontational view which contradicts the theist, the atheist, and all the
+rest.
+
+I wonder what people in my life think of this, who have described themselves as
+'agnostic'. Did they mean what Huxley meant, or did they mean something more
+irenic? Does Huxley's approach challenge them? Is neutrality really an adequate
+stance?
