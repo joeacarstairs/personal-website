@@ -3,7 +3,7 @@ import { z } from "astro/zod";
 import { defineAction } from "astro:actions";
 import { db, gte, Otp, SentEmails } from "astro:db";
 import { transporter } from "../sendmail";
-import { MAX_DAILY_EMAILS } from "astro:env/server";
+import { LOCAL_SMTP_ENVELOPE_FROM, MAX_DAILY_EMAILS } from "astro:env/server";
 
 export default defineAction({
   input: z.object({
@@ -38,7 +38,7 @@ async function sendOtp({ email, name }: OtpParams) {
   }
 
   const info = await transporter.sendMail({
-    from: `"Joe Carstairs" <me@joeac.net>`,
+    from: LOCAL_SMTP_ENVELOPE_FROM,
     to: `${name ? `"${name}" ` : ""}<${email}>`,
     subject: `joeac.net: your OTP is ${otpPretty}`,
     text: `
