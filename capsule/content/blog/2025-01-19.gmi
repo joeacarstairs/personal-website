@@ -27,13 +27,13 @@ It also hasn't been any good for distinguishing between stuff I don't want to re
 Every morning, I open my terminal and run newsboat.
 
 => https://newsboat.org 
-=> ./newsboat.webp newsboat showing how many unread posts I have at a glance in the opening view
+=> ./2025-01-19_newsboat.webp newsboat showing how many unread posts I have at a glance in the opening view
 
 I know the unread count is pretty fresh, because I've set up a systemd service to run newsboat at startup to fetch the feeds.
 
 I press `l` twice to open a post. Then I press `n` to navigate to the next unread post until I run out of unread posts.
 
-=> ./newsboat-post.webp newsboat displaying a post
+=> ./2025-01-19_newsboat-post.webp newsboat displaying a post
 
 If I encounter something I want to read later, but don't have time right now, I press `b`, which runs a home-made bookmarking script. Here it is:
 
@@ -57,7 +57,7 @@ I can also run this script manually and pass it a URL of my choice at any time, 
 When I want to read from my reading list, I run `readnow.sh`, which simply opens my reading list folder, `~/readlist/unread`, in my terminal file browser of choice: namely, ranger.
 
 => https://ranger.github.io 
-=> ./ranger.webp ranger showing the contents of my reading list with a preview
+=> ./2025-01-19_ranger.webp ranger showing the contents of my reading list with a preview
 
 Although ranger has a preview, I'll typically open the file up in my terminal web browser of choice, which is w3m (plus a couple of custom key-bindings).
 
@@ -76,7 +76,7 @@ I've configured this to be my preferred web browser in ranger by shifting it to 
 
 Having configured my default web browser in my ranger config, all I need to do is press `l`.
 
-=> ./w3m.webp A post displaying in w3m
+=> ./2025-01-19_w3m.webp A post displaying in w3m
 
 No ads, no cookie popups, no giant banner images taking 2 seconds to load and shifting the content all over the place: just the text I want to read. Isn't it beautiful?
 
