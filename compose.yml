@@ -1,4 +1,10 @@
 services:
+  capsule:
+    build:
+      context: capsule
+    ports:
+      - "1965:1965"
+
   website:
     build:
       context: website
