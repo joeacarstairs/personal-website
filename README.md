@@ -1,13 +1,14 @@
 # joeac.net
 
-Joe Carstairs' personal website
+Joe Carstairs' public Internet presence
 
 Structure:
 
 ```
 /
-├── website: My public-facing website
-└── infrastructure: The infrastructure of my website as code
+├── capsule    My Gemini capsule
+├── smtp       A local SMTP server
+└── website    My Website
 ```
 
 ## Running with Podman
