@@ -2,9 +2,8 @@
 
 Hi! I'm Joe Carstairs, and you've found my capsule, gemini://joeac.net.
 
-Maybe you came here wanting a keek at my gemlog perchance?
-
-=> /gemlog
+=> /gemlog      My gemlog
+=> /feed.gmi    My feed aggregator
 
 Here are some other ways to engage with me on the Internet:
 
