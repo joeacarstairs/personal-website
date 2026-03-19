@@ -16,7 +16,7 @@ RUN mkdir -p /var/app/content
 WORKDIR /var/app
 COPY .certificates/ ./
 RUN crontab -l > crontab.tmp \
-  && echo "0 */6 * * * * /usr/local/bin/comitium refresh --data /var/app/comitium-data" >> crontab.tmp \
+  && echo "0 */6 * * * * /usr/local/bin/comitium refresh --data /var/app/comitium-data && cp /var/app/comitium-data/feed.gmi /var/app/content/feed.gmi" >> crontab.tmp \
   && crontab crontab.tmp \
   && rm crontab.tmp
 
@@ -28,7 +28,8 @@ COPY content/ comitium-data/ feeds.txt ./
 RUN while read feed; do \
     comitium add --data comitium-data/ "$feed"; \
   done <feeds.txt \
-  && comitium refresh --data comitium-data/
+  && comitium refresh --data comitium-data/ \
+  && cp comitium-data/feed.gmi content/feed.gmi
 
 CMD agate --content content/ --addr [::]:1965 --addr 0.0.0.0:1965 --lang en-GB
 
