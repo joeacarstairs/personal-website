@@ -1,0 +1,4 @@
+# joeac's feed aggregator
+
+Hi! I'm Joe Carstairs, and you've found my feed aggregator. This is a list of
+some stuff I think I might read.
