@@ -29,7 +29,8 @@ RUN while read feed; do \
     comitium add --data comitium-data/ "$feed"; \
   done <feeds.txt \
   && comitium refresh --data comitium-data/ \
-  && cp comitium-data/feed.gmi content/feed.gmi
+  && cp comitium-data/feed.gmi content/feed.gmi \
+  && cp comitium-data/subscriptions.gmi content/subscriptions.gmi
 
 CMD agate --content content/ --addr [::]:1965 --addr 0.0.0.0:1965 --lang en-GB
 
