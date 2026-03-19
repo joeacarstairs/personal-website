@@ -14,7 +14,7 @@ RUN wget -O - https://git.sr.ht/~nytpu/comitium/archive/v1.8.2.tar.gz | tar -xz 
 FROM alpine:3.23 AS final
 RUN mkdir -p /var/app/content
 WORKDIR /var/app
-COPY .certificates/ ./
+COPY .certificates .certificates
 RUN crontab -l > crontab.tmp \
   && echo "0 */6 * * * * /usr/local/bin/comitium refresh --data /var/app/comitium-data && cp /var/app/comitium-data/feed.gmi /var/app/content/feed.gmi" >> crontab.tmp \
   && crontab crontab.tmp \
