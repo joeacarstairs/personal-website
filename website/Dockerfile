@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.23 AS runtime
+FROM node:lts-alpine3.22 AS runtime
 WORKDIR /app
 
 COPY package.json package-lock.json ./
