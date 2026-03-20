@@ -1,4 +1,3 @@
-gemini://gemini.tuxmachines.org:1965/feed.xml
 gemini://joeac.net/gemlog/
 gemini://idiomdrottning.org:1965/sub
 gemini://spool-five.com:1965/gemlog/index.gmi
