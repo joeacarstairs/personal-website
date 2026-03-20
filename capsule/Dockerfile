@@ -26,13 +26,15 @@ RUN apk --no-cache add gcc # Dependency for agate
 COPY --from=agate /root/.cargo/bin/agate /usr/local/bin/agate
 COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
 
-COPY content comitium-data feeds.txt ./
+COPY comitium-data comitium-data
+COPY feeds.txt feeds.txt
 RUN while read feed; do \
     comitium add --data comitium-data/ "$feed"; \
   done <feeds.txt \
   && comitium refresh --data comitium-data/ \
   && cp comitium-data/feed.gmi content/feed.gmi \
   && cp comitium-data/subscriptions.gmi content/subscriptions.gmi
+COPY content content
 
 CMD agate --content content/ --addr [::]:1965 --addr 0.0.0.0:1965 --lang en-GB
 
