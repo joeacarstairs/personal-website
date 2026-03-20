@@ -16,7 +16,7 @@ RUN mkdir -p /var/app/content
 WORKDIR /var/app
 COPY .certificates .certificates
 RUN crontab -l > crontab.tmp \
-  && echo "0 */6 * * * * /usr/local/bin/comitium refresh --data /var/app/comitium-data && cp /var/app/comitium-data/feed.gmi /var/app/content/feed.gmi" >> crontab.tmp \
+  && echo "0 */6 * * * /usr/local/bin/comitium refresh --data /var/app/comitium-data && cp /var/app/comitium-data/feed.gmi /var/app/content/feed.gmi" >> crontab.tmp \
   && crontab crontab.tmp \
   && rm crontab.tmp
 
