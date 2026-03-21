@@ -4,7 +4,7 @@ import { z } from "astro/zod";
 
 const blog = defineCollection({
   loader: glob({
-    pattern: "**/*.(md|mdx|html)",
+    pattern: "**/*.(md|mdx|gmi|html)",
     base: "./src/content/blog",
   }),
   schema: z.object({

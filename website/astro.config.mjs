@@ -1,5 +1,6 @@
 import { defineConfig, envField, passthroughImageService } from "astro/config";
 import db from "@astrojs/db";
+import gemtext from "astro-gemtext";
 import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 
@@ -34,5 +35,5 @@ export default defineConfig({
     service: passthroughImageService(),
   },
   site: "https://joeac.net",
-  integrations: [db(), mdx(), sitemap()],
+  integrations: [db(), gemtext(), mdx(), sitemap()],
 });
