@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import  * as Gemtext from 'gemtext';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -11,10 +12,47 @@ export async function getStaticPaths() {
 }
 type Props = CollectionEntry<'blog'>;
 
+function htmlEscape(str: string) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+const GemtextHTMLRenderer: Gemtext.Renderer<string> = {
+  preamble: function (): string {
+  return '';
+  },
+  postamble: function (): string {
+  return '';
+  },
+  text: function (content: string): string {
+    content = content.trim();
+    if (content === '') {
+      return '';
+    }
+    return `<p>${htmlEscape(content)}</p>`
+  },
+  link: function (url: string, alt: string): string {
+    return `<p>=> <a href="${url}">${alt}</a></p>`;
+  },
+  preformatted: function (content: string[], alt: string): string {
+    return `<pre alt="${alt}">${htmlEscape(content.join('\n'))}</pre>`
+  },
+  heading: function (level: number, text: string): string {
+    return `<h${level}>${htmlEscape(text)}</h${level}>`;
+  },
+  unorderedList: function (content: string[]): string {
+    return `<ul>${content.map(li=>`<li>${htmlEscape(li)}</li>`).join('')}</ul>`;
+  },
+  quote: function (content: string): string {
+    return `<blockquote>${htmlEscape(content)}</blockquote>`;
+  }
+};
+
 const post = Astro.props;
-const { Content } = await render(post);
+const Content = post.filePath?.endsWith('.gmi')
+  ? Gemtext.parse(post.body ?? '').generate(GemtextHTMLRenderer)
+  : (await render(post)).Content;
 ---
 
 <BlogPost {...post.data}>
-	<Content />
+  { post.filePath?.endsWith('.gmi') ? <Fragment set:html={Content}></Fragment> : <Content />}
 </BlogPost>
