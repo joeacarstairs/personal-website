@@ -2,7 +2,7 @@ FROM node:lts-alpine3.23 AS runtime
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm install
+RUN apk add --no-cache git && npm install && apk del git
 
 COPY astro.config.mjs ./
 COPY db ./db/
