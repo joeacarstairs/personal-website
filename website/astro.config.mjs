@@ -3,8 +3,9 @@ import db from "@astrojs/db";
 import gemtext from "astro-gemtext";
 import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
-
 import sitemap from "@astrojs/sitemap";
+
+import redirects from "./redirects.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -34,6 +35,7 @@ export default defineConfig({
   image: {
     service: passthroughImageService(),
   },
+  redirects,
   site: "https://joeac.net",
   integrations: [db(), gemtext(), mdx(), sitemap()],
 });
