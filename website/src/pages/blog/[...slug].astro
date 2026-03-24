@@ -49,7 +49,7 @@ const GemtextHTMLRenderer: Gemtext.Renderer<string> = {
 
 const post = Astro.props;
 const Content = post.filePath?.endsWith('.gmi')
-  ? Gemtext.parse(post.body ?? '').generate(GemtextHTMLRenderer)
+  ? Gemtext.parse((post.body ?? '').replace(`# ${post.data.title}`, '')).generate(GemtextHTMLRenderer)
   : (await render(post)).Content;
 ---
 
