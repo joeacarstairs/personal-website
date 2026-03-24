@@ -1,8 +1,9 @@
-FROM node:lts-alpine3.22 AS build
+FROM node:lts-alpine3.22
 WORKDIR /app
 
+RUN apk add --no-cache git
 COPY package.json package-lock.json ./
-RUN apk add --no-cache git && npm install && apk del git
+RUN npm install && apk del git
 
 COPY astro.config.mjs ./
 COPY db ./db/
@@ -12,18 +13,24 @@ RUN mkdir -p "$(dirname "$(echo "$ASTRO_DB_REMOTE_URL" | cut -d':' -f 2)")"
 RUN npm run astro db push
 
 COPY . .
-RUN npm run build && rm -rf public src
-
-FROM node:lts-alpine3.22 AS final
-WORKDIR /app
 
 ENV HOST=0.0.0.0
 ENV PORT=4321
 EXPOSE 4321
-ENV MAX_DAILY_EMAILS=100
 
-COPY --from=build /app/node_modules node_modules
-COPY --from=build /app/db.sqlite db.sqlite
-COPY --from=build /app/dist/ .
+ARG LOCAL_SMTP_HOST
+ARG LOCAL_SMTP_PASSWORD
+ARG LOCAL_SMTP_PORT
+#ENV LOCAL_SMTP_ENVELOPE_FROM=$LOCAL_SMTP_ENVELOPE_FROM \
+#ENV  LOCAL_SMTP_USER=$LOCAL_SMTP_USER \
+  #LOCAL_SMTP_HOST=$LOCAL_SMTP_HOST \
+  #LOCAL_SMTP_PASSWORD=$LOCAL_SMTP_PASSWORD \
+#  LOCAL_SMTP_PORT=$LOCAL_SMTP_PORT \
+#  REMOTE_SMTP_HOST=$REMOTE_SMTP_HOST \
+#  REMOTE_SMTP_PORT=$REMOTE_SMTP_PORT \
+#  REMOTE_SMTP_USER=$REMOTE_SMTP_USER \
+#  MAX_DAILY_EMAILS=$MAX_DAILY_EMAILS
 
-CMD ["node", "./server/entry.mjs"]
+RUN npm run build && rm -rf public src
+
+CMD ["node", "./dist/server/entry.mjs"]

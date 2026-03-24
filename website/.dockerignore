@@ -2,6 +2,5 @@
 dist/
 node_modules/
 .dockerignore
-.env
 *.sqlite
 Dockerfile
