@@ -18,7 +18,7 @@
     "@astrojs/sitemap": "^3.7.1",
     "@types/nodemailer": "^7.0.4",
     "astro": "^6.0.8",
-    "astro-gemtext": "git+https://git.joeac.net/joeac/astro-gemtext.git",
+    "astro-gemtext": "git+https://git.joeac.net/joeac/astro-gemtext.git#ab32140ae28ff451447e7b25e24de0a4d46d264d",
     "gemtext": "^0.2.2",
     "markdown-it": "^14.1.0",
     "nodemailer": "^7.0.11",
