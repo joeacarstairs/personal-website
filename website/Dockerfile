@@ -5,7 +5,7 @@ RUN apk add --no-cache git
 COPY package.json package-lock.json ./
 RUN npm install && apk del git
 
-COPY astro.config.mjs ./
+COPY astro.config.mjs redirects.mjs ./
 COPY db ./db/
 ARG DB_URL=file:/app/db.sqlite
 ENV ASTRO_DB_REMOTE_URL=$DB_URL
