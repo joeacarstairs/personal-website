@@ -1,0 +1,8 @@
+# joeac's logs
+
+Hi! I'm Joe Carstairs, and you've found my logs.
+
+=> ./gemlog.gmi    My gemlog
+=> ./idealog.gmi   My idealog
+=> ./lovelog.gmi   My lovelog
+=> ./wishlog.gmi   My wishlog
