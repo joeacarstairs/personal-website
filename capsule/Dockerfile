@@ -25,6 +25,7 @@ RUN crontab -l > crontab.tmp \
 RUN apk --no-cache add \
   gcc # Dependency for agate \
   busybox-openrc # Runs crond with rc-service
+RUN rc-service crond start && rc-update add crond
 COPY --from=agate /root/.cargo/bin/agate /usr/local/bin/agate
 COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
 
@@ -37,4 +38,3 @@ RUN while read feed; do \
 COPY content content
 
 CMD agate --content content/ --addr [::]:1965 --addr 0.0.0.0:1965 --lang en-GB
-
