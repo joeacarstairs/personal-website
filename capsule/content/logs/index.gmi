@@ -1,8 +1,8 @@
 # joeac's logs
 
-Hi! I'm Joe Carstairs, and you've found my logs.
+I told you not to visit this page! There's nothing here you can't get on my homepage. I hope you're disappointed.
 
-=> ./gemlog.gmi    My gemlog
-=> ./idealog.gmi   My idealog
-=> ./lovelog.gmi   My lovelog
-=> ./wishlog.gmi   My wishlog
+=> /                    My homepage (way cooler than this page)
+=> /logs/longlog.gmi    My longlog  (for long posts)
+=> /logs/microlog.gmi   My microlog (for short posts)
+=> /logs/loglog.gmi     My loglog   (all my posts forgathered)

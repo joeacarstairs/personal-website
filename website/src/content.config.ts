@@ -9,7 +9,7 @@ const blog = defineCollection({
     base: "./src/content/blog",
     postprocessSlug: (slug: string) => slug.replaceAll(/^gemlog\//g, ""),
     ignore: [
-      "gemlog/index.gmi",
+      "capsule-longlog/index.gmi",
       /* Some blog posts were ported to gemtext. Don't port them back again:
        * that would lead to duplicates! The originals are likely to be better
        * anyway, as MD/MDX are richer languages. */
