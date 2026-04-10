@@ -33,10 +33,11 @@ COPY comitium-data comitium-data
 COPY feeds.txt feeds.txt
 RUN while read feed; do \
     comitium add --data comitium-data/ "$feed"; \
-  done <feeds.txt \
-  && comitium refresh --data comitium-data/
+  done <feeds.txt
 COPY build_loglog.sh build_loglog.sh
 COPY content content
 RUN /bin/bash ./build_loglog.sh
 
-CMD agate --content content/ --addr [::]:1965 --addr 0.0.0.0:1965 --lang en-GB
+CMD \
+  ( sleep 5; comitium refresh --data comitium-data/ ) & \
+  && agate --content content/ --addr [::]:1965 --addr 0.0.0.0:1965 --lang en-GB
