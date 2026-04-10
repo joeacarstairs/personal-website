@@ -22,9 +22,9 @@ RUN crontab -l > crontab.tmp \
   && crontab crontab.tmp \
   && rm crontab.tmp
 
-RUN apk --no-cache add \
-  gcc # Dependency for agate \
-  busybox-openrc # Runs crond with rc-service
+# gcc is a dependency for agate
+# busybox-openrc provides rc-service, which runs crond
+RUN apk --no-cache add gcc busybox-openrc
 RUN rc-service crond start && rc-update add crond
 COPY --from=agate /root/.cargo/bin/agate /usr/local/bin/agate
 COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
