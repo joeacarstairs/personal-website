@@ -4,19 +4,19 @@ Hi! I'm Joe Carstairs, and you've found my idealog. Sometimes, when I have an id
 
 This list is pretty short just now because I've just started it. Maybe it'll grow! You've got to start some time.
 
-## 7 Apr 2026
+## 2026-04-07
 
 I should write a post based on my dissertation proposal. Someone else might find my reflections on green apocalypse interesting. And it would be cool for me to look back at the end of the project.
 
-## 6 Apr 2026
+## 2026-04-06
 
 I should get a bunch of my pals together and go poetry busking. If we make any money we can go to the pub afterwards.
 
-## 4 Apr 2026
+## 2026-04-04
 
 I should write a post based on the essay I'm writing for my course, Science and Religion in Literature. I could try to explain to a general audience what's going on in the academic science and religion discourse right now, and my argument as to how Philip Pullman's His Dark Materials trilogy could address this.
 
-## Before 1 Apr 2026
+## 2026-04-01
 
 - My current diary is hand-made using a blank notebook and a bunch of felt-tip pens. It was fun to do, but also really time-consuming, and error-prone. Maybe I could write a script to produce the design in PDF? It'd probably go via HTML just because I know how to do things in HTML.
 - I should stop listening to radio and recorded music in my house. Music is played by people, not machines. So-called 'recorded music' is fake.
