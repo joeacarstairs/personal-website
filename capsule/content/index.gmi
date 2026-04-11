@@ -5,7 +5,7 @@ Hi! I'm Joe Carstairs, and you've found my capsule, gemini://joeac.net.
 => /logs/longlog.gmi    My longlog (for long posts)
 => /logs/microlog.gmi   My microlog (for short posts)
 => /logs/loglog.gmi     My loglog (all my posts forgathered)
-=> /logs                An index of all my logs (don't visit this page)
+=> /logs/index.gmi      An index of all my logs (don't visit this page)
 => /feed.gmi            My feed aggregator
 
 Here are some other ways to 'engage' with me on the so-called 'Internet':
