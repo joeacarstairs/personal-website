@@ -6,7 +6,7 @@ Hi! I'm Joe Carstairs, and you've found my microlog. Sometimes, when I think som
 
 I loved this silly post by ew0k.
 
-=> warmedal.se/~bjorn/posts/2025-09-02-married-was-i-scammed.gmi Married! Was I Scammed?
+=> gemini://warmedal.se/~bjorn/posts/2025-09-02-married-was-i-scammed.gmi Married! Was I Scammed?
 
 ## 2026-04-07
 
