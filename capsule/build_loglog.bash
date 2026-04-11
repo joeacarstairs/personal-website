@@ -126,6 +126,6 @@ for ((i=${#dates[@]}-1; i>=0; i--)); do
 done
 
 echo "Cleaning up temporary files..."
-rm -rd "$TMP"
+rm -rf "$TMP"
 
 echo "Done."

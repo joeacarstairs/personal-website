@@ -22,9 +22,10 @@ RUN crontab -l > crontab.tmp \
   && crontab crontab.tmp \
   && rm crontab.tmp
 
-# gcc is a dependency for agate
+# bash is needed to run build_loglog.bash
 # busybox-openrc provides rc-service, which runs crond
-RUN apk --no-cache add gcc busybox-openrc
+# gcc is a dependency for agate
+RUN apk --no-cache add bash busybox-openrc gcc
 RUN rc-service crond start && rc-update add crond
 COPY --from=agate /root/.cargo/bin/agate /usr/local/bin/agate
 COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
@@ -34,9 +35,9 @@ COPY feeds.txt feeds.txt
 RUN while read feed; do \
     comitium add --data comitium-data/ "$feed"; \
   done <feeds.txt
-COPY build_loglog.sh build_loglog.sh
+COPY build_loglog.bash build_loglog.bash
 COPY content content
-RUN /bin/bash ./build_loglog.sh
+RUN ./build_loglog.bash
 
 CMD \
   ( sleep 5; comitium refresh --data comitium-data/ ) & \
