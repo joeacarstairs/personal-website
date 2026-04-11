@@ -35,16 +35,16 @@ read_log_to_tmp()
         echo "
 => $HREF $DATE $NAME
 
-From my gemlog.
+From my $LOG.
 
-=> /gemlog My $LOG" \
+=> /logs/$LOG.gmi My $LOG" \
          >> "$FILENAME"
       fi
     else
       if [[ "$line" =~ (\#+)\ *([0-9]{4}-[0-9]{2}-[0-9]{2})\ * ]]; then
         echo "From my $LOG.
 
-=> /$LOG My $LOG" \
+=> /logs/$LOG.gmi My $LOG" \
           >> "$CURRENT_POST_FILENAME"
         CURRENT_POST_HEADING="${BASH_REMATCH[1]}"
         DATE="${BASH_REMATCH[2]}"
@@ -52,7 +52,7 @@ From my gemlog.
       elif [[ "$line" =~ \#.* ]] && ! [[ "$line" =~ ${CURRENT_POST_HEADING}\#.* ]]; then
         echo "From my $LOG.
 
-=> /$LOG My $LOG" \
+=> /logs/$LOG.gmi My $LOG" \
           >> "$CURRENT_POST_FILENAME"
         CURRENT_POST_HEADING=""
         DATE=""
