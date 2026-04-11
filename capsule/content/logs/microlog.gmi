@@ -50,12 +50,7 @@ I wish I set aside time to read the Bible and read literature and sometimes writ
 
 ## 2026-04-01
 
-- My current diary is hand-made using a blank notebook and a bunch of felt-tip pens. It was fun to do, but also really time-consuming, and error-prone. Maybe I could write a script to produce the design in PDF? It'd probably go via HTML just because I know how to do things in HTML.
-- I should stop listening to radio and recorded music in my house. Music is played by people, not machines. So-called 'recorded music' is fake.
-- I should write a post about self-hosting a Gemini capsule.
-- I should write a post about self-hosting a Website.
-- I should write a post about owning a homelab.
-- I should write a post about biblical inerrancy.
+I should write a post about self-hosting a Gemini capsule.
 
 ## 2026-03-30
 
@@ -68,3 +63,23 @@ I loved the art exhibition today at my church, Bruntsfield Evangelical. I was bl
 ## 2026-02-26
 
 I loved Brave New World by Aldous Huxley. If you ever intend on doing science, having sex or being human, you should read this book.
+
+## 2026-02-01
+
+My current diary is hand-made using a blank notebook and a bunch of felt-tip pens. It was fun to do, but also really time-consuming, and error-prone. Maybe I could write a script to produce the design in PDF? It'd probably go via HTML just because I know how to do things in HTML.
+
+## 2026-01-01
+
+I should stop listening to radio and recorded music in my house. Music is played by people, not machines. So-called 'recorded music' is fake.
+
+## 2025-12-10
+
+I should write a post about biblical inerrancy.
+
+## 2025-11-01
+
+I should write a post about owning a homelab.
+
+## 2025-01-01
+
+I should write a post about self-hosting a Website.
