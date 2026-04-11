@@ -2,3 +2,5 @@
 
 Hi! I'm Joe Carstairs, and you've found my loglog; my log of logs; all my posts of every description, all gathered into one place. If you're really that interested in my posts, I would encourage you to strongly consider the benefits of touching grass.
 
+You should be aware that my build script seems to muck up the dates. Everything seems to be 2 months and 2 days off? I haven't got round to debugging and fixing this yet. Any theories, let me know.
+
