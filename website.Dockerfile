@@ -14,6 +14,12 @@ RUN npm run astro db push
 
 COPY website .
 
+# Some capsule content is symlinked into the website, so
+# we need to copy over the targets of the symlinks
+RUN mkdir -p /capsule/content/logs
+COPY capsule/content/logs/longlog /capsule/content/logs/longlog
+COPY capsule/content/images /capsule/content/images
+
 ENV HOST=0.0.0.0
 ENV PORT=4321
 EXPOSE 4321
@@ -23,17 +29,14 @@ ARG LOCAL_SMTP_PASSWORD
 ARG LOCAL_SMTP_PORT
 #ENV LOCAL_SMTP_ENVELOPE_FROM=$LOCAL_SMTP_ENVELOPE_FROM \
 #ENV  LOCAL_SMTP_USER=$LOCAL_SMTP_USER \
-  #LOCAL_SMTP_HOST=$LOCAL_SMTP_HOST \
-  #LOCAL_SMTP_PASSWORD=$LOCAL_SMTP_PASSWORD \
+#LOCAL_SMTP_HOST=$LOCAL_SMTP_HOST \
+#LOCAL_SMTP_PASSWORD=$LOCAL_SMTP_PASSWORD \
 #  LOCAL_SMTP_PORT=$LOCAL_SMTP_PORT \
 #  REMOTE_SMTP_HOST=$REMOTE_SMTP_HOST \
 #  REMOTE_SMTP_PORT=$REMOTE_SMTP_PORT \
 #  REMOTE_SMTP_USER=$REMOTE_SMTP_USER \
 #  MAX_DAILY_EMAILS=$MAX_DAILY_EMAILS
 
-RUN npm run build #&& rm -rf public src
-
-RUN mkdir -p /capsule/content/logs
-COPY capsule/content/logs/longlog /capsule/content/logs/longlog
+RUN npm run build && rm -rf public src
 
 CMD ["node", "./dist/server/entry.mjs"]
