@@ -19,18 +19,29 @@ const posts = maxEntries === undefined
 	: allPosts.sort(sortByPubDateDescending).slice(0, maxEntries);
 
 const distinctYears: number[] = posts
-	.map(post => post.data.pubDate.getFullYear())
+	.map(post => pubDate(post).getFullYear())
 	.reduce<number[]>((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], [])
 	.sort((a, b) => b - a);
 
 function matchesYear(year: number) {
-	return (post: CollectionEntry<'blog'>) => post.data.pubDate.getFullYear() === year;
+	return (post: CollectionEntry<'blog'>) => pubDate(post).getFullYear() === year;
 }
 
 function sortByPubDateDescending(post1: CollectionEntry<'blog'>, post2: CollectionEntry<'blog'>) {
-	const date1 = post1.data.pubDate.getTime();
-	const date2 = post2.data.pubDate.getTime();
+	const date1 = pubDate(post1).getTime();
+	const date2 = pubDate(post2).getTime();
 	return date2 - date1;
+}
+
+function pubDate(post: CollectionEntry<'blog'>): Date {
+  if (post.data.pubDate) {
+    return post.data.pubDate;
+  }
+  const date = new Date(post.id);
+  if (isNaN(date.valueOf())) {
+    throw new Error(`Post ${post.id} does not have a valid publication date.`);
+  }
+  return date;
 }
 
 const HeadingElem = `h${headingLevel} class="p-name"`;
@@ -61,7 +72,7 @@ const canonicalBlogUrl = new URL('blog', Astro.site)
 				<li class="h-entry">
 					<a class="u-url p-name" href={`/blog/${post.id}`}>{post.data.title}</a>
 					<p class="p-summary" set:html={post.data.description} />
-					<FormattedDate className="dt-published" date={post.data.pubDate} />
+					<FormattedDate className="dt-published" date={pubDate(post)} />
 				</li>
 			)) }
 			</ul>
@@ -72,7 +83,7 @@ const canonicalBlogUrl = new URL('blog', Astro.site)
 				<li class="h-entry">
 					<a class="u-url p-name" href={`/blog/${post.id}`}>{post.data.title}</a>
 					<p class="p-summary" set:html={post.data.description} />
-					<FormattedDate className="dt-published" date={post.data.pubDate} />
+					<FormattedDate className="dt-published" date={pubDate(post)} />
 				</li>
 			)) }
 		</ul>
