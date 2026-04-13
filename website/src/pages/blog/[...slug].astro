@@ -52,9 +52,18 @@ const GemtextHTMLRenderer: Gemtext.Renderer<string> = {
   }
 };
 
+function postProcessGemtextToHtml(html: string): string {
+  html = mergeAdjacentBlockquotes(html);
+  return html;
+}
+
+function mergeAdjacentBlockquotes(html: string): string {
+  return html.replaceAll(/\<\/blockquote\>\<blockquote\>/gm, '<br>');
+}
+
 const post = Astro.props;
 const Content = post.filePath?.endsWith('.gmi')
-  ? Gemtext.parse((post.body ?? '').replace(`# ${post.data.title}`, '')).generate(GemtextHTMLRenderer)
+  ? postProcessGemtextToHtml(Gemtext.parse((post.body ?? '').replace(`# ${post.data.title}`, '')).generate(GemtextHTMLRenderer))
   : (await render(post)).Content;
 ---
 
