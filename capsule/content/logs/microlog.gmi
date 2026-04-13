@@ -2,6 +2,10 @@
 
 Hi! I'm Joe Carstairs, and you've found my microlog. Sometimes, when I think something, I put the thought here. I'm not sure why you'd want to read this, to be honest. I'd recommend turning the computer off and going for a walk instead.
 
+## 2026-04-13
+
+I wish I had a few more fountain pens. Dreadfully useful things.
+
 ## 2026-04-11
 
 I should make sure that folk on my Website know how to subscribe to my logs, and how to get to my Gemini capsule. That is, I should write a guide to RSS and a guide to Gemini, and make them accessible from my homepage.
