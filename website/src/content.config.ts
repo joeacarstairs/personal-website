@@ -7,7 +7,7 @@ const blog = defineCollection({
   loader: extendedGlob({
     pattern: "**/*.(md|mdx|gmi|html)",
     base: "./src/content/blog",
-    postprocessSlug: (slug: string) => slug.replaceAll(/^gemlog\//g, ""),
+    postprocessSlug: (slug: string) => slug.replaceAll(/^capsule-longlog\//g, ""),
     ignore: [
       "capsule-longlog/index.gmi",
       /* Some blog posts were ported to gemtext. Don't port them back again:
