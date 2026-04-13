@@ -60,7 +60,7 @@ Where green apocalypse succeeds, it succeeds by delving into the riches of myth-
 
 In ‘The Lost Words,’ apparently ordinary characters from the British environment – as ordinary as dandelions, acorns, and ferns – are depicted in beautiful illustrated portraits on gold leaf, in the manner of a religious icon. In the pages in-between, illustrations of fields, thickets, and moors are scattered with a jumble of golden letters, waiting to be assembled. Each icon is accompanied by an acrostic poem. Consider ‘Bramble’:
 
-=> /logs/longlong/2026-04-12_bramble.webp ‘Bramble’ icon
+=> /images/longlog/2026-04-12_bramble.webp ‘Bramble’ icon
 
 > Bramble is on the march again,
 > Rolling and arching along the hedges,
@@ -79,7 +79,7 @@ In ‘The Lost Words,’ apparently ordinary characters from the British environ
 
 Picture it! The human world tied up, people pushed out. Bramble barging through, conquering cities, streets, houses. Bramble is on the march again. It is decisively not fact-speak. It is imaginative – myth-speak, perhaps?
 
-You could also study ‘Weasel,’ who ‘acts on land like spark on tinder – / Scorches grass, turns fields to pyre, sand to glass, tree to cinder.’ Or there is willow, the wise one, who will never, can never, share willow-wisdom with us: ‘ou will never know a word of willow – for we are willow and you are not.’
+You could also study ‘Weasel,’ who ‘acts on land like spark on tinder – / Scorches grass, turns fields to pyre, sand to glass, tree to cinder.’ Or there is willow, the wise one, who will never, can never, share willow-wisdom with us: ‘you will never know a word of willow – for we are willow and you are not.’
 
 My thoughts are not quite there yet, but I sense there’s something here. We’re not just being given a scientific account of bramble, weasel, willow. We’re being given more than that – a mythic account, peeling back ordinary reality to find something more precious behind. Can this refocus our eyes on what really matters? Can this transcend eco-anxiety? Can this ground hope instead of despair?
 
@@ -94,4 +94,3 @@ Since I have fixed the concept ‘apocalypse’ into the scope of my project, th
 Therefore, my project amounts to an attempt to explain (at least) one way in which the Apocalypse might have once grounded hope instead of despair, and then to explore how green stories can do something similar today.
 
 I’ll be handing this in on the 5th of August. Wish me luck!
-

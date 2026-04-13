@@ -7,7 +7,8 @@ services:
 
   website:
     build:
-      context: website
+      context: .
+      dockerfile: website.Dockerfile
       args:
         LOCAL_SMTP_HOST: smtp
         LOCAL_SMTP_PORT: 2500

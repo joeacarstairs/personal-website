@@ -2,7 +2,7 @@
 
 I've been sprucing up how I follow what's happening on the Internet. I can now read all the things I want to read pretty efficiently, and enjoy doing it, which is exciting.
 
-Published on: 19 Jan 2025 
+Published on: 19 Jan 2025
 
 ## The problem
 
@@ -18,7 +18,7 @@ For a while, I've been hosting CommaFeed on PikaPods. This has been OK (OMG, RSS
 
 => https://www.commafeed.com
 => https://www.pikapods.com
-=> gemini://joeac.net/blog/2024/05-02_no_more_youtube 
+=> gemini://joeac.net/blog/2024/05-02_no_more_youtube
 
 It also hasn't been any good for distinguishing between stuff I don't want to read *ever*, and stuff I don't want to read *right now* but will get round to later. I could in theory use the bookmarking feature built-in to my browser, but removing things after I've read them is too clunky, so I don't do it.
 
@@ -26,14 +26,14 @@ It also hasn't been any good for distinguishing between stuff I don't want to re
 
 Every morning, I open my terminal and run newsboat.
 
-=> https://newsboat.org 
-=> ./2025-01-19_newsboat.webp newsboat showing how many unread posts I have at a glance in the opening view
+=> https://newsboat.org
+=> /images/longlog/2025-01-19_newsboat.webp newsboat showing how many unread posts I have at a glance in the opening view
 
 I know the unread count is pretty fresh, because I've set up a systemd service to run newsboat at startup to fetch the feeds.
 
 I press `l` twice to open a post. Then I press `n` to navigate to the next unread post until I run out of unread posts.
 
-=> ./2025-01-19_newsboat-post.webp newsboat displaying a post
+=> /images/longlog/2025-01-19_newsboat-post.webp newsboat displaying a post
 
 If I encounter something I want to read later, but don't have time right now, I press `b`, which runs a home-made bookmarking script. Here it is:
 
@@ -56,8 +56,8 @@ I can also run this script manually and pass it a URL of my choice at any time, 
 
 When I want to read from my reading list, I run `readnow.sh`, which simply opens my reading list folder, `~/readlist/unread`, in my terminal file browser of choice: namely, ranger.
 
-=> https://ranger.github.io 
-=> ./2025-01-19_ranger.webp ranger showing the contents of my reading list with a preview
+=> https://ranger.github.io
+=> /images/longlog/2025-01-19_ranger.webp ranger showing the contents of my reading list with a preview
 
 Although ranger has a preview, I'll typically open the file up in my terminal web browser of choice, which is w3m (plus a couple of custom key-bindings).
 
@@ -76,7 +76,7 @@ I've configured this to be my preferred web browser in ranger by shifting it to 
 
 Having configured my default web browser in my ranger config, all I need to do is press `l`.
 
-=> ./2025-01-19_w3m.webp A post displaying in w3m
+=> /images/longlog/2025-01-19_w3m.webp A post displaying in w3m
 
 No ads, no cookie popups, no giant banner images taking 2 seconds to load and shifting the content all over the place: just the text I want to read. Isn't it beautiful?
 
@@ -113,12 +113,12 @@ I can now keep up to date, and I enjoy doing it.
 
 I get not everyone likes to live in the terminal. I think the key takeaways are:
 
-* Make it really easy to sift through new posts 
-* When you sift, sift through every post, and for each one, either read it straight away, or add it to your reading list 
-* Sift daily 
-* Make it really easy to add things to your reading list 
-* Make it really easy to browse, read things, and mark things read in your reading list 
-* Set aside time to catch up on your reading list 
+* Make it really easy to sift through new posts
+* When you sift, sift through every post, and for each one, either read it straight away, or add it to your reading list
+* Sift daily
+* Make it really easy to add things to your reading list
+* Make it really easy to browse, read things, and mark things read in your reading list
+* Set aside time to catch up on your reading list
 * Make the whole thing joyful (both because joy is good, and because you won't do it otherwise)
 
 ## Next steps
@@ -127,11 +127,10 @@ I still haven't really figured out social media. I'd like to stay up to date wit
 
 I still need to know:
 
-* Are my friends posting stuff on the Internet? 
-* If so, where? 
-* What's the best way of subscribing to their posts 
-* even if they live on different websites and in different formats? 
+* Are my friends posting stuff on the Internet?
+* If so, where?
+* What's the best way of subscribing to their posts
+* even if they live on different websites and in different formats?
 * What's the best way of sending and receiving comments/replies/reactions?
 
 TBC. Answers on a postcard please.
-

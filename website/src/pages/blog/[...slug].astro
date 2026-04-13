@@ -31,6 +31,11 @@ const GemtextHTMLRenderer: Gemtext.Renderer<string> = {
     return `<p>${htmlEscape(content)}</p>`
   },
   link: function (url: string, alt: string): string {
+    url = url.replaceAll(/^\/images\//g, '/images/capsule/');
+    const imgExtensions: (string | undefined)[] = ['webp', 'png', 'svg', 'gif', 'jpg', 'jpeg', 'apng']
+    if (imgExtensions.includes(url.split('.').at(-1)?.toLowerCase())) {
+      return `<img src="${url}" alt="${alt}" />`;
+    }
     return `<p>=> <a href="${url}">${alt}</a></p>`;
   },
   preformatted: function (content: string[], alt: string): string {
