@@ -7,3 +7,4 @@ https://www.inkandswitch.com/index.xml
 https://euhwc.co.uk/feed/
 https://www.youtube.com/feeds/videos.xml?channel_id=UCVfwlh9XpX2Y_tQfjeln9QA
 https://www.youtube.com/feeds/videos.xml?channel_id=UCfJxmjbygyA5KEdzzZv6Pbw
+gemini://eph.smol.pub/posts
