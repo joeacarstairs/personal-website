@@ -36,6 +36,7 @@ RUN while read feed; do \
     comitium add --data comitium-data/ "$feed"; \
   done <feeds.txt
 COPY build_loglog.bash build_loglog.bash
+COPY loglog-header.gmi loglog-header.gmi
 COPY content content
 RUN ./build_loglog.bash
 
