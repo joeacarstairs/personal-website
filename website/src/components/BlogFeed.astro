@@ -66,6 +66,8 @@ const canonicalBlogUrl = new URL('blog', Astro.site)
 		</p>
 	</aside>
 
+	<slot />
+
 	{ hideSubheadings
 	  ? <ul>
 			{ posts.sort(sortByPubDateDescending).map(post => (

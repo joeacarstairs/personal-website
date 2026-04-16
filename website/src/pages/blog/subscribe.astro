@@ -1,0 +1,90 @@
+---
+import Page from "../../layouts/Page.astro";
+
+---
+
+<Page
+  title="How to subscribe to joeac's blog"
+  description="How to subscribe to joeac's blog"
+>
+  <section>
+    <h1>How to subscribe to my blog</h1>
+
+    <p>
+      The short version: use my <a href="/blog/rss.xml">RSS file</a> or my
+      <a href="gemini://joeac.net/logs/longlog.gmi">gemlog</a>.
+    </p>
+
+    <p>
+      If neither of those things means anything to you, no worries. You could
+      just look at my website every once in a while, but that gets old. A better
+      way is to use my RSS file. Here's how.
+    </p>
+
+    <p>
+      An RSS file, if you don't know, is a file containing a list of posts in a
+      format that's so stupid even computers can understand it. Mine is at
+      <a href="https://joeac.net/blog/rss.xml">https://joeac.net/blog/rss.xml</a>.
+      Since computers can understand it, you can get software to read it
+      automatically and tell you when I've made a new blog post. That's much less
+      hassle than having to check manually yourself!
+    </p>
+
+    <p>
+      I'm not the only person serving RSS files, of course. You might not have
+      heard of them, but they're actually all over the Web. In the early days of
+      the Web, everyone was using them, so they've ended up built in to a whole
+      load of foundational Web technology, and hence ubiquitous, even if most
+      Web users have forgotten they exist. Once you've subscribed to my blog,
+      you can subscribe to basically any blog, podcast, or YouTube channel, and
+      a lot of other Websites for news, organisations, whatever. Point a
+      well-designed RSS aggregator or RSS reader at most Websites, and it'll
+      automatically find an associated RSS feed.
+    </p>
+
+    <p>
+      If you're not persuaded, try reading
+      <a href="https://doctorow.medium.com/you-should-be-using-an-rss-reader-76aed31151f9">
+        Cory Doctorow explaining why RSS is ridiculously good
+      </a>. He's terrifyingly persuasive. Also, read his novels!
+    </p>
+
+    <p>
+      If you just want to give it a go quickly, probably the quickest way is to
+      use someone else's RSS aggregator that they'll let you use as a service.
+      <a href="https://feedly.com/news-reader">Feedly</a> and
+      <a href="https://www.inoreader.com">Inoreader</a> have free tiers.
+    </p>
+
+    <p>
+      If you want to have a little more control, you can self-host an RSS
+      reader, like <a href="https://tt-rss.org">Tiny Tiny RSS</a>,
+      <a href="https://miniflux.app">Miniflux</a>, or
+      <a href="https://freshrss.org">FreshRSS</a>. But why would you do that?
+      Self-hosting is complicated. Why not just use a normal, local app? Here are
+      some options for that you might want to investigate. All these are active
+      free and open-source software projects at the time of writing.
+    </p>
+
+    <ul>
+      <li><a href="https://hyliu.me/fluent-reader">Fluent Reader</a> (Linux, Windows, Mac, also mobile I think?)</li>
+      <li><a href="https://www.rssowl.org">RSSOwl</a> (Linux, Windows, Mac)</li>
+      <li><a href="https://capyreader.com">Capy Reader</a> (Android)</li>
+      <li><a href="https://apps.kde.org/en-gb/akregator">Akregator</a> (Linux, Windows (unstable))</li>
+      <li><a href="https://gfeeds.gabmus.org">GFeeds</a> (Linux)</li>
+      <li><a href="https://lzone.de/liferea">Liferea</a> (Linux)</li>
+    </ul>
+
+    <p>
+      For the terminally geeky, there is also
+      <a href="https://newsboat.org">Newsboat</a>. I used it for ages, it works
+      fabulously, but it's all in the terminal, so you have to be OK with that.
+    </p>
+
+    <p>
+      You can also just enter 'RSS feed reader' into your favourite search
+      engine, software distribution, or app store and see what comes up. Try
+      adding 'FOSS' into the query to prioritise free, open-source software.
+    </p>
+  </section>
+</Page>
