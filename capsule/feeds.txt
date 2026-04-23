@@ -9,3 +9,4 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCVfwlh9XpX2Y_tQfjeln9QA
 https://www.youtube.com/feeds/videos.xml?channel_id=UCfJxmjbygyA5KEdzzZv6Pbw
 gemini://eph.smol.pub/posts
 https://mwgmac.github.io --watch
+https://dieterhelm.co.uk/feed/
