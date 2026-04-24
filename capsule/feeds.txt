@@ -12,3 +12,4 @@ gemini://eph.smol.pub/posts
 https://mwgmac.github.io --watch
 https://dieterhelm.co.uk/feed/
 https://extinctionrebellion.uk/feed/
+https://pluralistic.net/feed/
