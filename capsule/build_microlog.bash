@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MICROLOG="content/logs/microlog.gmi"
-MICROLOG_HEADER="microlog-header.gmi"
+MICROLOG_HEADER="templates/microlog-header.gmi"
 MICROLOG_SRC_DIR="microlog"
 HR="-----------------------------------------------------------------------"
 

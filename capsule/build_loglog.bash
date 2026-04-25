@@ -2,7 +2,7 @@
 
 TMP="tmp-build-loglog-$(date +%s%N)"
 LOGLOG="content/logs/loglog.gmi"
-LOGLOG_HEADER="loglog-header.gmi"
+LOGLOG_HEADER="templates/loglog-header.gmi"
 
 new_filename()
 {
