@@ -14,11 +14,8 @@ RUN npm run astro db push
 
 COPY website .
 
-# Some capsule content is symlinked into the website, so
-# we need to copy over the targets of the symlinks
-RUN mkdir -p /capsule/content/logs
-COPY capsule/content/logs/longlog /capsule/content/logs/longlog
-COPY capsule/content/images /capsule/content/images
+RUN mkdir -p /common
+COPY common /common
 
 ENV HOST=0.0.0.0
 ENV PORT=4321
