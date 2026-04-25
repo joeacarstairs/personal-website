@@ -1,10 +1,9 @@
 import * as Gemtext from "gemtext";
 
-export function renderGemtextToHtml(gemtext: string, title: string): string {
+export function renderGemtextToHtml(gemtext: string, title?: string): string {
+  gemtext = title ? gemtext.replace(`# ${title}`, "") : gemtext;
   return postProcessGemtextToHtml(
-    Gemtext.parse(gemtext.replace(`# ${title}`, "")).generate(
-      GemtextHTMLRenderer,
-    ),
+    Gemtext.parse(gemtext).generate(GemtextHTMLRenderer),
   );
 }
 
