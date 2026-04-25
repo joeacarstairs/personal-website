@@ -2,20 +2,22 @@
 interface Props {
 	className?: string;
 	date: Date | string;
+	hidden?: boolean;
 }
 
-let { className, date } = Astro.props;
+let { className, date, hidden } = Astro.props;
 if (typeof(date) === 'string') {
 	date = new Date(date);
 }
----
-
-<time datetime={date.toISOString()} class={className ?? ''}>
-	{
-		date.toLocaleDateString('en-GB', {
+const dateStr =
+  date.toLocaleDateString('en-GB', {
 			year: 'numeric',
 			month: 'long',
 			day: 'numeric',
-		})
-	}
-</time>
+		});
+---
+
+{ hidden
+  ? <time datetime={date.toISOString()} class={className ?? ''} hidden>{dateStr}</time>
+  : <time datetime={date.toISOString()} class={className ?? ''}>{dateStr}</time>
+}
