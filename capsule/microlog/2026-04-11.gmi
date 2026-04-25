@@ -1,0 +1,1 @@
+I should make sure that folk on my Website know how to subscribe to my logs, and how to get to my Gemini capsule. That is, I should write a guide to RSS and a guide to Gemini, and make them accessible from my homepage.

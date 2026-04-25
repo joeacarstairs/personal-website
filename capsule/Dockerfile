@@ -33,11 +33,10 @@ COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
 COPY comitium-data comitium-data
 COPY feeds.txt feeds.txt
 RUN while read feed; do \
-    comitium add --data comitium-data/ "$feed"; \
+  comitium add --data comitium-data/ "$feed"; \
   done <feeds.txt
-COPY build_loglog.bash build_loglog.bash
-COPY loglog-header.gmi loglog-header.gmi
-COPY content content
+COPY . .
+RUN ./build_microlog.bash
 RUN ./build_loglog.bash
 
 CMD \

@@ -1,0 +1,1 @@
+My current diary is hand-made using a blank notebook and a bunch of felt-tip pens. It was fun to do, but also really time-consuming, and error-prone. Maybe I could write a script to produce the design in PDF? It'd probably go via HTML just because I know how to do things in HTML.

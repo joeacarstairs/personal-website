@@ -1,3 +1,4 @@
 .certificates
+content/logs/microlog.gmi
 content/logs/loglog.gmi
 tmp-build-loglog-*
