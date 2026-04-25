@@ -24,7 +24,7 @@ Why do I feel like I wrote this? Or like this person stole my opinions somehow?
 
 => gemini://eph.smol.pub/a-book-of-proverbs eph – A Book Of Proverbs
 
-## 2026-04-14
+## 2026-04-14.1
 
 ‘Losing Eden’ by Lucy Jones left me feeling hopeful, inspired. But I can’t imagine what I shall do, and it’s driving me nuts. What I really want is to form a joy brigade at Bruntsfield Evangelical that goes outside regularly, to ‘touch nature from the inside.’ But I tried that before, and no one signed up, and I have no idea how to persuade people to sign up to things, or what sort of thing I could run instead that people would sign up to. And now I feel depressed. I feel I want to do something, and I can do something, but no one will back me up, presumably because there’s something wrong with me.
 
@@ -44,7 +44,7 @@ I wish I had a few more fountain pens. Dreadfully useful things.
 
 I should make sure that folk on my Website know how to subscribe to my logs, and how to get to my Gemini capsule. That is, I should write a guide to RSS and a guide to Gemini, and make them accessible from my homepage.
 
-## 2026-04-11
+## 2026-04-11.1
 
 I went through my work diary from semester 1, and remembered that I came up with a few fun and productive ways of digesting what I'd learned! I wrote a very personal and temporary catechism, summarising important opinions that I had formed, I wrote down a list of quality questions I'd encountered, and I wrote a couple of stories/essays for my longlog. I should totally do all these things again: Semester 2 Edition.
 
@@ -62,7 +62,7 @@ I should write a post based on my dissertation proposal. Someone else might find
 
 I should get a bunch of my pals together and go poetry busking. If we make any money we can go to the pub afterwards.
 
-## 2026-04-06
+## 2026-04-06.1
 
 I'd love to get to know more myths and fairy tales. I'd love a good translation of the Odyssey, or a good telling of other Greek myths, or Neil Gaiman's Norse myths, or some sagas, or…
 
@@ -70,7 +70,7 @@ I'd love to get to know more myths and fairy tales. I'd love a good translation 
 
 I loved the Easter homily at Sacred Heart of Jesus on Lauriston Street, Edinburgh. I loved it because I couldn't predict where it was going, which meant I had to listen and think. It got me thinking about scapegoating. I agree that there's something a bit morally gross about scapegoating, and I see the connection he made with the theory of penal substitution. I think the priest missed the Lev 16 connection, though, which I think is pretty important.
 
-## 2026-04-05
+## 2026-04-05.1
 
 I had an unexpected craving to go back to The Elder Scrolls III: Morrowind, a computer game I was obsessed with between the ages of about 16 and 18. I actually got as far as looking at prices for GPUs. I don't currently have a GPU in my computer, since I haven't played computer games for years. Playing Morrowind with enough mods to make it fun would require a GPU of some kind, though I find it really hard to judge what card would be appropriate. In the end, I remembered that I actually quite like not being addicted to computer games, and the sudden craving gradually faded.
 
@@ -78,7 +78,7 @@ I had an unexpected craving to go back to The Elder Scrolls III: Morrowind, a co
 
 I wish I had a copy of Shakespeare's sonnets. I'd love to memorise Sonnet 18.
 
-## 2026-04-04
+## 2026-04-04.1
 
 I should write a post based on the essay I'm writing for my course, Science and Religion in Literature. I could try to explain to a general audience what's going on in the academic science and religion discourse right now, and my argument as to how Philip Pullman's His Dark Materials trilogy could address this.
 
@@ -94,7 +94,7 @@ I wish there was a version of the Bible that was like the Authorised Version but
 
 I wish I set aside time to read the Bible and read literature and sometimes write sonnets.
 
-## 2026-04-01
+## 2026-04-01.1
 
 I should write a post about self-hosting a Gemini capsule.
 

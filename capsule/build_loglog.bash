@@ -23,11 +23,11 @@ read_log_to_tmp()
   CURRENT_POST_FILENAME=""
   while read line; do
     if [[ -z "$CURRENT_POST_FILENAME" ]]; then
-      if [[ "$line" =~ (\#+)\ *([0-9]{4}-[0-9]{2}-[0-9]{2})\ * ]]; then
+      if [[ "$line" =~ (\#+)\ *([0-9]{4}-[0-9]{2}-[0-9]{2})(\.[0-9]+)?\ * ]]; then
         CURRENT_POST_HEADING="${BASH_REMATCH[1]}"
         DATE="${BASH_REMATCH[2]}"
         CURRENT_POST_FILENAME="$(new_filename $DATE)"
-      elif [[ "$line" =~ \=\>\ +([^\ ]+)\ +([0-9]{4}-[0-9]{2}-[0-9]{2})\ +(.*) ]]; then
+      elif [[ "$line" =~ \=\>\ +([^\ ]+)\ +([0-9]{4}-[0-9]{2}-[0-9]{2})(\.[0-9]+)?\ +(.*) ]]; then
         HREF="${BASH_REMATCH[1]}"
         DATE="${BASH_REMATCH[2]}"
         NAME="${BASH_REMATCH[3]}"
