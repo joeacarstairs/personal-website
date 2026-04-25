@@ -1,0 +1,100 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+import { renderGemtextToHtml } from '../renderGemtextToHtml';
+
+export interface Props {
+	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6,
+	hideAuthor?: boolean,
+	hideSubheadings?: boolean,
+	maxEntries?: number,
+};
+
+const { headingLevel = 2, hideSubheadings = false, hideAuthor = false, maxEntries } = Astro.props;
+
+const allPosts = await getCollection('microlog');
+
+const posts = maxEntries === undefined
+	? allPosts
+	: allPosts.sort(sortByIdDescending).slice(0, maxEntries);
+
+const distinctYears: number[] = posts
+	.map(post => pubDate(post).getFullYear())
+	.reduce<number[]>((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], [])
+	.sort((a, b) => b - a);
+
+function matchesYear(year: number) {
+	return (post: CollectionEntry<'microlog'>) => pubDate(post).getFullYear() === year;
+}
+
+function sortByIdDescending(post1: CollectionEntry<'microlog'>, post2: CollectionEntry<'microlog'>) {
+	return post2.id.localeCompare(post1.id);
+}
+
+function pubDate(post: CollectionEntry<'microlog'>): Date {
+  console.warn(post.id);
+  const date = new Date(post.id.replace(/\.[0-9]+$/g, ''));
+  if (isNaN(date.valueOf())) {
+    throw new Error(`Post ${post.id} does not have a valid publication date.`);
+  }
+  return date;
+}
+
+const HeadingElem = `h${headingLevel} class="p-name"`;
+const SubHeadingElem = `h${headingLevel + 1}`;
+const SubSubHeadingElem = `h${headingLevel + 2}`;
+const AuthorElem = `p${hideAuthor ? " hidden" : ""}`;
+
+const canonicalMicrologUrl = new URL('microlog', Astro.site)
+---
+
+<section class="h-feed">
+	<HeadingElem>
+		My microlog
+	</HeadingElem>
+
+	<aside>
+		<AuthorElem>
+			This microlog is written by <a class="p-author h-card" href="/">Joe Carstairs</a>
+		</AuthorElem>
+
+		<p hidden>
+			<a class="u-url" href={canonicalMicrologUrl}>Permalink</a>
+		</p>
+	</aside>
+
+	<slot />
+
+	{ hideSubheadings
+	  ? <ul>
+			{ posts.sort(sortByIdDescending).map(post => (
+				<li class="h-entry">
+  				<SubSubHeadingElem>
+    				<a class="u-url p-name" href={`/microlog/${post.id}`}>{post.id}</a>
+  				</SubSubHeadingElem>
+					<section class="e-content" set:html={post.body} />
+					<FormattedDate hidden={true} className="dt-published" date={pubDate(post)} />
+				</li>
+			)) }
+			</ul>
+	  : distinctYears.map(year => (
+		<SubHeadingElem>{year}</SubHeadingElem>
+		<ul>
+			{ posts.filter(matchesYear(year)).sort(sortByIdDescending).map(post => (
+				<li class="h-entry">
+  				<SubSubHeadingElem>
+    				<a class="u-url p-name" href={`/microlog/${post.id}`}>{post.id}</a>
+  				</SubSubHeadingElem>
+					<section class="e-content" set:html={renderGemtextToHtml(post.body ?? '')} />
+					<FormattedDate hidden={true} className="dt-published" date={pubDate(post)} />
+				</li>
+			)) }
+		</ul>
+	)) }
+
+	{ (maxEntries !== undefined && maxEntries < allPosts.length)
+		? <p class="full-feed-link"><a href="/microlog">All microlog posts</a></p>
+		: <></>
+	}
+</section>
