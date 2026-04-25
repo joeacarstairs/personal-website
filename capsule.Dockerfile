@@ -36,6 +36,7 @@ RUN while read feed; do \
   comitium add --data comitium-data/ "$feed"; \
   done <feeds.txt
 COPY capsule .
+COPY common /var/common
 RUN ./build_microlog.bash
 RUN ./build_loglog.bash
 
