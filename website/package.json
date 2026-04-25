@@ -5,6 +5,7 @@
     "start": "astro build --remote && node ./dist/server/entry.mjs",
     "build": "astro build --remote",
     "preview": "astro preview",
+    "sync": "astro sync",
     "astro": "astro"
   },
   "engines": {
