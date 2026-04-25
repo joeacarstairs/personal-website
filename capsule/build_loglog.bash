@@ -87,7 +87,7 @@ trim_entries()
 append_entries_for_date()
 {
   DATE_DIR="$1"
-  DATE="$(echo "$DATE" | sed "s/.*\///g")"
+  DATE="$(echo "$DATE_DIR" | sed "s/.*\///g")"
   echo "## $DATE
 " >> "$LOGLOG"
   ENTRY_COUNT="$(ls $DATE_DIR | wc -l)"
