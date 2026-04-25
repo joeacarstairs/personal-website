@@ -69,10 +69,10 @@ trim_entries()
   ENTRY_DIR="$1"
   for entry in $ENTRY_DIR/*; do
     while [[ -z "$(head -n 1 "$entry")" && "$(wc -l "$entry" | cut -c1)" -ne 0 ]]; do
-      tail -n +2 "$entry" | tee "$entry" 1>0
+      tail -n +2 "$entry" | tee "$entry" 1>/dev/null
     done
     while [[ -z "$(tail -n 1 "$entry")" && "$(wc -l "$entry" | cut -c1)" -ne 0 ]]; do
-      head -n -1 "$entry" | tee "$entry" 1>0
+      head -n -1 "$entry" | tee "$entry" 1>/dev/null
     done
     if [[ -z "$(cat "$entry")" ]]; then
       echo "Removing entry $entry: $(cat $entry)"
