@@ -1,0 +1,43 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Navbar from '../components/Navbar.astro';
+
+type Props = {
+  pubDate: Date;
+  title: string;
+}
+
+const { pubDate, title } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={`${title} | joeac’s microlog`} description={`${title} | joeac's microlog`} />
+		<link rel="stylesheet" href="/css/blog.css">
+	</head>
+
+	<body>
+		<Navbar />
+		<article class="h-entry">
+			<aside>
+				<span>
+					This is a <a href="/microlog">microlog</a> post by
+					<a class="p-author h-card" href="/">Joe Carstairs</a>.
+				</span>
+				<span>Published: <FormattedDate date={pubDate} className="dt-published"/>.</span>
+				<span hidden><a class="u-url uid" href={canonicalUrl}>Permalink</a></span>
+	  		</aside>
+
+			<header>
+				<h1 class="h-name">{title}</h1>
+			</header>
+
+			<section class="e-content">
+			  <slot />
+			</section>
+		</article>
+	</body>
+</html>
