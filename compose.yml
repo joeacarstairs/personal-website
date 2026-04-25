@@ -1,7 +1,8 @@
 services:
   capsule:
     build:
-      context: capsule
+      context: .
+      dockerfile: capsule.Dockerfile
     ports:
       - "1965:1965"
 

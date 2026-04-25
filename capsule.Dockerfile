@@ -16,7 +16,7 @@ RUN wget -O - https://git.sr.ht/~nytpu/comitium/archive/v1.8.2.tar.gz | tar -xz 
 FROM alpine:3.23 AS final
 RUN mkdir -p /var/app/content
 WORKDIR /var/app
-COPY .certificates .certificates
+COPY capsule/.certificates .certificates
 RUN crontab -l > crontab.tmp \
   && echo "0 */6 * * * /usr/local/bin/comitium refresh --data /var/app/comitium-data" >> crontab.tmp \
   && crontab crontab.tmp \
@@ -30,12 +30,12 @@ RUN rc-update add crond
 COPY --from=agate /root/.cargo/bin/agate /usr/local/bin/agate
 COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
 
-COPY comitium-data comitium-data
-COPY feeds.txt feeds.txt
+COPY capsule/comitium-data comitium-data
+COPY capsule/feeds.txt feeds.txt
 RUN while read feed; do \
   comitium add --data comitium-data/ "$feed"; \
   done <feeds.txt
-COPY . .
+COPY capsule .
 RUN ./build_microlog.bash
 RUN ./build_loglog.bash
 
