@@ -1,4 +1,5 @@
 .certificates
 content/logs/microlog.gmi
+content/logs/longlog.gmi
 content/logs/loglog.gmi
 tmp-build-loglog-*

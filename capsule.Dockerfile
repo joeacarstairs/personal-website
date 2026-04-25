@@ -38,6 +38,7 @@ RUN while read feed; do \
 COPY capsule .
 COPY common /var/common
 RUN ./build_microlog.bash
+RUN ./build_longlog.bash
 RUN ./build_loglog.bash
 
 CMD \
