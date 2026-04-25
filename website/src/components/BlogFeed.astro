@@ -46,6 +46,7 @@ function pubDate(post: CollectionEntry<'blog'>): Date {
 
 const HeadingElem = `h${headingLevel} class="p-name"`;
 const SubHeadingElem = `h${headingLevel + 1}`;
+const SubSubHeadingElem = `h${headingLevel + 2}`;
 const AuthorElem = `p${hideAuthor ? " hidden" : ""}`;
 
 const canonicalBlogUrl = new URL('blog', Astro.site)
@@ -72,7 +73,9 @@ const canonicalBlogUrl = new URL('blog', Astro.site)
 	  ? <ul>
 			{ posts.sort(sortByPubDateDescending).map(post => (
 				<li class="h-entry">
-					<a class="u-url p-name" href={`/blog/${post.id}`}>{post.data.title}</a>
+  				<SubSubHeadingElem>
+  					<a class="u-url p-name" href={`/blog/${post.id}`}>{post.data.title}</a>
+  				</SubSubHeadingElem>
 					<p class="p-summary" set:html={post.data.description} />
 					<FormattedDate className="dt-published" date={pubDate(post)} />
 				</li>
@@ -83,7 +86,9 @@ const canonicalBlogUrl = new URL('blog', Astro.site)
 		<ul>
 			{ posts.filter(matchesYear(year)).sort(sortByPubDateDescending).map(post => (
 				<li class="h-entry">
-					<a class="u-url p-name" href={`/blog/${post.id}`}>{post.data.title}</a>
+  				<SubSubHeadingElem>
+  					<a class="u-url p-name" href={`/blog/${post.id}`}>{post.data.title}</a>
+  				</SubSubHeadingElem>
 					<p class="p-summary" set:html={post.data.description} />
 					<FormattedDate className="dt-published" date={pubDate(post)} />
 				</li>
