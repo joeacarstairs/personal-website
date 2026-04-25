@@ -1,0 +1,26 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import MicrologPost from '../../layouts/MicrologPost.astro';
+import { renderGemtextToHtml } from '../../renderGemtextToHtml';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('microlog');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'microlog'>;
+
+const { id: slug, body } = Astro.props;
+const pubDateStr = slug.replaceAll(/\.[0-9]+/g, '');
+const pubDate = new Date(pubDateStr);
+if (isNaN(pubDate.valueOf())) {
+  throw new Error(`Could not construct a valid publication date for microlog post: ${slug}`);
+}
+const Content = renderGemtextToHtml(body ?? '', pubDateStr);
+---
+
+<MicrologPost pubDate={pubDate} title={pubDateStr}>
+  <Fragment set:html={Content}></Fragment>
+</MicrologPost>
