@@ -1,0 +1,13 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import MicrologFeed from '../../components/MicrologFeed.astro';
+import Page from '../../layouts/Page.astro';
+---
+
+<Page title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<MicrologFeed headingLevel={1}>
+    <!-- <section>
+      <p><a href="/blog/subscribe">How to subscribe to this blog</a></p>
+    </section> -->
+	</MicrologFeed>
+</Page>
