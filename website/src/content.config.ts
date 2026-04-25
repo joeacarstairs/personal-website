@@ -2,6 +2,7 @@ import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 
 import { extendedGlob } from "./loaders/extended-glob";
+import { glob } from "astro/loaders";
 
 const blog = defineCollection({
   loader: extendedGlob({
@@ -49,4 +50,12 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const microlog = defineCollection({
+  loader: glob({
+    pattern: "**/*.gmi",
+    base: "./src/content/microlog",
+    generateId: ({ entry }) => entry.replace(/\.gmi$/, ""),
+  }),
+});
+
+export const collections = { blog, microlog };
