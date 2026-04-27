@@ -1,0 +1,3 @@
+Chris Ferdinandi has a hot take here. I would be keen to test this idea out one day: push the limits of how much complex state you can manage within the light DOM.
+
+=> https://gomakethings.com/state-based-ui-is-an-anti-pattern State-based UI is an anti-pattern

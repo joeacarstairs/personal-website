@@ -1,0 +1,3 @@
+A pretty good case for avoiding the word 'just' in software engineering. I admit I've been guilty, too.
+
+=> https://sgringwe.com/2019/10/10/Please-just-stop-saying-just.html just'

@@ -1,0 +1,3 @@
+ChatGPT 3.5 gives bad answers half the time, and programmers miss the mistakes almost half the time. Be careful out there, folks.
+
+=> https://dl.acm.org/doi/pdf/10.1145/3613904.3642596 Is Stack Overflow Obsolete? An Empirical Study of the Characteristics of ChatGPT Answers to Stack Overflow Questions

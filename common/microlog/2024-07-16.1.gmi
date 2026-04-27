@@ -1,0 +1,3 @@
+ve got many inter-dependent flags. If you have independent flags, re-writing those as enums will just end up with you re-implementing the boolean type for every parameter, and not getting much profit, I reckon.
+
+=> https://www.luu.io/posts/dont-use-booleans Don’t use booleans

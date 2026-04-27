@@ -1,0 +1,3 @@
+I posted on the Scott Logic blog a while ago about how the word 'hallucination' doesn't accurately capture how LLMs work.
+
+=> https://blog.scottlogic.com/2024/09/10/llms-dont-hallucinate.html t 'hallucinate'

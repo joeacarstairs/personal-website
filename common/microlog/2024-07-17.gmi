@@ -1,0 +1,3 @@
+Pretty convincing to me. The biggest potential weakness in his argument is his claim that none of the most common reasons why devs disagree on story points exposes anything which ought to be resolved in an estimation meeting. If you can provide other common reasons besides the ones Dave considered, you could rebut his argument. I don't feel experienced enough to judge this myself.
+
+=> https://blog.scottlogic.com/2024/07/05/story-points-are-wasting-time.html Story points are wasting time

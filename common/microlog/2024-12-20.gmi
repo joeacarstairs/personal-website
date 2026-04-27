@@ -1,0 +1,4 @@
+Handy for the next time you develop a CLI or TUI. Also handy as a user: now I know about readline key bindings, which are everywhere apparently.
+
+=> https://jvns.ca/blog/2024/11/26/terminal-rules "Rules" that terminal programs follow
+=> https://readline.kablamo.org/emacs.html Readline key bindings

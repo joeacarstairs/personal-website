@@ -1,0 +1,3 @@
+Cory Doctorow, writing for the Electronic Frontier Foundation, argues that to save news media, we need to dismantle ad-tech monopolies, ban surveillance advertising, open up app stores and have an end-to-end web.
+
+=> https://eff.org/saving-the-news Saving the News from Big Tech
