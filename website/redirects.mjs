@@ -1,4 +1,6 @@
 export default {
+  "/links": "/microlog",
+  "/links/rss.xml": "/microlog/rss.xml",
   "/blog/2024/10/tracking_pixels": "/blog/2024-04-10",
   "/blog/2024/01/14/sapiens_on_religion": "/blog/2024-01-14",
   "/blog/2024/01/29/euhwc_toast_to_the_lasses_2024": "/blog/2024-01-29",
