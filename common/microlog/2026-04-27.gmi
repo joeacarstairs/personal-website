@@ -1,0 +1,24 @@
+Not long ago, I started hosting on Gemini protocol. I'm fascinated by how the wonder that is the Internet seems to have gone so wrong with the rise of the Web, and Gemini protocol had an exciting proposal for what went wrong and how to fix it.
+
+If you know a little of the technical details about the Web, you'll know that 'the Web' basically refers to five technologies lumped together: the Internet, HTML, TCP/IP, TLS, and DNS.
+
+Gemini then placed the blame for the failure of the Web on HTML and HTTP. Gemini protocol is far simpler than HTTP and is deliberately non-extensible, and encourages authors to use the gemtext document format (in which I'm writing this post!) which is designed on the same principles. The result is something Web-like, but with plain documents that mostly don't do anything.
+
+=> https://geminiprotocol.net About the Gemini protocol
+
+Today, I've just heard about a fairly young network technology called Reticulum.
+
+=> https://reticulum.network/manual/zen.html Foundational philosophy of Reticulum
+=> https://reticulum.network/manual/whatis.html What is Reticulum?
+
+Unlike Gemini, which ditches HTML and HTTP but keeps TCP/IP, TLS, and DNS, Reticulum reforms those latter three technologies. In less geeky speak, Gemini looks at the messages, Reticulum at the medium for transporting the messages.
+
+Some folk might think this is just for the kind of geek that builds home radios. Maybe it is. But maybe it is also a very piercing analysis of why the Web went wrong and a serious, concrete proposal for what to do about it, in which, in principle, anyone with a bit of time, technical knowledge and some old hardware worth a tenner on eBay can participate.
+
+Imagine a world where you can connect to the Internet, get all the gob-stopping advantages of an incomprehensibly cheap, fast, and accessible international communications network, without having to tolerate rent-sucking corporations sitting in the way of the information you want to access, without having to throw away your phone every 2-5 years, without having to fight against systems that seem designed to make your life more difficult instead of easier...
+
+To summarise the headlines:
+
+- No domain names, only cryptographic hashes
+- You take your identity with you, so there is no concept of 'logging in'
+- There is no trust in the system, in contrast to the Web, which depends on total trust in invisible corporations who hold domain name databases and sign TLS certificates
