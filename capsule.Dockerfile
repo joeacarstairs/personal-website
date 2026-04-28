@@ -31,10 +31,9 @@ COPY --from=agate /root/.cargo/bin/agate /usr/local/bin/agate
 COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
 
 COPY capsule/comitium-data comitium-data
-COPY capsule/feeds.txt feeds.txt
 RUN while read feed; do \
   comitium add --data comitium-data/ "$feed"; \
-  done <feeds.txt
+  done <comitium-data/feeds.txt
 COPY capsule .
 COPY common /var/common
 RUN ./build_microlog.bash
