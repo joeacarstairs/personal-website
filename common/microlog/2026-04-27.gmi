@@ -19,6 +19,6 @@ Imagine a world where you can connect to the Internet, get all the gob-stopping 
 
 To summarise the headlines:
 
-- No domain names, only cryptographic hashes
-- You take your identity with you, so there is no concept of 'logging in'
-- There is no trust in the system, in contrast to the Web, which depends on total trust in invisible corporations who hold domain name databases and sign TLS certificates
+* No domain names, only cryptographic hashes
+* You take your identity with you, so there is no concept of 'logging in'
+* There is no trust in the system, in contrast to the Web, which depends on total trust in invisible corporations who hold domain name databases and sign TLS certificates
