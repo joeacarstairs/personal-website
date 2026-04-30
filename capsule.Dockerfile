@@ -25,20 +25,18 @@ RUN crontab -l > crontab.tmp \
 # bash is needed to run the build scripts
 # busybox-openrc provides rc-service, which runs crond
 # gcc is a dependency for agate
-RUN apk --no-cache add bash busybox-openrc gcc
+# make is needed to run the Makefile
+RUN apk --no-cache add bash busybox-openrc gcc make
 RUN rc-update add crond
 COPY --from=agate /root/.cargo/bin/agate /usr/local/bin/agate
 COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
 
 COPY capsule/comitium-data comitium-data
-RUN while read feed; do \
-  comitium add --data comitium-data/ "$feed"; \
-  done <comitium-data/feeds.txt
+COPY capsule/Makefile Makefile
+RUN make add_feeds
 COPY capsule .
 COPY common /var/common
-RUN ./build_microlog.bash
-RUN ./build_longlog.bash
-RUN ./build_loglog.bash
+RUN make
 
 CMD \
   ( ( sleep 5; comitium refresh --data comitium-data/ ) & ) \
