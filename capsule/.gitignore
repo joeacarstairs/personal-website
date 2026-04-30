@@ -3,3 +3,6 @@ content/logs/microlog.gmi
 content/logs/longlog.gmi
 content/logs/loglog.gmi
 tmp-build-loglog-*
+comitium-data/feed.gmi
+comitium-data/subscriptions.gmi
+comitium-data/comitium.json
