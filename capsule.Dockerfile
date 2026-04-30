@@ -22,7 +22,7 @@ RUN crontab -l > crontab.tmp \
   && crontab crontab.tmp \
   && rm crontab.tmp
 
-# bash is needed to run build_loglog.bash
+# bash is needed to run the build scripts
 # busybox-openrc provides rc-service, which runs crond
 # gcc is a dependency for agate
 RUN apk --no-cache add bash busybox-openrc gcc
