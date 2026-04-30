@@ -31,9 +31,6 @@ RUN rc-update add crond
 COPY --from=agate /root/.cargo/bin/agate /usr/local/bin/agate
 COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
 
-COPY capsule/comitium-data comitium-data
-COPY capsule/Makefile Makefile
-RUN make add_feeds
 COPY capsule .
 COPY common /var/common
 RUN make
