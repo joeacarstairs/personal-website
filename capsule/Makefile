@@ -20,5 +20,5 @@ loglog: microlog longlog $(LOGLOG_HEADER)
 add_feeds: $(COMITIUM_DATA)/feeds.txt
 	rm -f $(COMITIUM_DATA)/comitium.json
 	while read feed; do \
-		comitium add --data "$(COMITIUM_DATA)" "$$feed"; \
+		comitium add --data "$(COMITIUM_DATA)" $$feed; \
 	done <$(COMITIUM_DATA)/feeds.txt
