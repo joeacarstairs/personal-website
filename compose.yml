@@ -1,6 +1,6 @@
 services:
   capsule:
-    image: git.joeac.net/joeac/capsule
+    image: git.joeac.net/joeac/joeac.net-capsule
     build:
       context: .
       dockerfile: capsule.Dockerfile
@@ -8,7 +8,7 @@ services:
       - "1965:1965"
 
   website:
-    image: git.joeac.net/joeac/website
+    image: git.joeac.net/joeac/joeac.net-website
     build:
       context: .
       dockerfile: website.Dockerfile
@@ -22,7 +22,7 @@ services:
       - "8000:4321"
 
   smtp:
-    image: git.joeac.net/joeac/smtp
+    image: git.joeac.net/joeac/joeac.net-smtp
     build:
       context: smtp
       args:
