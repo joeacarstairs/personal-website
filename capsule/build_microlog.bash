@@ -30,7 +30,7 @@ for ((i=${#posts[@]}-1; i>=0; i--)); do
     cat "${posts[i]}" >> "$MICROLOG"
     trim_microlog_tail
   else
-    echo "Error: $post does not match format YYYY-MM-DD(.n). Aborting..."
+    echo "Error: ${posts[i]} does not match format YYYY-MM-DD(.n). Aborting..."
     exit 1
   fi
 done
