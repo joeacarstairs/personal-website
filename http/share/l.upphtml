@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en-GB">
+
+<head>
+#!
+pp "${SHARE}"/components/head.upphtml
+#!
+</head>
+
+<body>
+<main>
+#!
+pp "$1"
+#!
+</main>
+</body>
+</html>

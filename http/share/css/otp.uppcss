@@ -1,0 +1,29 @@
+.otp-inputs {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-inline-sm);
+  justify-content: center;
+
+  input {
+    border: none;
+    border-block-end: 2px solid var(--colour-grey-fg);
+    font-size: var(--font-size-lg);
+    text-align: center;
+    width: var(--font-size-lg);
+  }
+}
+
+.otp-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-block-sm);
+
+  > * {
+    margin: 0;
+  }
+
+  input[type="submit"] {
+    max-width: max-content;
+  }
+}

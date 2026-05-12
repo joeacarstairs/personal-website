@@ -1,0 +1,8 @@
+.p-summary {
+  font-style: italic;
+  font-size: var(--font-size-sm);
+}
+
+h1 {
+  margin-block-start: var(--spacing-block-md);
+}
