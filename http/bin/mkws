@@ -11,6 +11,7 @@ test $# -lt 1 && usage
 export SRC="$(realpath src)"
 export SHARE="$(realpath share)"
 export OUT="$(realpath public)"
+mkdir -p ${OUT}
 
 if ! test -f "${SRC}"/index.upphtml
 then
@@ -23,6 +24,17 @@ do
 	echo "Making $(basename "${t%.upphtml}".html)"
 	pp "${SHARE}"/l.upphtml "${t}" "$1" > \
 		"${OUT}/$(basename "${t%.upphtml}".html)"
+done
+
+for t in "${SRC}"/**/*.uppcss
+do
+  t_out="${t%.uppcss}".css
+  t_out="${t_out#${SRC}/}"
+  echo "Making ${t_out}"
+  t_out="${OUT}/${t_out}"
+  mkdir -p "$(dirname "${t_out}")"
+  pp "${t}" "$1" > \
+		"${t_out}"
 done
 
 echo "Making sitemap.xml"
