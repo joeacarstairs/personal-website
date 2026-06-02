@@ -8,6 +8,9 @@ pp "${SHARE}"/components/head.upphtml
 </head>
 
 <body>
+#!
+pp "${SHARE}"/components/navbar.upphtml
+#!
 <main>
 #!
 pp "$1"
