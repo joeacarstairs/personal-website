@@ -1,3 +1,9 @@
+#!
+export TITLE="Joe Carstairs"
+export DESCRIPTION="Joe Carstairs' personal website"
+pp "${SHARE}"/components/meta.upphtml
+#!
+
 <section class="h-card">
   <div>
     <img class="u-photo" src="/images/headshot.webp" height="96" width="96" />
