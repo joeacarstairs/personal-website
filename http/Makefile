@@ -1,4 +1,4 @@
-all: public
+all: clean public
 
 public: $(shell find src -type f) $(shell find share -type f)
 	./bin/mkws https://joeac.net
