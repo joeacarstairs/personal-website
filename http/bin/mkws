@@ -9,9 +9,18 @@ usage() {
 test $# -lt 1 && usage
 
 export SRC="$(realpath src)"
+export PUBLIC="$(realpath public)"
 export SHARE="$(realpath share)"
 export OUT="$(realpath out)"
-mkdir -p ${OUT}
+
+if [ -d "${PUBLIC}" ]
+then
+  echo "Copying from $(basename "${PUBLIC}") into $(basename "${OUT}")"
+  cp -r "${PUBLIC}" "${OUT}"
+else
+  echo "No $(basename "${PUBLIC}") folder found"
+  mkdir -p "${OUT}"
+fi
 
 if ! test -f "${SRC}"/index.upphtml
 then
