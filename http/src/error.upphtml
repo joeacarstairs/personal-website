@@ -1,0 +1,14 @@
+#!
+export TITLE="Got lost?"
+export DESCRIPTION="Error page for Joe Carstairs' personal website"
+pp "${SHARE}"/components/meta.upphtml
+#!
+
+<section>
+  <h1>Got lost?</h1>
+
+  <p>
+    If you’re on this page, something’s probably gone wrong. Try going to
+    my <a href="/">homepage</a> instead.
+  </p>
+</section>
