@@ -32,5 +32,5 @@
 }
 
 .h-feed :is(a.full-feed-link, .full-feed-link a)::after {
-  content: " >";
+  content: ' >';
 }
