@@ -114,7 +114,7 @@ body {
 
   /* Geometric Humanist stack from https://modernfontstacks.com */
   font-family:
-    Avenir, Montserrat, Corbel, "URW Gothic", source-sans-pro, sans-serif;
+    Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
 }
 
 small {
@@ -442,11 +442,11 @@ form {
     margin-block-end: var(--spacing-block-xs);
   }
 
-  * + :is(label, input[type="submit"], button) {
+  * + :is(label, input[type='submit'], button) {
     margin-block-start: var(--spacing-block-md);
   }
 
-  :is(input[type="submit"], input[type="button"], button) {
+  :is(input[type='submit'], input[type='button'], button) {
     padding-inline: var(--spacing-inline-sm);
     max-width: max-content;
     &:not(dialog *) {
@@ -454,7 +454,7 @@ form {
     }
   }
 
-  :is(input[type="email"], input[type="text"], select) {
+  :is(input[type='email'], input[type='text'], select) {
     max-width: 100%;
     width: 16rem;
   }

@@ -27,7 +27,7 @@
   top: -6rem;
 
   /* A content value is needed to get the ::after to render */
-  content: "";
+  content: '';
 }
 
 @media (min-width: 36rem) {
@@ -37,8 +37,8 @@
     grid-template-columns: subgrid; /** Subgrid of main column layout */
     grid-template-rows: min-content 1fr;
     grid-template-areas:
-      "empty heading"
-      "photo text";
+      'empty heading'
+      'photo text';
     column-gap: var(--spacing-block-sm);
   }
 

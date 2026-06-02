@@ -23,7 +23,7 @@
     margin: 0;
   }
 
-  input[type="submit"] {
+  input[type='submit'] {
     max-width: max-content;
   }
 }
