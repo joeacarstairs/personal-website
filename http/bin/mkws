@@ -10,7 +10,7 @@ test $# -lt 1 && usage
 
 export SRC="$(realpath src)"
 export SHARE="$(realpath share)"
-export OUT="$(realpath public)"
+export OUT="$(realpath out)"
 mkdir -p ${OUT}
 
 if ! test -f "${SRC}"/index.upphtml
