@@ -1,0 +1,15 @@
+{
+  "name": "joeacnet/http",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "JoeacNet\\Http\\": "php/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Joe Carstairs",
+      "email": "me@joeac.net"
+    }
+  ]
+}
