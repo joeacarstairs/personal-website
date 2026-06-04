@@ -1,5 +1,24 @@
 <?php namespace JoeacNet\Http\Config;
 
+function maxDailyEmails(): int|null
+{
+  $maxDailyEmails = getenv("MAX_DAILY_EMAILS");
+  if (!is_numeric($maxDailyEmails)) {
+    return null;
+  }
+  return $maxDailyEmails;
+}
+
+function contactMailbox(): string|null
+{
+  return (string) getenv("CONTACT_MAILBOX");
+}
+
+function contactMailboxName(): string|null
+{
+  return (string) getenv("CONTACT_MAILBOX_NAME");
+}
+
 function localSmtpFrom(): string|null
 {
   return (string) getenv("LOCAL_SMTP_FROM");
