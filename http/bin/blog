@@ -37,9 +37,12 @@ layout="default"
 postprocess_cmd="echo"
 use_filenames_for_titles=0
 
-while getopts "i:l:p:t" opt
+while getopts "a:i:l:p:t" opt
 do
   case $opt in
+    a)
+      extract_args_cmd="$OPTARG"
+      ;;
     i)
       log_name="$OPTARG"
       ;;

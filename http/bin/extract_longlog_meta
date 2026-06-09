@@ -1,0 +1,34 @@
+#!/bin/sh -e
+
+POST_TITLE="${POST_TITLE:-}"
+DATE_PUBLISHED=""
+DATE_UPDATED=""
+
+while read line
+do
+  if [ "$(echo "$line" | cut -c1-2)" = "# " ]
+  then
+    POST_TITLE="$(echo "$line" | cut -c3-)"
+  elif [ "$(echo "$line" | cut -c1-14)" = "Published on: " ]
+  then
+    DATE_PUBLISHED="$(date --date="$(echo "$line" | cut -c15-)" +%Y-%m-%d)"
+  elif [ "$(echo "$line" | cut -c1-12)" = "Updated on: " ]
+  then
+    DATE_UPDATED="$(date --date="$(echo "$line" | cut -c13-)" +%Y-%m-%d)"
+  fi
+done
+
+if [ -n "$POST_TITLE" ]
+then
+  echo "POST_TITLE=\"${POST_TITLE}\""
+fi
+
+if [ -n "$DATE_PUBLISHED" ]
+then
+  echo "DATE_PUBLISHED=\"${DATE_PUBLISHED}\""
+fi
+
+if [ -n "$DATE_UPDATED" ]
+then
+  echo "DATE_UPDATED=\"${DATE_UPDATED}\""
+fi

@@ -11,7 +11,7 @@ src/microlog: $(shell find -L blogs/microlog -type f) bin/blog
 blog: src/blog
 
 src/blog: $(shell find -L blogs/blog -type f) bin/blog
-	./bin/blog -i blog -l blog -p 'cut_longlog_meta | gmi2upphtml'
+	./bin/blog -i blog -l blog -p 'cut_longlog_meta | gmi2upphtml' -a extract_longlog_meta
 
 .PHONY: clean
 clean:

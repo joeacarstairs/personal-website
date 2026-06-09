@@ -1,7 +1,7 @@
 #!
 SRC="$1"
 SITE_URL="$2"
-DATE_PUBLISHED="$(basename "${SRC}" | cut -c1-10)"
+DATE_PUBLISHED="${DATE_PUBLISHED:-$(basename "${SRC}" | cut -c1-10)}"
 CANONICAL_URL="${SITE_URL}/blog/$(basename "${SRC}")"
 #!
 
@@ -24,11 +24,30 @@ pp "${SHARE}"/components/navbar.upphtml
 
 <aside>
 <span>This is a blog post by <a class='p-author h-card' href='/'>Joe Carstairs</a>.</span>
+#!
+if [ -z "${DATE_UPDATED}" ]; then
+#!
 <span>Published:
 #!
 DATE="${DATE_PUBLISHED}" CLASS="dt-published" pp "${SHARE}/components/formatted_date.upphtml"
 #!
 .</span>
+#!
+else
+#!
+<span>Updated:
+#!
+DATE="${DATE_UPDATED}" CLASS="dt-updated" pp "${SHARE}/components/formatted_date.upphtml"
+#!
+.</span>
+<span>Originally published:
+#!
+DATE="${DATE_PUBLISHED}" CLASS="dt-published" pp "${SHARE}/components/formatted_date.upphtml"
+#!
+.</span>
+#!
+fi
+#!
 <span hidden><a class='u-url uid' href='${CANONICAL_URL}'>Permalink</a></span>
 </aside>
 
