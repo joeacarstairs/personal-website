@@ -1,0 +1,176 @@
+#!/bin/sh -e
+
+post_title="${1:-}"
+
+is_in_list=0
+is_in_link_block=0
+is_in_preformatted_block=0
+is_in_blockquote=0
+
+if_in_list_then_close()
+{
+  if [ $is_in_list -ne 0 ]
+  then
+    echo "</ul>"
+    is_in_list=0
+  fi
+}
+
+if_in_link_block_then_close()
+{
+  if [ $is_in_link_block -ne 0 ]
+  then
+    echo "</p>"
+    is_in_link_block=0
+  fi
+}
+
+if_in_preformatted_block_then_close()
+{
+  if [ $is_in_preformatted_block -ne 0 ]
+  then
+    echo "</pre>"
+    is_in_preformatted_block=0
+  fi
+}
+
+if_in_blockquote_then_close()
+{
+  if [ $is_in_blockquote -ne 0 ]
+  then
+    echo "</blockquote>"
+    is_in_blockquote=0
+  fi
+}
+
+close_all_open_blocks()
+{
+  if_in_list_then_close
+  if_in_link_block_then_close
+  if_in_preformatted_block_then_close
+  if_in_blockquote_then_close
+}
+
+escape_upphtml()
+{
+  echo "$1" | sed "s/\`/\\\\\`/g" | sed "s/\"/\\\\\"/g" | sed "s/\\\$/\\\\\$/g"
+}
+
+close_all_open_blocks_except()
+{
+  except="$1"
+  if [ "$except" != "list" ]
+  then
+    if_in_list_then_close
+  fi
+  if [ "$except" != "link" ]
+  then
+    if_in_link_block_then_close
+  fi
+  if [ "$except" != "pre" ]
+  then
+    if_in_preformatted_block_then_close
+  fi
+  if [ "$except" != "blockquote" ]
+  then
+    if_in_blockquote_then_close
+  fi
+}
+
+if [ -z "$post_title" ]
+then
+  read first_line
+  if [ "$(echo "$first_line" | cut -c1-2)" != "# " ]
+  then
+    echo >&2 "Error: no [post_title] argument provided and no top-level heading at top of the document."
+    exit 1
+  fi
+  post_title="${first_line### }"
+fi
+
+echo "#!
+export TITLE=\"${post_title} | joeac's blog\"
+export DESCRIPTION=\"${post_title} | joeac's blog\"
+pp \"\${SHARE}\"/components/meta.upphtml
+#!"
+
+while read line
+do
+  if [ "$(echo $line | sed "s/[[:space:]]//g")" = "" ]
+  then
+    continue
+  fi
+
+  if [ "$(echo $line | cut -c1)" = "#" ]
+  then
+    title="$(escape_upphtml "${line#*# }")"
+    heading="${line%%$title}"
+    heading="${heading%% }"
+    heading_level="${#heading}"
+    if [ "$(echo "$line" | cut -c$(( $heading_level + 1 )) )" = " " ]
+    then
+      close_all_open_blocks
+      echo "<h${heading_level}>${title}</h${heading_level}>"
+      continue
+    fi
+  fi
+
+  if [ "$(echo "$line" | cut -c1-2)" = "=>" ]
+  then
+    close_all_open_blocks_except link
+    href="$(escape_upphtml "$(echo "$line" | sed "s/^=>[[:space:]]*\([[:alnum:][:punct:]]\+\).*$/\1/")")"
+    title="$(escape_upphtml "$(echo "$line" | sed "s/^=>[[:space:]]*[[:alnum:][:punct:]]\+[[:space:]]\(.*\)$/\1/")")"
+    if [ $is_in_link_block -eq 0 ]
+    then
+      echo "<p>"
+    else
+      echo "<br/>"
+    fi
+    is_in_link_block=1
+    echo "=> <a href='${href}'>${title}</a>"
+    continue
+  fi
+
+  if [ "$( echo "$line" | cut -c1-2)" = "* " ]
+  then
+    close_all_open_blocks_except list
+    if [ $is_in_list -eq 0 ]
+    then
+      echo "<ul>"
+    fi
+    is_in_list=1
+    echo "<li>$(escape_upphtml "$(echo "$line" | cut -c3-)")</li>"
+    continue
+  fi
+
+  if [ "$(echo "$line" | cut -c1)" = ">" ]
+  then
+    close_all_open_blocks_except blockquote
+    if [ $is_in_blockquote -eq 0 ]
+    then
+      echo "<blockquote>"
+    fi
+    is_in_blockquote=1
+    echo "<p>$(escape_upphtml "$(echo "$line" | cut -c2-)")</p>"
+    continue
+  fi
+
+  if [ "$(echo "$line" | cut -c1-3)" = "\`\`\`" ]
+  then
+    close_all_open_blocks_except pre
+    if [ $is_in_preformatted_block -eq 0 ]
+    then
+      echo "<pre>"
+    else
+      echo -e "\n"
+    fi
+    is_in_preformatted_block=1
+    echo "$(escape_upphtml "$(echo "$line" | cut -c4-)")"
+    continue
+  fi
+
+  close_all_open_blocks
+  echo "<p>$(escape_upphtml "${line}")</p>"
+done
+
+close_all_open_blocks

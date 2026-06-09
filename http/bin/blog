@@ -1,0 +1,88 @@
+#!/bin/sh -e
+export PATH="$(dirname $(realpath $0)):$PATH"
+export BLOGS="$(realpath blogs)"
+export SRC="$(realpath src)"
+export LAYOUTS="$(realpath share/layouts)"
+
+usage()
+{
+  >&2 cat << USAGE
+usage: blog -i LOG [-l LAYOUT] [-t]
+
+options:
+
+    -i LOG
+        The name of the source directory under \$BLOGS where log posts live.
+
+    -l LAYOUT
+        If provided, the layout under \$LAYOUTS to use for the generated
+        upphtml files. If not provided, uses the default layout.
+
+    -t
+        If enabled, use filenames as post titles
+USAGE
+}
+
+log_name=""
+layout="default"
+use_filenames_for_titles=0
+
+while getopts "i:l:t" opt
+do
+  case $opt in
+    i)
+      log_name="$OPTARG"
+      ;;
+    l)
+      layout_name="$OPTARG"
+      ;;
+    t)
+      use_filenames_for_titles=1
+      ;;
+  esac
+done
+
+if [ -z "${log_name}" ]
+then
+  usage
+  exit 1
+fi
+
+if ! [ -d "${BLOGS}/${log_name}" ]
+then
+  >&2 echo "there is no directory '${input_log}' under ${BLOGS}. options: $(ls common)"
+  usage
+  exit 1
+fi
+
+layout="${LAYOUTS}/${layout_name}.layout.upphtml"
+if [ "${layout_name}" = "default" ]
+then
+  layout_ext=""
+else
+  layout_ext=".${layout_name}"
+fi
+if ! [ -f "${layout}" ]
+then
+  echo >&2 "Warning: no layout found at $(basename "${LAYOUTS}")/${layout_name}.layout.upphtml"
+fi
+
+rm -rf "${SRC}/${log_name}/"
+mkdir -p "${SRC}/${log_name}"
+
+for entry in $(find -L "${BLOGS}/${log_name}" -type f)
+do
+  basename="$(basename "$entry")"
+  name="${basename%%\.*}"
+  dest="${SRC}/${log_name}/${name}${layout_ext}.upphtml"
+  if [ $use_filenames_for_titles -eq 1 ]
+  then
+    title="$name"
+    cat "$entry" | gmi2upphtml "$title" > "$dest"
+  else
+    title="$(grep --regexp "^\# " --max-count 1 "$entry" | cut -c3-)"
+    cat "$entry" | grep --regexp "^\# " --invert-match | gmi2upphtml "$title" > "$dest"
+  fi
+  echo "${title}" > "${dest}.args"
+  echo "Processed ${entry#$(dirname ${BLOGS})/} to ${dest#$(dirname ${SRC})/}"
+done

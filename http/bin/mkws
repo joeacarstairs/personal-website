@@ -11,6 +11,8 @@ test $# -lt 1 && usage
 export SRC="$(realpath src)"
 export PUBLIC="$(realpath public)"
 export SHARE="$(realpath share)"
+export LAYOUTS="$(realpath share/layouts)"
+export DEFAULT_LAYOUT="${LAYOUTS}/default.layout.upphtml"
 export OUT="$(realpath out)"
 
 if [ -d "${PUBLIC}" ]
@@ -28,22 +30,36 @@ then
 	exit 1
 fi
 
-for t in "${SRC}"/*.upphtml
+for t in $(find -L "${SRC}/" -type f -and -name "*\.upp*" -and -not -name "*\.upp*\.*")
 do
-	echo "Making $(basename "${t%.upphtml}".html)"
-	pp "${SHARE}"/l.upphtml "${t}" "$1" > \
-		"${OUT}/$(basename "${t%.upphtml}".html)"
-done
+  basename="$(basename "$t")"
+  ext="${basename##*upp}"
 
-for t in "${SRC}"/**/*.uppcss
-do
-  t_out="${t%.uppcss}".css
-  t_out="${t_out#${SRC}/}"
-  echo "Making ${t_out}"
-  t_out="${OUT}/${t_out}"
-  mkdir -p "$(dirname "${t_out}")"
-  pp "${t}" "$1" > \
-		"${t_out}"
+  basename_without_ext="${basename%\.upp${ext}}"
+  penultimate_segment="${basename_without_ext##*\.}"
+  if [ "$basename_without_ext" != "$penultimate_segment" ] && [ -f "${LAYOUTS}/${penultimate_segment}.layout.upphtml" ]
+  then
+    layout="${LAYOUTS}/${penultimate_segment}.layout.upphtml"
+    name="${basename%\.${penultimate_segment}\.upp${ext}}"
+  else
+    layout="${DEFAULT_LAYOUT}"
+    name="${basename%\.upp${ext}}"
+  fi
+
+  in_dir="$(dirname "$t")/"
+  rel_dir="${in_dir#${SRC}/}"
+  mkdir -p "${OUT}/${rel_dir}/"
+
+  args="$( [ -f "${t}.args" ] && cat "${t}.args" || echo "" )"
+  if [ "$ext" = "html" ]
+  then
+    pp "${layout}" "${t}" "$1" "$args" > \
+  		"${OUT}/${rel_dir}/${name}.${ext}"
+	else
+		pp "${t}" "$1" "$args" > \
+  		"${OUT}/${rel_dir}/${name}.${ext}"
+  fi
+  echo "Written ${OUT}/${rel_dir}${name}.${ext}"
 done
 
 echo "Making sitemap.xml"

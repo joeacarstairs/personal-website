@@ -1,0 +1,4 @@
+#!
+FORMATTED_DATE="$(date --date "${DATE}" +'%A %-d %B %Y')"
+echo "<time datetime='${DATE}' class='${CLASS}' ${ATTRIBUTES}>${FORMATTED_DATE}</time>"
+#!
