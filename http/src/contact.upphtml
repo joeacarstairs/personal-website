@@ -8,6 +8,7 @@ pp "${SHARE}"/components/meta.upphtml
 pp "${SHARE}"/components/otp-dialog.upphtml
 #!
 
+<main>
 <form class=contact-form>
   <h1>Contact me</h1>
   <p hidden class=error></p>
@@ -94,3 +95,4 @@ pp "${SHARE}"/components/otp-dialog.upphtml
     await submitOtpForm(selectors);
   });
 </script>
+</main>
