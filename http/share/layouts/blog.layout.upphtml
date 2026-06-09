@@ -1,7 +1,6 @@
 #!
 SRC="$1"
 SITE_URL="$2"
-POST_TITLE="$3"
 DATE_PUBLISHED="$(basename "${SRC}" | cut -c1-10)"
 CANONICAL_URL="${SITE_URL}/blog/$(basename "${SRC}")"
 #!
@@ -34,11 +33,7 @@ DATE="${DATE_PUBLISHED}" CLASS="dt-published" pp "${SHARE}/components/formatted_
 </aside>
 
 <header>
-<h1 class='h-name'>
-#!
-echo "${POST_TITLE}"
-#!
-</h1>
+<h1 class='h-name'>${POST_TITLE}</h1>
 </header>
 
 <section class='e-content'>

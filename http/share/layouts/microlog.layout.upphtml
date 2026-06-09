@@ -1,7 +1,6 @@
 #!
 SRC="$1"
 SITE_URL="$2"
-POST_TITLE="$3"
 DATE_PUBLISHED="$(basename "${SRC}" | cut -c1-10)"
 CANONICAL_URL="${SITE_URL}/microlog/$(basename "${SRC}")"
 #!

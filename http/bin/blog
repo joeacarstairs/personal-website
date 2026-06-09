@@ -92,6 +92,6 @@ do
     export POST_TITLE="$title"
     cat "$entry" | grep --regexp "^\# " --invert-match | eval "$postprocess_cmd" > "$dest"
   fi
-  echo "${title}" > "${dest}.args"
+  echo "POST_TITLE=\"$(echo "${title}" | sed "s/\\\"/\\\\\"/g")\"" > "${dest}.args"
   echo "Processed ${entry#$(dirname ${BLOGS})/} to ${dest#$(dirname ${SRC})/}"
 done

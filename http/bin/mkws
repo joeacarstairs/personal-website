@@ -51,14 +51,30 @@ do
   mkdir -p "${OUT}/${rel_dir}/"
 
   args="$( [ -f "${t}.args" ] && cat "${t}.args" || echo "" )"
+  if [ "$(head -n 1 "${layout}")" = "#!" ]
+  then
+    >"${layout}.tmp" echo "
+#!
+${args}
+$(tail -n +2 "${layout}")
+"
+  else
+    >"${layout}.tmp" echo "
+#!
+${args}
+#!
+$(cat "${layout}")
+"
+  fi
   if [ "$ext" = "html" ]
   then
-    pp "${layout}" "${t}" "$1" "$args" > \
+    pp "${layout}.tmp" "${t}" "${1}" > \
   		"${OUT}/${rel_dir}/${name}.${ext}"
 	else
-		pp "${t}" "$1" "$args" > \
+    pp "${t}" "${1}" > \
   		"${OUT}/${rel_dir}/${name}.${ext}"
   fi
+
   echo "Written ${OUT}/${rel_dir}${name}.${ext}"
 done
 
