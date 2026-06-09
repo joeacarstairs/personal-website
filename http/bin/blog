@@ -7,9 +7,13 @@ export LAYOUTS="$(realpath share/layouts)"
 usage()
 {
   >&2 cat << USAGE
-usage: blog -i LOG [-p POSTPROCESS_CMD] [-l LAYOUT] [-t]
+usage: blog -i LOG [-p POSTPROCESS_CMD] [-a EXTRACT_ARGS_CMD] [-l LAYOUT] [-t]
 
 options:
+
+    -a EXTRACT_ARGS_CMD
+        If provided, a shell command to extract arguments to the layout from the
+        source files. The shell will be provided with a variable, POST_TITLE.
 
     -i LOG
         The name of the source directory under \$BLOGS where log posts live.
@@ -27,6 +31,7 @@ options:
 USAGE
 }
 
+extract_args_cmd="head -n 0 | echo \"POST_TITLE=\\\"\${POST_TITLE}\\\"\""
 log_name=""
 layout="default"
 postprocess_cmd="echo"
@@ -92,6 +97,6 @@ do
     export POST_TITLE="$title"
     cat "$entry" | grep --regexp "^\# " --invert-match | eval "$postprocess_cmd" > "$dest"
   fi
-  echo "POST_TITLE=\"$(echo "${title}" | sed "s/\\\"/\\\\\"/g")\"" > "${dest}.args"
+  cat "$entry" | eval "$extract_args_cmd" > "${dest}.args"
   echo "Processed ${entry#$(dirname ${BLOGS})/} to ${dest#$(dirname ${SRC})/}"
 done
