@@ -7,7 +7,7 @@ export LAYOUTS="$(realpath share/layouts)"
 usage()
 {
   >&2 cat << USAGE
-usage: blog -i LOG [-l LAYOUT] [-t]
+usage: blog -i LOG [-p POSTPROCESS_CMD] [-l LAYOUT] [-t]
 
 options:
 
@@ -18,6 +18,10 @@ options:
         If provided, the layout under \$LAYOUTS to use for the generated
         upphtml files. If not provided, uses the default layout.
 
+    -p POSTPROCESS_CMD
+        If provided, a shell command to post-process the source files into
+        upphtml. The shell will be provided with a variable, POST_TITLE.
+
     -t
         If enabled, use filenames as post titles
 USAGE
@@ -25,9 +29,10 @@ USAGE
 
 log_name=""
 layout="default"
+postprocess_cmd="echo"
 use_filenames_for_titles=0
 
-while getopts "i:l:t" opt
+while getopts "i:l:p:t" opt
 do
   case $opt in
     i)
@@ -35,6 +40,9 @@ do
       ;;
     l)
       layout_name="$OPTARG"
+      ;;
+    p)
+      postprocess_cmd="$OPTARG"
       ;;
     t)
       use_filenames_for_titles=1
@@ -78,10 +86,11 @@ do
   if [ $use_filenames_for_titles -eq 1 ]
   then
     title="$name"
-    cat "$entry" | gmi2upphtml "$title" > "$dest"
+    cat "$entry" | POST_TITLE="$title" eval "$postprocess_cmd" > "$dest"
   else
     title="$(grep --regexp "^\# " --max-count 1 "$entry" | cut -c3-)"
-    cat "$entry" | grep --regexp "^\# " --invert-match | gmi2upphtml "$title" > "$dest"
+    export POST_TITLE="$title"
+    cat "$entry" | grep --regexp "^\# " --invert-match | eval "$postprocess_cmd" > "$dest"
   fi
   echo "${title}" > "${dest}.args"
   echo "Processed ${entry#$(dirname ${BLOGS})/} to ${dest#$(dirname ${SRC})/}"

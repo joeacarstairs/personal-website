@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-post_title="${1:-}"
+post_title="${POST_TITLE:-}"
 
 is_in_list=0
 is_in_link_block=0
