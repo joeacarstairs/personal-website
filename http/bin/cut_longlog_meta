@@ -1,0 +1,34 @@
+#!/bin/sh -e
+
+meta=""
+read_published_on=0
+while read line
+do
+  meta="${meta}
+${line}"
+  if [ "$(echo "$line" | cut -c1-14)" = "Published on: " ]
+  then
+    read_published_on=1
+    break
+  fi
+done
+
+if [ "$read_published_on" -eq 0 ]
+then
+  echo "$meta"
+  exit 0
+fi
+
+read line
+if [ "$(echo "$line" | cut -c1-14)" = "Updated: " ]
+then
+  meta="${meta}
+${line}"
+else
+  echo "$line"
+fi
+
+while read line
+do
+  echo "$line"
+done
