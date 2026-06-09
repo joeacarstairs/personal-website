@@ -118,8 +118,9 @@ do
   if [ "$(echo "$line" | cut -c1-2)" = "=>" ]
   then
     close_all_open_blocks_except link
-    href="$(escape_upphtml "$(echo "$line" | sed "s/^=>[[:space:]]*\([[:alnum:][:punct:]]\+\).*$/\1/")")"
-    title="$(escape_upphtml "$(echo "$line" | sed "s/^=>[[:space:]]*[[:alnum:][:punct:]]\+[[:space:]]\(.*\)$/\1/")")"
+    href="$(escape_upphtml "$(echo "$line" | sed "s/^=>[[:space:]]\+//" | sed "s/[[:space:]]\+.*//")")"
+    title="$(escape_upphtml "${line#=> *${href}}")"
+    title="${title:-${href}}"
     if [ $is_in_link_block -eq 0 ]
     then
       echo "<p>"
