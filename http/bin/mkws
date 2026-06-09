@@ -74,6 +74,7 @@ $(cat "${layout}")
     pp "${t}" "${1}" > \
   		"${OUT}/${rel_dir}/${name}.${ext}"
   fi
+  rm "${layout}.tmp"
 
   echo "Written ${OUT}/${rel_dir}${name}.${ext}"
 done
