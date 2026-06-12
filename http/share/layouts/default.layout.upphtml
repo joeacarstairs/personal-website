@@ -10,7 +10,7 @@ pp "${SHARE}"/components/head.upphtml
 <body>
 #!
 pp "${SHARE}"/components/navbar.upphtml
-pp "$1"
+pp "$1" "$2"
 #!
 </body>
 </html>
