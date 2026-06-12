@@ -1,8 +1,8 @@
 #!
-SRC="$1"
+PAGE="$1"
 SITE_URL="$2"
-DATE_PUBLISHED="${DATE_PUBLISHED:-$(basename "${SRC}" | cut -c1-10)}"
-CANONICAL_URL="${SITE_URL}/blog/$(basename "${SRC}")"
+DATE_PUBLISHED="${DATE_PUBLISHED:-$(basename "${PAGE}" | cut -c1-10)}"
+CANONICAL_URL="${SITE_URL}/blog/$(basename "${PAGE}")"
 #!
 
 <!doctype html>
@@ -57,7 +57,7 @@ fi
 
 <section class='e-content'>
 #!
-pp "${SRC}"
+pp "${PAGE}"
 #!
 </section>
 
