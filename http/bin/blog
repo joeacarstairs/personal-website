@@ -96,9 +96,9 @@ do
     title="$name"
     cat "$entry" |  eval "POST_TITLE=\"${title}\" ${postprocess_cmd}" > "$dest"
   else
-    title="$(grep --regexp "^\# " --max-count 1 "$entry" | cut -c3-)"
+    title="$(grep --regexp "^# " --max-count 1 "$entry" | cut -c3-)"
     export POST_TITLE="$title"
-    cat "$entry" | grep --regexp "^\# " --invert-match | eval "$postprocess_cmd" > "$dest"
+    cat "$entry" | grep --regexp "^# " --invert-match | eval "$postprocess_cmd" > "$dest"
   fi
   cat "$entry" | eval "$extract_args_cmd" > "${dest}.args"
   echo "Processed ${entry#$(dirname ${BLOGS})/} to ${dest#$(dirname ${SRC})/}"
