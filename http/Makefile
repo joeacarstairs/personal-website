@@ -28,15 +28,17 @@ remove_deleted_blog_posts:
 out: microlog blog $(shell find src -type f) $(shell find share -type f) $(shell find bin)
 	./bin/mkws https://joeac.net
 
-microlog: src/microlog
+.PHONY: microlog
+microlog: remove_deleted_microlog_posts $(patsubst blogs/microlog/%.gmi,src/microlog/%.microlog.upphtml,$(wildcard blogs/microlog/*.gmi))
 
-src/microlog: $(shell find -L blogs/microlog -type f) bin/blog
-	./bin/blog -i microlog -l microlog -t -p gmi2upphtml
+src/microlog/%.microlog.upphtml: blogs/microlog/%.gmi bin/blog bin/gmi2upphtml
+	./bin/blog -i microlog -l microlog -t -p gmi2upphtml -f $*.gmi
 
-blog: src/blog
+.PHONY: blog
+blog: remove_deleted_blog_posts $(patsubst blogs/blog/%.gmi,src/blog/%.blog.upphtml,$(wildcard blogs/blog/*.gmi))
 
-src/blog: $(shell find -L blogs/blog -type f) bin/blog
-	./bin/blog -i blog -l blog -p 'cut_longlog_meta | gmi2upphtml' -a extract_longlog_meta
+src/blog/%.blog.upphtml: blogs/blog/%.gmi bin/blog bin/gmi2upphtml bin/cut_longlog_meta
+	./bin/blog -i blog -l blog -p 'cut_longlog_meta | gmi2upphtml' -a extract_longlog_meta -f $*.gmi
 
 .PHONY: clean
 clean:
