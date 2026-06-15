@@ -1,4 +1,5 @@
-all: clean out
+all: microlog blog $(shell find src -type f) $(shell find share -type f) $(shell find bin)
+	./bin/mkws https://joeac.net
 
 .PHONY: remove_deleted_posts
 remove_deleted_posts: remove_deleted_microlog_posts remove_deleted_blog_posts
