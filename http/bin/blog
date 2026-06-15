@@ -7,13 +7,16 @@ export LAYOUTS="$(realpath share/layouts)"
 usage()
 {
   >&2 cat << USAGE
-usage: blog -i LOG [-p POSTPROCESS_CMD] [-a EXTRACT_ARGS_CMD] [-l LAYOUT] [-t]
+usage: blog -i LOG [-p POSTPROCESS_CMD] [-a EXTRACT_ARGS_CMD] [-l LAYOUT] [-t] [-f FILE_PATTERN]
 
 options:
 
     -a EXTRACT_ARGS_CMD
         If provided, a shell command to extract arguments to the layout from the
         source files. The shell will be provided with a variable, POST_TITLE.
+
+    -f FILE
+        If provided, a pattern for the files to process. Default: *.
 
     -i LOG
         The name of the source directory under \$BLOGS where log posts live.
@@ -32,16 +35,20 @@ USAGE
 }
 
 extract_args_cmd="head -n 0 | echo \"POST_TITLE=\\\"\${POST_TITLE}\\\"\""
+file_pattern="*"
 log_name=""
 layout="default"
 postprocess_cmd="echo"
 use_filenames_for_titles=0
 
-while getopts "a:i:l:p:t" opt
+while getopts "a:f:i:l:p:t" opt
 do
   case $opt in
     a)
       extract_args_cmd="$OPTARG"
+      ;;
+    f)
+      file_pattern="$OPTARG"
       ;;
     i)
       log_name="$OPTARG"
@@ -83,10 +90,9 @@ then
   echo >&2 "Warning: no layout found at $(basename "${LAYOUTS}")/${layout_name}.layout.upphtml"
 fi
 
-rm -rf "${SRC}/${log_name}/"
 mkdir -p "${SRC}/${log_name}"
 
-for entry in $(find -L "${BLOGS}/${log_name}" -type f)
+for entry in $(find -L "${BLOGS}/${log_name}" -type f -name "${file_pattern}")
 do
   basename="$(basename "$entry")"
   name="${basename%%\.*}"
