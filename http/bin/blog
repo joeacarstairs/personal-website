@@ -95,7 +95,7 @@ mkdir -p "${SRC}/${log_name}"
 for entry in $(find -L "${BLOGS}/${log_name}" -type f -name "${file_pattern}")
 do
   basename="$(basename "$entry")"
-  name="${basename%%\.*}"
+  name="${basename%\.*}"
   dest="${SRC}/${log_name}/${name}${layout_ext}.upphtml"
   if [ $use_filenames_for_titles -eq 1 ]
   then
