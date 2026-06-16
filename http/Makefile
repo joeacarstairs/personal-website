@@ -1,4 +1,7 @@
-all: microlog prune_microlog blog prune_blog public out prune_out
+all: microlog blog public out
+
+.PHONY: prune
+prune: prune_microlog prune_blog prune_out
 
 .SILENT: prune_out
 .PHONY: prune_out
@@ -79,13 +82,13 @@ $(foreach layout,$(layouts),\
 out: $(out_files)
 
 .PHONY: microlog
-microlog: prune_microlog $(patsubst blogs/microlog/%.gmi,src/microlog/%.microlog.upphtml,$(wildcard blogs/microlog/*.gmi))
+microlog: $(patsubst blogs/microlog/%.gmi,src/microlog/%.microlog.upphtml,$(wildcard blogs/microlog/*.gmi))
 
 src/microlog/%.microlog.upphtml: blogs/microlog/%.gmi bin/blog bin/gmi2upphtml
 	./bin/blog -i microlog -l microlog -t -p gmi2upphtml -f $*.gmi
 
 .PHONY: blog
-blog: prune_blog $(patsubst blogs/blog/%.gmi,src/blog/%.blog.upphtml,$(wildcard blogs/blog/*.gmi))
+blog: $(patsubst blogs/blog/%.gmi,src/blog/%.blog.upphtml,$(wildcard blogs/blog/*.gmi))
 
 src/blog/%.blog.upphtml: blogs/blog/%.gmi bin/blog bin/gmi2upphtml bin/cut_longlog_meta
 	./bin/blog -i blog -l blog -p 'cut_longlog_meta | gmi2upphtml' -a extract_longlog_meta -f $*.gmi
