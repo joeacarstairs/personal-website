@@ -1,5 +1,4 @@
-all: microlog blog $(shell find src -type f) $(shell find share -type f) $(shell find bin)
-	./bin/mkws https://joeac.net
+all: microlog prune_microlog blog prune_blog public out prune_out
 
 .SILENT: prune_out
 .PHONY: prune_out
