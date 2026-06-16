@@ -78,6 +78,3 @@ $(cat "${layout}")
 
   echo "Written ${OUT}/${rel_dir}${name}.${ext}"
 done
-
-echo "Making sitemap.xml"
-pp "${SHARE}"/sitemap.uppxml "$1" > "${OUT}"/sitemap.xml
