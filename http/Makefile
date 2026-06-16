@@ -4,6 +4,7 @@ all: microlog blog $(shell find src -type f) $(shell find share -type f) $(shell
 .PHONY: remove_deleted_posts
 remove_deleted_posts: remove_deleted_microlog_posts remove_deleted_blog_posts
 
+.SILENT: prune_microlog
 .PHONY: prune_microlog
 prune_microlog:
 	for post in $$(find src/microlog -name *.microlog.upphtml); do \
@@ -15,6 +16,7 @@ prune_microlog:
 		fi; \
 	done
 
+.SILENT: prune_blog
 .PHONY: prune_blog
 prune_blog:
 	for post in $$(find src/blog -name *.blog.upphtml); do \
