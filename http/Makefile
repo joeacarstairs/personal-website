@@ -28,8 +28,30 @@ prune_blog:
 		fi; \
 	done
 
-out: microlog blog $(shell find src -type f) $(shell find share -type f) $(shell find bin)
-	./bin/mkws https://joeac.net
+src_files := $(filter-out %.args,$(wildcard src/*.upp*))
+src_files += $(filter-out %.args,$(wildcard src/**/*.upp*))
+src_files_ext := $(suffix $(src_files))
+out_files_ext := $(src_files_ext:.upp%=%)
+layout_files := $(wildcard share/layouts/*.layout.upp*)
+layouts := $(notdir $(basename $(basename $(layout_files))))
+out_files := $(addprefix out/,$(src_files:src/%=%))
+remove_layout_from_out_files = out_files := $$(subst $(1).upp,.,$$(out_files))
+$(foreach layout,$(layouts),$(eval $(call remove_layout_from_out_files,.$(layout))))
+$(eval $(call remove_layout_from_out_files,))
+
+define out_rule_for_ext_and_layout =
+out/%.$(1): src/%$(2).upp$(1)
+	./bin/mkws https://joeac.net "$$$$(realpath $$<)"
+endef
+
+$(foreach ext,$(sort $(out_files_ext)),\
+	$(eval $(call out_rule_for_ext_and_layout,$(ext),)))
+$(foreach layout,$(layouts),\
+	$(foreach ext,$(sort $(out_files_ext)),\
+		$(eval $(call out_rule_for_ext_and_layout,$(ext),.$(layout)))))
+
+.PHONY: out
+out: $(out_files)
 
 .PHONY: microlog
 microlog: prune_microlog $(patsubst blogs/microlog/%.gmi,src/microlog/%.microlog.upphtml,$(wildcard blogs/microlog/*.gmi))
