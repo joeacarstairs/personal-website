@@ -2,7 +2,7 @@
 export PATH="$(dirname $(realpath $0)):$PATH"
 
 usage() {
-	>&2 printf "usage: %s url [path]\\n" "$(basename "$0")"
+	>&2 printf "usage: %s url [pattern]\\n" "$(basename "$0")"
 	exit 1
 }
 
@@ -30,7 +30,8 @@ then
 	exit 1
 fi
 
-for t in $(find -L "${SRC}/" -type f -and -name "*\.upp*" -and -not -name "*\.upp*\.*")
+PATH_PATTERN="${2:-*}"
+for t in $(find -L "${SRC}/" -type f -and -wholename "${PATH_PATTERN}" -and -name "*\.upp*" -and -not -name "*\.upp*\.*")
 do
   basename="$(basename "$t")"
   ext="${basename##*upp}"
