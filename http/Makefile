@@ -41,6 +41,12 @@ blog: prune_blog $(patsubst blogs/blog/%.gmi,src/blog/%.blog.upphtml,$(wildcard 
 src/blog/%.blog.upphtml: blogs/blog/%.gmi bin/blog bin/gmi2upphtml bin/cut_longlog_meta
 	./bin/blog -i blog -l blog -p 'cut_longlog_meta | gmi2upphtml' -a extract_longlog_meta -f $*.gmi
 
+.PHONY: public
+public: $(subst public/,out/,$(shell find public/ -type f))
+
+out/%: public/%
+	mkdir -p $(dir $@) && cp $< $@
+
 .PHONY: clean
 clean:
 	rm -rf out src/microlog src/blog

@@ -15,15 +15,6 @@ export LAYOUTS="$(realpath share/layouts)"
 export DEFAULT_LAYOUT="${LAYOUTS}/default.layout.upphtml"
 export OUT="$(realpath out)"
 
-if [ -d "${PUBLIC}" ]
-then
-  echo "Copying from $(basename "${PUBLIC}") into $(basename "${OUT}")"
-  cp -r "${PUBLIC}" "${OUT}"
-else
-  echo "No $(basename "${PUBLIC}") folder found"
-  mkdir -p "${OUT}"
-fi
-
 if ! test -f "${SRC}"/index.upphtml
 then
 	>&2 printf "no index.upphtml file found\\n"
