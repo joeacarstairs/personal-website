@@ -1,8 +1,34 @@
 all: microlog blog $(shell find src -type f) $(shell find share -type f) $(shell find bin)
 	./bin/mkws https://joeac.net
 
-.PHONY: remove_deleted_posts
-remove_deleted_posts: remove_deleted_microlog_posts remove_deleted_blog_posts
+.SILENT: prune_out
+.PHONY: prune_out
+prune_out:
+	for out in $$(find out -type f); do \
+		out_basename="$$(basename "$$out")"; \
+		out_ext="$${out_basename##*\.}"; \
+		rel_path="$$(echo "$${out}" | cut -c5-)"; \
+		if [ -f "public/$${rel_path}" ]; then \
+			continue 2; \
+		fi; \
+		base_rel_path="$${rel_path%%.$${out_ext}}"; \
+		src_path="src/$${base_rel_path}.upp$${out_ext}"; \
+		if [ -f "$$src_path" ]; then \
+  		continue 2; \
+		fi; \
+		for layout in $$(find share/layouts -name "*.layout.upp$${out_ext}"); do \
+			layout="$$(basename "$$layout")"; \
+			layout="$${layout::$${#layout}-15}"; \
+			rel_path="$$(echo "$${out}" | cut -c5-)"; \
+			base_rel_path="$${rel_path%%.$${out_ext}}"; \
+			src_path="src/$${base_rel_path}.$${layout}.upp$${out_ext}"; \
+			if [ -f "$$src_path" ]; then \
+				continue 2; \
+			fi; \
+		done; \
+    echo "No source file found to match $${out}: removing it"; \
+		rm "$$out"; \
+	done
 
 .SILENT: prune_microlog
 .PHONY: prune_microlog
