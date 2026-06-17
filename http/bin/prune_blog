@@ -38,5 +38,5 @@ do
   fi
 
   echo "No source file found to match post ${post} in blog ${BLOG}: removing ${post}"
-	rm "$out"
+	rm "$post"
 done
