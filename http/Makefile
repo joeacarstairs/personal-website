@@ -12,7 +12,7 @@ $(foreach layout,$(layouts),$(eval $(call remove_layout_from_out_deps,.$(layout)
 $(eval $(call remove_layout_from_out_deps,))
 
 define out_rule =
-out/%.$(1): src/%$(2).upp$(1)
+out/%.$(ext): src/%$(layout).upp$(ext)
 	./bin/mkws https://joeac.net "$$$$(realpath $$<)"
 endef
 
@@ -51,10 +51,10 @@ all: $(blogs) public out
 out: $(out_deps)
 
 $(foreach ext,$(sort $(out_deps_ext)),\
-	$(eval $(call out_rule,$(ext),)))
+	$(eval $(out_rule)))
 $(foreach layout,$(layouts),\
 	$(foreach ext,$(sort $(out_deps_ext)),\
-		$(eval $(call out_rule,$(ext),.$(layout)))))
+		$(eval $(out_rule))))
 
 $(foreach blog,$(blogs),$(eval $(blog_rule)))
 
