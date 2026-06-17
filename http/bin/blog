@@ -37,7 +37,7 @@ USAGE
 extract_args_cmd="head -n 0 | echo \"POST_TITLE=\\\"\${POST_TITLE}\\\"\""
 file_pattern="*"
 log_name=""
-layout="default"
+layout_name="default"
 postprocess_cmd="echo"
 use_filenames_for_titles=0
 
