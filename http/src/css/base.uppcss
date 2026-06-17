@@ -317,6 +317,10 @@ blockquote {
   font-style: italic;
 }
 
+blockquote :first-child {
+  margin-block-start: 0;
+}
+
 blockquote footer {
   font-style: initial;
 }
