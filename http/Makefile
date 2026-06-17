@@ -1,13 +1,20 @@
+include config.mk
+
 all: microlog blog public out
 
 .PHONY: out
 out: $(out_files)
 
+blog_src_files = $(patsubst \
+	blogs/$(blog)/%.$(BLOG_EXT_$(blog)),\
+	src/$(blog)/%$(if $(BLOG_LAYOUT_$(blog)),.$(BLOG_LAYOUT_$(blog))).upphtml,\
+	$(shell find -L "blogs/$(blog)" -type f -and -name *.$(BLOG_EXT_$(blog))))
+
 .PHONY: microlog
-microlog: $(patsubst blogs/microlog/%.gmi,src/microlog/%.microlog.upphtml,$(wildcard blogs/microlog/*.gmi))
+microlog: $(let blog,microlog,$(blog_src_files))
 
 .PHONY: blog
-blog: $(patsubst blogs/blog/%.gmi,src/blog/%.blog.upphtml,$(wildcard blogs/blog/*.gmi))
+blog: $(let blog,blog,$(blog_src_files))
 
 .PHONY: public
 public: $(subst public/,out/,$(shell find -L public/ -type f))
@@ -56,9 +63,15 @@ $(foreach layout,$(layouts),\
 	$(foreach ext,$(sort $(out_files_ext)),\
 		$(eval $(call out_rule,$(ext),.$(layout)))))
 
+blog_src_files = src/$(blog)/%$(if $(BLOG_LAYOUT_$(blog)),.$(BLOG_LAYOUT_$(blog))).upphtml
+blog_files = blogs/$(blog)/%.$(BLOG_EXT_$(blog)) $$(wildcard bin/*)
 define blog_rule =
-src/$(1)/%$(if $(2),.$(2)).upphtml: blogs/$(1)/%.gmi $$(wildcard bin/*)
-	./bin/blog -i $(1) $(if $(2),-l $(2)) -t -p gmi2upphtml -f $$*.gmi
+$(blog_src_files): $(blog_files)
+	./bin/blog \
+		-i $(blog) \
+		$(if $(BLOG_LAYOUT_$(blog)),-l $(BLOG_LAYOUT_$(blog))) \
+		$(BLOG_FLAGS_$(blog)) \
+		-f $$*.$(BLOG_EXT_$(blog))
 endef
 
 blogs := $(subst blogs/,,$(wildcard blogs/*))
