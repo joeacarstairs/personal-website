@@ -62,7 +62,10 @@ endef
 # RULES #
 #########
 
-all: $(blogs) public out
+all: bin/pp $(blogs) public out
+
+bin/pp:
+	cd pp && $(MAKE)
 
 .PHONY: out
 out: $(out_deps)
