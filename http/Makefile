@@ -78,20 +78,26 @@ $(foreach layout,$(layouts),\
 	$(foreach ext,$(sort $(out_files_ext)),\
 		$(eval $(call out_rule,$(ext),.$(layout)))))
 
+define blog_rule =
+src/$(1)/%$(if $(2),.$(2)).upphtml: blogs/$(1)/%.gmi $$(wildcard bin/*)
+	./bin/blog -i $(1) $(if $(2),-l $(2)) -t -p gmi2upphtml -f $$*.gmi
+endef
+
+blogs := $(subst blogs/,,$(wildcard blogs/*))
+$(foreach blog,$(blogs),\
+	$(foreach layout,$(layouts),\
+		$(eval $(call blog_rule,$(blog),$(layout)))))
+$(foreach blog,$(blogs),\
+	$(eval $(call blog_rule,$(blog),)))
+
 .PHONY: out
 out: $(out_files)
 
 .PHONY: microlog
 microlog: $(patsubst blogs/microlog/%.gmi,src/microlog/%.microlog.upphtml,$(wildcard blogs/microlog/*.gmi))
 
-src/microlog/%.microlog.upphtml: blogs/microlog/%.gmi bin/blog bin/gmi2upphtml
-	./bin/blog -i microlog -l microlog -t -p gmi2upphtml -f $*.gmi
-
 .PHONY: blog
 blog: $(patsubst blogs/blog/%.gmi,src/blog/%.blog.upphtml,$(wildcard blogs/blog/*.gmi))
-
-src/blog/%.blog.upphtml: blogs/blog/%.gmi bin/blog bin/gmi2upphtml bin/cut_longlog_meta
-	./bin/blog -i blog -l blog -p 'cut_longlog_meta | gmi2upphtml' -a extract_longlog_meta -f $*.gmi
 
 .PHONY: public
 public: $(subst public/,out/,$(shell find -L public/ -type f))
