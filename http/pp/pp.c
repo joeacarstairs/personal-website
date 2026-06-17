@@ -42,7 +42,7 @@ strlcat(char *dst, const char *src, size_t dsize)
 }
 #endif /* !__APPLE__ */
 
-#define MAXSIZE 12000
+#define MAXSIZE 64000
 #define MAXINDENTSIZE 80
 #define MAXARGSIZE 20
 
