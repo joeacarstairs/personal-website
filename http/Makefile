@@ -33,7 +33,7 @@ blog_src = $(patsubst \
 	$(shell find -L "blogs/$(blog)" -type f -and -name *.$(BLOG_EXT_$(blog))))
 
 define out_rule =
-out/%.$(ext): src/%$(layout).upp$(ext)
+out/%.$(ext): src/%$(if $(layout),.$(layout)).upp$(ext)
 	./bin/mkws https://joeac.net "$$$$(realpath $$<)"
 endef
 
