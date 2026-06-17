@@ -7,29 +7,13 @@ prune: prune_microlog prune_blog prune_out
 prune_out:
 	./bin/prune_out
 
-.SILENT: prune_microlog
 .PHONY: prune_microlog
 prune_microlog:
-	for post in $$(find src/microlog -name *.microlog.upphtml); do \
-	  post_basename="$$(basename "$$post")"; \
-		post_src="blogs/microlog/$${post_basename::$${#post_basename}-17}.gmi"; \
-		if ! [ -f "$$post_src" ]; then \
-	    echo "Microlog post source file $${post_src} has been deleted: removing $${post}"; \
-			rm -f "$$post" "$${post}.args"; \
-		fi; \
-	done
+	./bin/prune_blog microlog
 
-.SILENT: prune_blog
 .PHONY: prune_blog
 prune_blog:
-	for post in $$(find src/blog -name *.blog.upphtml); do \
-	  post_basename="$$(basename "$$post")"; \
-		post_src="blogs/blog/$${post_basename::$${#post_basename}-13}.gmi"; \
-		if ! [ -f "$$post_src" ]; then \
-	    echo "Blog post source file $${post_src} has been deleted: removing $${post}"; \
-			rm -f "$$post" "$${post}.args"; \
-		fi; \
-	done
+	./bin/prune_blog blog
 
 src_files := $(filter-out %.args,$(wildcard src/*.upp*))
 src_files += $(filter-out %.args,$(wildcard src/**/*.upp*))
