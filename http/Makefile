@@ -81,4 +81,4 @@ $(foreach blog,$(blogs),$(eval $(prune_blog_rule)))
 
 .PHONY: clean
 clean:
-	rm -rf out src/microlog src/blog
+	rm -rf out $(addprefix src/,$(blogs))
