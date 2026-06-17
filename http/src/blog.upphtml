@@ -4,7 +4,7 @@ SITE_URL="$2"
 export TITLE="Joe Carstairs"
 export DESCRIPTION="Joe Carstairs' personal website"
 
-POSTS="$(ls "${SRC}/blog/" | grep "^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\.blog.upphtml$")"
+POSTS="$(ls --reverse "${SRC}/blog/" | grep "^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\.blog.upphtml$")"
 set --
 for post in $POSTS
 do
