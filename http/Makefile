@@ -1,5 +1,20 @@
 all: microlog blog public out
 
+.PHONY: out
+out: $(out_files)
+
+.PHONY: microlog
+microlog: $(patsubst blogs/microlog/%.gmi,src/microlog/%.microlog.upphtml,$(wildcard blogs/microlog/*.gmi))
+
+.PHONY: blog
+blog: $(patsubst blogs/blog/%.gmi,src/blog/%.blog.upphtml,$(wildcard blogs/blog/*.gmi))
+
+.PHONY: public
+public: $(subst public/,out/,$(shell find -L public/ -type f))
+
+out/%: public/%
+	mkdir -p $(dir $@) && cp $< $@
+
 .PHONY: prune
 prune: prune_microlog prune_blog prune_out
 
@@ -14,6 +29,10 @@ prune_microlog:
 .PHONY: prune_blog
 prune_blog:
 	./bin/prune_blog blog
+
+.PHONY: clean
+clean:
+	rm -rf out src/microlog src/blog
 
 src_files := $(filter-out %.args,$(wildcard src/*.upp*))
 src_files += $(filter-out %.args,$(wildcard src/**/*.upp*))
@@ -48,22 +67,3 @@ $(foreach blog,$(blogs),\
 		$(eval $(call blog_rule,$(blog),$(layout)))))
 $(foreach blog,$(blogs),\
 	$(eval $(call blog_rule,$(blog),)))
-
-.PHONY: out
-out: $(out_files)
-
-.PHONY: microlog
-microlog: $(patsubst blogs/microlog/%.gmi,src/microlog/%.microlog.upphtml,$(wildcard blogs/microlog/*.gmi))
-
-.PHONY: blog
-blog: $(patsubst blogs/blog/%.gmi,src/blog/%.blog.upphtml,$(wildcard blogs/blog/*.gmi))
-
-.PHONY: public
-public: $(subst public/,out/,$(shell find -L public/ -type f))
-
-out/%: public/%
-	mkdir -p $(dir $@) && cp $< $@
-
-.PHONY: clean
-clean:
-	rm -rf out src/microlog src/blog
