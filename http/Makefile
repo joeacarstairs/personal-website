@@ -67,16 +67,16 @@ remove_layout_from_out_files = out_files := $$(subst $(1).upp,.,$$(out_files))
 $(foreach layout,$(layouts),$(eval $(call remove_layout_from_out_files,.$(layout))))
 $(eval $(call remove_layout_from_out_files,))
 
-define out_rule_for_ext_and_layout =
+define out_rule =
 out/%.$(1): src/%$(2).upp$(1)
 	./bin/mkws https://joeac.net "$$$$(realpath $$<)"
 endef
 
 $(foreach ext,$(sort $(out_files_ext)),\
-	$(eval $(call out_rule_for_ext_and_layout,$(ext),)))
+	$(eval $(call out_rule,$(ext),)))
 $(foreach layout,$(layouts),\
 	$(foreach ext,$(sort $(out_files_ext)),\
-		$(eval $(call out_rule_for_ext_and_layout,$(ext),.$(layout)))))
+		$(eval $(call out_rule,$(ext),.$(layout)))))
 
 .PHONY: out
 out: $(out_files)
