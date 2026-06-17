@@ -45,7 +45,7 @@ prune_$(blog):
 	./bin/prune_blog $(blog)
 endef
 
-all: microlog blog public out
+all: $(blogs) public out
 
 .PHONY: out
 out: $(out_deps)
