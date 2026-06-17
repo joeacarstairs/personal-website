@@ -29,10 +29,15 @@ endef
 
 blogs := $(subst blogs/,,$(wildcard blogs/*))
 
-blog_deps = $(patsubst \
+blog_src = $(patsubst \
 	blogs/$(blog)/%.$(BLOG_EXT_$(blog)),\
 	src/$(blog)/%$(if $(BLOG_LAYOUT_$(blog)),.$(BLOG_LAYOUT_$(blog))).upphtml,\
 	$(shell find -L "blogs/$(blog)" -type f -and -name *.$(BLOG_EXT_$(blog))))
+
+define blog_rule =
+.PHONY: $(blog)
+$(blog): $(blog_src)
+endef
 
 all: microlog blog public out
 
@@ -45,11 +50,7 @@ $(foreach layout,$(layouts),\
 	$(foreach ext,$(sort $(out_deps_ext)),\
 		$(eval $(call out_rule,$(ext),.$(layout)))))
 
-.PHONY: microlog
-microlog: $(let blog,microlog,$(blog_deps))
-
-.PHONY: blog
-blog: $(let blog,blog,$(blog_deps))
+$(foreach blog,$(blogs),$(eval $(blog_rule)))
 
 $(foreach blog,$(blogs),\
 	$(foreach layout,$(layouts),\
