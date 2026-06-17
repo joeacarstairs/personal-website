@@ -39,6 +39,12 @@ define blog_rule =
 $(blog): $(blog_src)
 endef
 
+define prune_blog_rule =
+.PHONY: prune_$(blog)
+prune_$(blog):
+	./bin/prune_blog $(blog)
+endef
+
 all: microlog blog public out
 
 .PHONY: out
@@ -65,19 +71,13 @@ out/%: public/%
 	mkdir -p $(dir $@) && cp $< $@
 
 .PHONY: prune
-prune: prune_microlog prune_blog prune_out
+prune: $(addprefix prune_,$(blogs)) prune_out
 
 .PHONY: prune_out
 prune_out:
 	./bin/prune_out
 
-.PHONY: prune_microlog
-prune_microlog:
-	./bin/prune_blog microlog
-
-.PHONY: prune_blog
-prune_blog:
-	./bin/prune_blog blog
+$(foreach blog,$(blogs),$(eval $(prune_blog_rule)))
 
 .PHONY: clean
 clean:
