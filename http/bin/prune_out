@@ -7,13 +7,13 @@ do
 	rel_path="$(echo "${out}" | cut -c5-)"
 
 	if [ -f "public/${rel_path}" ]; then
-		continue 2
+		continue
 	fi
 
 	base_rel_path="${rel_path%%.${out_ext}}"
 	src_path="src/${base_rel_path}.upp${out_ext}"
 	if [ -f "$src_path" ]; then
-		continue 2
+		continue
 	fi
 
 	for layout in $(find share/layouts -name "*.layout.upp${out_ext}"); do
