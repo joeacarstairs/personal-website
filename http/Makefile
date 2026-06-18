@@ -41,6 +41,11 @@ out/%.$(ext): src/%$(if $(layout),.$(layout)).upp$(ext) $(layout_file) $(compone
 	./bin/mkws https://joeac.net "$$$$(realpath $$<)"
 endef
 
+define blog_rss_feed_rule =
+out/$(blog)/rss.xml: src/$(blog)/rss.uppxml $(blog_src) $(wildcard bin/*)
+	./bin/mkws https://joeac.net "$$(realpath src/$(blog)/rss.uppxml)"
+endef
+
 define blog_rule =
 .PHONY: $(blog)
 $(blog): $(blog_src)
@@ -87,6 +92,8 @@ $(foreach blog,$(blogs),\
 		$(eval $(call blog_post_rule,$(blog),$(layout)))))
 $(foreach blog,$(blogs),\
 	$(eval $(call blog_post_rule,$(blog),)))
+
+$(foreach blog,$(blogs),$(eval $(blog_rss_feed_rule)))
 
 .PHONY: public
 public: $(subst public/,out/,$(shell find -L public/ -type f))
