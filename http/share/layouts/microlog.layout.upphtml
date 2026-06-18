@@ -12,6 +12,8 @@ CANONICAL_URL="${SITE_URL}/microlog/$(basename "${SRC}")"
 #!
 pp "${SHARE}"/components/head.upphtml
 #!
+
+<link rel="stylesheet" href="/css/post.css" />
 </head>
 
 <body>
