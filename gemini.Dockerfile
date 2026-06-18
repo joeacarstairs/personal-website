@@ -1,9 +1,4 @@
-FROM alpine:3.23 AS agate
-RUN apk --update --no-cache add rust cargo \
-  && wget -O - https://github.com/mbrubeck/agate/archive/refs/tags/v3.3.20.tar.gz | tar -xz \
-  && cargo install --path agate-3.3.20/ \
-  && apk del rust cargo \
-  && rm -rf agate-3.3.20 agate-target
+FROM git.joeac.net/joeac/armv7/agate:3.3.20-alpine3.23 AS agate
 
 FROM git.joeac.net/joeac/armv7/comitium:1.8.2-alpine3.23 AS comitium
 
