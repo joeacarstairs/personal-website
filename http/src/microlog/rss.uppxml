@@ -1,0 +1,50 @@
+#!
+SITE_URL="$1"
+POSTS="$(ls --reverse "${SRC}/microlog/" | grep "^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\(\.[0-9]\+\)\?\.microlog.upphtml$")"
+NOW_RFC_822="$(TZ=UT date +"%a, %d %b %Y %H:%M:%S UT")"
+#!
+
+<rss version='2.0'>
+
+<channel>
+<title>Joe Carstairs’ microlog</title>
+<description>My private X feed I guess?</description>
+<link>${SITE_URL}/microlog</link>
+<image>${SITE_URL}/images/headshot.webp</image>
+<language>en-GB</language>
+<pubDate>${NOW_RFC_822}</pubDate>
+
+#!
+for post in $POSTS; do
+POST_ID="${post::${#post}-17}"
+source "${SRC}/microlog/${post}.args"
+DATE_PUBLISHED_RFC_822="$(TZ=UT date --date="${POST_ID::10}" +"%a, %d %b %Y %H:%M:%S UT")"
+#!
+<item>
+
+<title>${POST_TITLE}</title>
+<link>${SITE_URL}/microlog/${POST_ID}</link>
+<guid isPermaLink='true'>${SITE_URL}/microlog/${POST_ID}</guid>
+<pubDate>${DATE_PUBLISHED_RFC_822}</pubDate>
+<description>
+#!
+NO_META=1 pp "${SRC}/microlog/$post" "${SITE_URL}" \
+  | sed "s/&/\\&amp;/g" \
+  | sed "s/</\\&lt;/g" \
+  | sed "s/>/\\&gt;/g" \
+  | sed "s/\"/\\&quot;/g" \
+  | sed "s/'/\\&#x27;/g" \
+  | sed "s/\`/\\&#x60;/g" \
+  | sed "s/\\\$/\\\\\$/g"
+#!
+</description>
+<author>Joe Carstairs</author>
+
+</item>
+#!
+done
+#!
+
+</channel>
+
+</rss>
