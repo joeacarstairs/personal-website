@@ -26,8 +26,7 @@ DATE_PUBLISHED_RFC_822="$(TZ=UT date --date="${POST_ID}" +"%a, %d %b %Y %H:%M:%S
 <link>${SITE_URL}/blog/${POST_ID}</link>
 <guid isPermaLink='true'>${SITE_URL}/blog/${POST_ID}</guid>
 <pubDate>${DATE_PUBLISHED_RFC_822}</pubDate>
-<description>${POST_DESCRIPTION:-${POST_TITLE}}</description>
-<content:encoded>
+<description>
 #!
 NO_META=1 pp "${SRC}/blog/$post" "${SITE_URL}" \
   | sed "s/&/\\&amp;/g" \
@@ -38,7 +37,7 @@ NO_META=1 pp "${SRC}/blog/$post" "${SITE_URL}" \
   | sed "s/\`/\\&#x60;/g" \
   | sed "s/\\\$/\\\\\$/g"
 #!
-</content:encoded>
+</description>
 <author>Joe Carstairs</author>
 
 </item>
