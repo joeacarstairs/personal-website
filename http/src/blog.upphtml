@@ -28,8 +28,6 @@ YEARS="$@"
 pp "${SHARE}"/components/meta.upphtml
 #!
 
-<main>
-
 <section class='h-feed'>
 
 <h1>My blog</h1>

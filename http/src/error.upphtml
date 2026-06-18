@@ -4,7 +4,6 @@ export DESCRIPTION="Error page for Joe Carstairs' personal website"
 pp "${SHARE}"/components/meta.upphtml
 #!
 
-<main>
 <section>
   <h1>Got lost?</h1>
 
@@ -13,4 +12,3 @@ pp "${SHARE}"/components/meta.upphtml
     my <a href='/'>homepage</a> instead.
   </p>
 </section>
-</main>
