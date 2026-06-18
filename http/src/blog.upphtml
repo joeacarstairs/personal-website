@@ -38,7 +38,7 @@ pp "${SHARE}"/components/meta.upphtml
 </aside>
 
 <section>
-<p><a href='/blog/subscribe'>How to subscribe to this blog</a></p>
+<p><a href='/subscribe'>How to subscribe to my logs</a></p>
 </section>
 
 #!
