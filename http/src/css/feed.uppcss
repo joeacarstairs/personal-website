@@ -3,6 +3,15 @@
   margin-block-start: var(--spacing-block-md);
 }
 
+.h-feed ul:has(> .h-entry) {
+  list-style-type: none;
+  margin-inline: 0;
+
+  ul {
+    list-style-type: disc;
+  }
+}
+
 .h-feed .h-entry {
   display: flex;
   flex-direction: column;

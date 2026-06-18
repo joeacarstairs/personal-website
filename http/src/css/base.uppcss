@@ -305,11 +305,6 @@ strong {
 
 /** Blog feed */
 
-.h-feed ul {
-  list-style: none;
-  margin-inline: 0;
-}
-
 /** Block quotes */
 blockquote {
   padding-inline-start: var(--spacing-inline-lg);
