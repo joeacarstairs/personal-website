@@ -25,7 +25,7 @@ pp "${SHARE}"/components/navbar.upphtml
 <article class="h-entry">
 
 <aside>
-<span>This is a microlog post by <a class='p-author h-card' href='/'>Joe Carstairs</a>.</span>
+<span>This is a <a href='/microlog'>microlog</a> post by <a class='p-author h-card' href='/'>Joe Carstairs</a>.</span>
 <span>Published:
 #!
 DATE="${DATE_PUBLISHED}" CLASS="dt-published" pp "${SHARE}/components/formatted_date.upphtml"

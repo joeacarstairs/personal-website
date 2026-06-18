@@ -25,7 +25,7 @@ pp "${SHARE}"/components/navbar.upphtml
 <article class='h-entry'>
 
 <aside>
-<span>This is a blog post by <a class='p-author h-card' href='/'>Joe Carstairs</a>.</span>
+<span>This is a <a href='/blog'>blog</a> post by <a class='p-author h-card' href='/'>Joe Carstairs</a>.</span>
 #!
 if [ -z "${DATE_UPDATED}" ]; then
 #!
