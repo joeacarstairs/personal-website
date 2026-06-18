@@ -1,6 +1,7 @@
 #!/bin/sh -e
 
 BLOG="$1"
+BLOG_POST_PATTERN="${2:-*}"
 
 SRC="$(realpath src)"
 BLOGS="$(realpath blogs)"
@@ -8,7 +9,7 @@ LAYOUTS="$(realpath share/layouts)"
 BLOG_DIR_IN_SRC="${SRC}/${BLOG}"
 BLOG_EXT=gmi
 
-for post in $(find "$BLOG_DIR_IN_SRC" -type f)
+for post in $(find "$BLOG_DIR_IN_SRC" -type f -and -name "$BLOG_POST_PATTERN")
 do
   last_segment="${post##*\.}"
   if [ "$last_segment" = "args" ]
