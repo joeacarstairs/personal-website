@@ -24,7 +24,7 @@ pp "${SHARE}"/components/otp-dialog.upphtml
   <h1>You sent me a message!</h1>
   <p>Thanks for that. I may be in touch.</p>
   <p>In case you forgot, your message was this:</p>
-  <hr>
+  <hr />
   <dl>
     <dt>Name</dt> <dd class=sentname>???</dd>
     <dt>Email</dt> <dd class=sentemail>???</dd>
