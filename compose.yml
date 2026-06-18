@@ -7,6 +7,20 @@ services:
     ports:
       - "1965:1965"
 
+  http:
+    image: git.joeac.net/joeac/joeac.net-http
+    build:
+      context: .
+      dockerfile: http.Dockerfile
+      args:
+        LOCAL_SMTP_HOST: smtp
+        LOCAL_SMTP_PORT: 2500
+        LOCAL_SMTP_PASSWORD: smtp
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+
   smtp:
     image: git.joeac.net/joeac/joeac.net-smtp
     build:
