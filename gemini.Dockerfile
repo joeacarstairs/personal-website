@@ -5,13 +5,7 @@ RUN apk --update --no-cache add rust cargo \
   && apk del rust cargo \
   && rm -rf agate-3.3.20 agate-target
 
-FROM alpine:3.23 AS comitium
-RUN apk --no-cache add make go scdoc
-RUN wget -O - https://git.sr.ht/~nytpu/comitium/archive/v1.8.2.tar.gz | tar -xz \
-  && make --directory=comitium-v1.8.2 \
-  && mv comitium-v1.8.2/build/comitium /usr/local/bin/comitium \
-  && apk del make go scdoc \
-  && rm -rf comitium-v1.8.2
+FROM git.joeac.net/joeac/armv7/comitium:1.8.2-alpine3.23 AS comitium
 
 FROM alpine:3.23 AS final
 RUN mkdir -p /var/app/content
