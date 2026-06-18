@@ -10,6 +10,7 @@ src_files += $(filter-out %.args,$(wildcard src/**/*.upp*))
 src_files_ext := $(suffix $(src_files))
 out_deps_ext := $(src_files_ext:.upp%=%)
 
+component_files := $(shell find -L share/components -type f)
 layout_files := $(wildcard share/layouts/*.layout.upp*)
 layouts := $(notdir $(basename $(basename $(layout_files))))
 
@@ -52,7 +53,7 @@ $(blog): $(blog_src)
 endef
 
 define blog_post_rule =
-$(blog_post_target): $(blog_post_src) $(let ext,html,$(layout_file))
+$(blog_post_target): $(blog_post_src) $(let ext,html,$(layout_file) $(component_files))
 	./bin/blog \
 		-i $(blog) \
 		$(if $(BLOG_LAYOUT_$(blog)),-l $(BLOG_LAYOUT_$(blog))) \
