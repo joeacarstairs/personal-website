@@ -29,7 +29,7 @@ DATE_PUBLISHED_RFC_822="$(TZ=UT date --date="${POST_ID}" +"%a, %d %b %Y %H:%M:%S
 <description>${POST_DESCRIPTION:-${POST_TITLE}}</description>
 <content:encoded>
 #!
-pp "${SRC}/blog/$post" "${SITE_URL}" \
+NO_META=1 pp "${SRC}/blog/$post" "${SITE_URL}" \
   | sed "s/&/\\&amp;/g" \
   | sed "s/</\\&lt;/g" \
   | sed "s/>/\\&gt;/g" \
