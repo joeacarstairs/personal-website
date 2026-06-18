@@ -1,0 +1,84 @@
+#!
+PAGE="$1"
+SITE_URL="$2"
+export TITLE="Joe Carstairs"
+export DESCRIPTION="Joe Carstairs' personal website"
+
+POSTS="$(ls --reverse "${SRC}/microlog/" | grep "^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\(\.[0-9]\+\)\?\.microlog.upphtml$")"
+set --
+for post in $POSTS
+do
+  this_year="$( echo "$post" | cut -c1-4 )"
+  has_this_year=0
+  for year in $@
+  do
+    if [ "$this_year" = "$year" ]
+    then
+      has_this_year=1
+      break
+    fi
+  done
+  if [ $has_this_year -eq 0 ]
+  then
+    set -- $@ "$this_year"
+  fi
+done
+YEARS="$@"
+
+pp "${SHARE}"/components/meta.upphtml
+#!
+
+<main>
+
+<section class='h-feed'>
+
+<h1>My microlog</h1>
+
+<aside>
+<p>This microlog is written by <a class='p-author h-card' href='/'>Joe Carstairs</a>.</p>
+<p hidden><a class='u-url' href='${SITE_URL}/microlog'>Permalink</a></p>
+</aside>
+
+<section>
+<p><a href='/subscribe'>How to subscribe to my logs</a></p>
+</section>
+
+#!
+for year in $YEARS; do
+#!
+<h2>${year}</h2>
+
+<ul>
+
+#!
+for post in $POSTS; do if [ "$(echo "${post}" | cut -c1-4)" = "$year" ]; then
+title="$(grep "^export TITLE=" "${SRC}/microlog/${post}" | cut -c15-)"
+title="${title::${#title}-16}"
+date_published="$(echo "${post}" | cut -c1-10)"
+href="${SITE_URL}/microlog/${post::${#post}-17}.html"
+#!
+
+<li class='h-entry'>
+<h3><a class='u-url p-name' href='${href}'>${title}</a></h3>
+<section class='e-content'>
+#!
+pp "${SRC}/microlog/${post}" "${SITE_URL}"
+#!
+</section>
+#!
+DATE="${date_published}" CLASS="dt-published" ATTRIBUTES="hidden" \
+  pp "${SHARE}/components/formatted_date.upphtml"
+#!
+</li>
+
+#!
+fi; done
+#!
+
+</ul>
+
+#!
+done
+#!
+
+</section>
