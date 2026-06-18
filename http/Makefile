@@ -58,7 +58,7 @@ endef
 define prune_blog_rule =
 .PHONY: prune_$(blog)
 prune_$(blog):
-	./bin/prune_blog $(blog)
+	./bin/prune_blog $(blog) *$(if $(BLOG_LAYOUT_$(blog)),.$(BLOG_LAYOUT_$(blog))).upphtml
 endef
 
 
