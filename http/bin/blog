@@ -99,11 +99,10 @@ do
   dest="${SRC}/${log_name}/${name}${layout_ext}.upphtml"
   if [ $use_filenames_for_titles -eq 1 ]
   then
-    title="$name"
-    cat "$entry" |  eval "POST_TITLE=\"${title}\" ${postprocess_cmd}" > "$dest"
+    export POST_TITLE="$name"
+    cat "$entry" |  eval "${postprocess_cmd}" > "$dest"
   else
-    title="$(grep --regexp "^# " --max-count 1 "$entry" | cut -c3-)"
-    export POST_TITLE="$title"
+    export POST_TITLE="$(grep --regexp "^# " --max-count 1 "$entry" | cut -c3-)"
     cat "$entry" | grep --regexp "^# " --invert-match | eval "$postprocess_cmd" > "$dest"
   fi
   cat "$entry" | eval "$extract_args_cmd" > "${dest}.args"
