@@ -1,4 +1,6 @@
 out
 vendor
-src/microlog
-src/blog
+src/microlog/*.microlog.upphtml
+src/microlog/*.microlog.upphtml.args
+src/blog/*.blog.upphtml
+src/blog/*.blog.upphtml.args
