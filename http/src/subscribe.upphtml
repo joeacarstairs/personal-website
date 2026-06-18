@@ -9,9 +9,9 @@ export DESCRIPTION="How to subscribe to joeac's blog"
 <h1>How to subscribe to my logs</h1>
 
 <p>
-The short version: use my <a href='/rss.xml'>RSS feed</a> (or <a
-href='/blog/rss.xml'>blog RSS feed</a>, or <a href='/microlog/rss.xml'>microlog
-RSS feed</a>) or my <a href='gemini://joeac.net/logs/longlog.gmi'>gemlog</a>.
+The short version: use my <a href='/blog/rss.xml'>blog RSS feed</a> and
+<a href='/microlog/rss.xml'>microlog RSS feed</a>, or my
+<a href='gemini://joeac.net/logs/loglog.gmi'>gemlog</a>.
 </p>
 
 <p>
