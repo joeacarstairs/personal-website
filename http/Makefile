@@ -105,4 +105,8 @@ $(foreach blog,$(blogs),$(eval $(prune_blog_rule)))
 
 .PHONY: clean
 clean:
-	rm -rf out $(addprefix src/,$(blogs))
+	rm -rf \
+	out \
+	$(foreach blog,$(blogs), \
+		$(foreach ext,upphtml upphtml.args,\
+			src/$(blog)/*$(if $(BLOG_LAYOUT_$(blog)),.$(BLOG_LAYOUT_$(blog))).$(ext)))
