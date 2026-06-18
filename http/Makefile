@@ -37,7 +37,7 @@ default_layout_file = $(if \
 layout_file = $(if $(layout),share/layouts/$(layout).layout.upp$(ext),$(default_layout_file))
 
 define out_rule =
-out/%.$(ext): src/%$(if $(layout),.$(layout)).upp$(ext) $(layout_file)
+out/%.$(ext): src/%$(if $(layout),.$(layout)).upp$(ext) $(layout_file) $(component_files)
 	./bin/mkws https://joeac.net "$$$$(realpath $$<)"
 endef
 
