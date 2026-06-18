@@ -31,9 +31,10 @@ blog_src = $(patsubst \
 	blogs/$(blog)/%.$(BLOG_EXT_$(blog)),\
 	src/$(blog)/%$(if $(BLOG_LAYOUT_$(blog)),.$(BLOG_LAYOUT_$(blog))).upphtml,\
 	$(shell find -L "blogs/$(blog)" -type f -and -name *.$(BLOG_EXT_$(blog))))
+layout_file = share/layouts/$(if $(layout),$(layout),default).layout.upp$(ext)
 
 define out_rule =
-out/%.$(ext): src/%$(if $(layout),.$(layout)).upp$(ext)
+out/%.$(ext): src/%$(if $(layout),.$(layout)).upp$(ext) $(layout_file)
 	./bin/mkws https://joeac.net "$$$$(realpath $$<)"
 endef
 
@@ -43,7 +44,7 @@ $(blog): $(blog_src)
 endef
 
 define blog_post_rule =
-$(blog_post_target): $(blog_post_src)
+$(blog_post_target): $(blog_post_src) $(let ext,html,$(layout_file))
 	./bin/blog \
 		-i $(blog) \
 		$(if $(BLOG_LAYOUT_$(blog)),-l $(BLOG_LAYOUT_$(blog))) \
