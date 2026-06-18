@@ -8,7 +8,7 @@ Structure:
 /
 ├── capsule    My Gemini capsule
 ├── smtp       A local SMTP server
-└── website    My Website
+└── http       My Website
 ```
 
 ## Running with Podman
