@@ -6,7 +6,7 @@ Structure:
 
 ```
 /
-├── capsule    My Gemini capsule
+├── gemini     My Gemini capsule
 ├── smtp       A local SMTP server
 └── http       My Website
 ```

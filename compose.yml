@@ -1,9 +1,9 @@
 services:
-  capsule:
-    image: git.joeac.net/joeac/joeac.net-capsule
+  gemini:
+    image: git.joeac.net/joeac/joeac.net-gemini
     build:
       context: .
-      dockerfile: capsule.Dockerfile
+      dockerfile: gemini.Dockerfile
     ports:
       - "1965:1965"
 

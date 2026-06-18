@@ -16,7 +16,7 @@ RUN wget -O - https://git.sr.ht/~nytpu/comitium/archive/v1.8.2.tar.gz | tar -xz 
 FROM alpine:3.23 AS final
 RUN mkdir -p /var/app/content
 WORKDIR /var/app
-COPY capsule/.certificates .certificates
+COPY gemini/.certificates .certificates
 RUN crontab -l > crontab.tmp \
   && echo "0 */6 * * * /usr/local/bin/comitium refresh --data /var/app/comitium-data" >> crontab.tmp \
   && crontab crontab.tmp \
@@ -31,7 +31,7 @@ RUN rc-update add crond
 COPY --from=agate /root/.cargo/bin/agate /usr/local/bin/agate
 COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
 
-COPY capsule .
+COPY gemini .
 COPY common /var/common
 RUN make
 
