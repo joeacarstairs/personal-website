@@ -1,4 +1,11 @@
-<!-- Primary Meta Tags -->
+#!
+if [ -z "${NO_META}" ]; then
+#!
+
 <title>${TITLE}</title>
-<meta name="title" content="${TITLE}" />
-<meta name="description" content="${DESCRIPTION}" />
+<meta name='title' content='${TITLE}' />
+<meta name='description' content='${DESCRIPTION}' />
+
+#!
+fi
+#!
