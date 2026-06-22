@@ -12,10 +12,6 @@ services:
     build:
       context: .
       dockerfile: http.Dockerfile
-      args:
-        LOCAL_SMTP_HOST: smtp
-        LOCAL_SMTP_PORT: 2500
-        LOCAL_SMTP_PASSWORD: smtp
     env_file:
       - .env
     ports:
