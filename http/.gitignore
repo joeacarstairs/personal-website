@@ -4,3 +4,5 @@ src/microlog/*.microlog.upphtml
 src/microlog/*.microlog.upphtml.args
 src/blog/*.blog.upphtml
 src/blog/*.blog.upphtml.args
+bin/pp
+share/man/man1/pp.1
