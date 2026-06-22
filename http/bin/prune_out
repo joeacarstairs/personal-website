@@ -18,7 +18,7 @@ do
 
 	for layout in $(find share/layouts -name "*.layout.upp${out_ext}"); do
 		layout="$(basename "$layout")"
-		layout="${layout::${#layout}-15}"
+		layout="$(echo ${layout} | cut -c1-$(( ${#layout} - 15 )) )"
 		rel_path="$(echo "${out}" | cut -c5-)"
 		base_rel_path="${rel_path%%.${out_ext}}"
 		src_path="src/${base_rel_path}.${layout}.upp${out_ext}"

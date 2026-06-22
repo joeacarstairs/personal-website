@@ -51,7 +51,7 @@ for year in $YEARS; do
 #!
 for post in $POSTS; do if [ "$(echo "${post}" | cut -c1-4)" = "$year" ]; then
 title="$(grep "^export TITLE=" "${SRC}/blog/${post}" | cut -c15-)"
-title="${title::${#title}-16}"
+title="$(echo ${title} | cut -c1-$(( ${#title} - 16 )) )"
 date_published="$(echo "${post}" | cut -c1-10)"
 href="${SITE_URL}/blog/$(echo "$post" | cut -c1-10).html"
 #!
