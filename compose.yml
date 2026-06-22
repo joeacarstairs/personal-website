@@ -20,7 +20,8 @@ services:
   smtp:
     image: git.joeac.net/joeac/joeac.net-smtp
     build:
-      context: smtp
+      context: .
+      dockerfile: smtp.Dockerfile
       args:
         LOCAL_SMTP_PORT: 2500
     env_file:
