@@ -6,6 +6,7 @@ FROM git.joeac.net/joeac/armv7/crond:1.37.0-r30-alpine3.23 AS final
 
 COPY --from=agate /root/.cargo/bin/agate /usr/local/bin/agate
 COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
+RUN apk --no-cache add make
 
 RUN mkdir -p /var/app/content
 WORKDIR /var/app
@@ -17,6 +18,6 @@ RUN crontab -l > crontab.tmp \
 
 COPY gemini .
 COPY common /var/common
-RUN make
+RUN make && apk del make
 
 CMD ./run.sh
