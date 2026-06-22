@@ -18,7 +18,7 @@ container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/$(IMAGE_PREFIX)$(modu
 define build_module_rule =
 .PHONY: build_$(module)
 build_$(module): $(module)
-	sudo podman-compose build $(module)
+	sudo podman-compose build $(module) -t $(container_image_name)
 endef
 
 define push_module_rule =
