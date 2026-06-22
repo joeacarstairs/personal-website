@@ -72,7 +72,7 @@ endef
 # RULES #
 #########
 
-all: bin/pp $(blogs) public out
+all: bin/pp prune $(blogs) public out
 
 bin/pp:
 	cd pp && $(MAKE)
