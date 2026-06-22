@@ -18,13 +18,13 @@ container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/$(IMAGE_PREFIX)$(modu
 define build_module_rule =
 .PHONY: build_$(module)
 build_$(module): $(module)
-	podman-compose build $(module)
+	sudo podman-compose build $(module)
 endef
 
 define push_module_rule =
 .PHONY: push_$(module)
 push_$(module): login_registry build_$(module)
-	podman push $(container_image_name)
+	sudo podman push $(container_image_name)
 endef
 
 define make_module_rule =
@@ -52,7 +52,7 @@ $(foreach module,$(MODULES),$(eval $(call module_env_rule)))
 
 .PHONY: login_registry
 login_registry:
-	podman login $(REGISTRY_DOMAIN)
+	sudo podman login $(REGISTRY_DOMAIN)
 
 .PHONY: clean
 clean:
