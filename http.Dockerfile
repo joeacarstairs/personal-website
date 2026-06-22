@@ -4,3 +4,4 @@ COPY http/php /usr/share/nginx/php
 COPY http/out /usr/share/nginx/html
 COPY http/php-fpm.conf /etc/php/8.5/fpm/pool.d/joeac.net-http_pool.conf
 COPY http/nginx.conf /etc/nginx/nginx.conf
+CMD php-fpm85 && nginx -g "daemon off;"
