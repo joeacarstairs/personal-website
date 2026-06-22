@@ -2,8 +2,8 @@ FROM git.joeac.net/joeac/armv7/agate:3.3.20-alpine3.23 AS agate
 
 FROM git.joeac.net/joeac/armv7/comitium:1.8.2-alpine3.23 AS comitium
 
-FROM git.joeac.net/joeac/armv7/crond:1.37.0-alpine3.23 AS final
-
+FROM alpine:3.23 AS final
+RUN rc-update add crond
 COPY --from=agate /root/.cargo/bin/agate /usr/local/bin/agate
 COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
 
