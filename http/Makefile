@@ -77,6 +77,9 @@ all: bin/pp prune $(blogs) public out
 bin/pp:
 	cd pp && $(MAKE) && cp pp ../bin/pp
 
+share/man/man1/pp.1:
+	cp pp/pp.1 share/man/man1/pp.1
+
 .PHONY: out
 out: $(out_deps)
 
