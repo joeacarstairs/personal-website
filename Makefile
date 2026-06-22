@@ -13,7 +13,7 @@ MODULES := http gemini smtp
 # FUNCTIONS #
 #############
 
-container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/$(IMAGE_PREFIX)$(module)
+container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/$(IMAGE_PREFIX)joeac.net-$(module)
 
 define build_module_rule =
 .PHONY: build_$(module)
