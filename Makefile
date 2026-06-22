@@ -17,7 +17,7 @@ container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/joeac.net-$(module)
 
 define build_module_rule =
 .PHONY: build_$(module)
-build_$(module): $(module)
+build_$(module): make_$(module)
 	sudo podman-compose build $(module)
 endef
 
