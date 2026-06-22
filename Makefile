@@ -13,12 +13,12 @@ MODULES := http gemini smtp
 # FUNCTIONS #
 #############
 
-container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/$(IMAGE_PREFIX)joeac.net-$(module)
+container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/joeac.net-$(module)
 
 define build_module_rule =
 .PHONY: build_$(module)
 build_$(module): $(module)
-	sudo podman-compose build $(module) -t $(container_image_name)
+	sudo podman-compose build $(module)
 endef
 
 define push_module_rule =
