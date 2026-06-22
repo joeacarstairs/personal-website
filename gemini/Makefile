@@ -25,7 +25,7 @@ $(LOGLOG_TARGET): $(MICROLOG_TARGET) $(LONGLOG_TARGET) $(LOGLOG_HEADER)
 	bash ./build_loglog.bash
 
 $(FEED_TARGET): $(COMITIUM_DATA)/feeds.txt
-	rm -f $(COMITIUM_DATA)/comitium.json
+	rm -f $(FEED_TARGET); \
 	while read feed; do \
 		comitium add --data "$(COMITIUM_DATA)" $$feed; \
 	done <$(COMITIUM_DATA)/feeds.txt
