@@ -17,7 +17,7 @@ NOW_RFC_822="$(TZ=UT date +"%a, %d %b %Y %H:%M:%S UT")"
 #!
 for post in $POSTS; do
 POST_ID="$(echo ${post} | cut -c1-$(( ${#post} - 13 )) )"
-source "${SRC}/blog/${post}.args"
+. "${SRC}/blog/${post}.args"
 DATE_PUBLISHED_RFC_822="$(TZ=UT date --date="$( echo "${POST_ID}" | cut -c1-10)" +"%a, %d %b %Y %H:%M:%S UT")"
 #!
 <item>
