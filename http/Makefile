@@ -75,7 +75,7 @@ endef
 all: bin/pp prune $(blogs) public out
 
 bin/pp:
-	cd pp && $(MAKE)
+	cd pp && $(MAKE) && cp pp ../bin/pp
 
 .PHONY: out
 out: $(out_deps)
