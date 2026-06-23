@@ -72,7 +72,7 @@ endef
 # RULES #
 #########
 
-all: bin/pp prune $(blogs) public out
+all: bin/pp prune $(blogs) public out vendor
 
 bin/pp:
 	cd pp && $(MAKE) && cp pp ../bin/pp
@@ -114,9 +114,13 @@ prune_out:
 
 $(foreach blog,$(blogs),$(eval $(prune_blog_rule)))
 
+vendor: composer.json composer.lock
+	composer install
+
 .PHONY: clean
 clean:
 	rm -rf \
+	vendor \
 	out \
 	$(foreach blog,$(blogs), \
 		$(foreach ext,upphtml upphtml.args,\
