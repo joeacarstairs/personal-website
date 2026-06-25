@@ -12,6 +12,7 @@ RUN crontab -l > crontab.tmp \
   && crontab crontab.tmp \
   && rm crontab.tmp
 
+COPY gemini/run.sh /var/app/
 COPY gemini/content gemini/comitium-data /var/app/
 COPY common /var/common
 
