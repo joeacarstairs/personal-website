@@ -38,7 +38,7 @@ start() {
 
 stop() {
   ebegin "Stopping ${SVCNAME}"
-  "${COMPOSECMD}" -f "${COMPOSEFILE}" down --timeout=300
+  "${COMPOSECMD}" -f "${COMPOSEFILE}" down --timeout=5
   eend $?
 }
 
