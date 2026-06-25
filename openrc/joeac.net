@@ -16,12 +16,6 @@ description="Manage dockerservices defined in ${COMPOSEFILE}"
 extra_commands="configtest"
 description_configtest="Check configuration via \"podman-compose -f ${COMPOSEFILE} config\""
 
-depend() {
-  need localmount net podman
-  use dns
-  after podman
-}
-
 configtest() {
   if ! [ -f "${COMPOSEFILE}" ]; then
     eerror "The docker-compose file ${COMPOSEFILE} does not exist!"
