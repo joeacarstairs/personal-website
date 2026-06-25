@@ -18,6 +18,8 @@ out_deps := $(addprefix out/,$(src_files:src/%=%))
 remove_layout_from_out_deps = out_deps := $$(subst $(1).upp,.,$$(out_deps))
 $(foreach layout,$(layouts),$(eval $(call remove_layout_from_out_deps,.$(layout))))
 $(eval $(call remove_layout_from_out_deps,))
+out_deps_without_src := $(filter-out $(out_deps),$(shell find -L out -type f))
+out_deps += $(out_deps_without_src)
 
 blogs := $(subst blogs/,,$(wildcard blogs/*))
 
@@ -59,6 +61,18 @@ $(blog_post_target): $(blog_post_src) $(let ext,html,$(layout_file) $(component_
 		$(if $(BLOG_LAYOUT_$(blog)),-l $(BLOG_LAYOUT_$(blog))) \
 		$(BLOG_FLAGS_$(blog)) \
 		-f $$*.$(BLOG_EXT_$(blog))
+endef
+
+define prune_out_file_rule =
+$(let orig_ext,$(patsubst .%,%,$(suffix $(file))),
+$(let ext,$(patsubst upp%,%,$(orig_ext)),
+$(let rel_basename,$(patsubst out/%.$(orig_ext),%,$(file)),
+$(let src_file,src/$(rel_basename).upp$(ext),
+$(let src_files_with_layouts,$(foreach layout,$(layouts),src/$(rel_basename).$(layout).upp$(ext)),
+$(let public_file,public/$(rel_basename).$(orig_ext),
+$(src_file) $(src_files_with_layouts) $(public_file):
+	rm $(file)
+))))))
 endef
 
 define prune_blog_rule =
@@ -106,11 +120,9 @@ out/%: public/%
 	mkdir -p $(dir $@) && cp $< $@
 
 .PHONY: prune
-prune: $(addprefix prune_,$(blogs)) prune_out
+prune: $(addprefix prune_,$(blogs))
 
-.PHONY: prune_out
-prune_out:
-	./bin/prune_out
+$(foreach file,$(out_deps_without_src),$(eval $(prune_out_file_rule)))
 
 $(foreach blog,$(blogs),$(eval $(prune_blog_rule)))
 
