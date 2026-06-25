@@ -94,17 +94,17 @@ endef
 # RULES #
 #########
 
-all: bin/pp $(blogs) public out vendor
+all: $(blogs) public out vendor
 	$(MAKE) out # if blog posts have been pruned, outfiles must be re-calculated
-
-bin/pp:
-	cd pp && $(MAKE) && cp pp ../bin/pp
 
 share/man/man1/pp.1:
 	cp pp/pp.1 share/man/man1/pp.1
 
 .PHONY: out
-out: $(out_deps)
+out: bin/pp $(out_deps)
+
+bin/pp:
+	cd pp && $(MAKE) && chmod +x pp && cp pp ../bin/pp
 
 $(foreach ext,$(sort $(out_deps_ext)),\
 	$(eval $(out_rule)))
