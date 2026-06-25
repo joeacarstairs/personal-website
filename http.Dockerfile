@@ -8,6 +8,6 @@ COPY http/nginx.conf /etc/nginx/nginx.conf
 CMD mkdir -p "$(dirname "$DB_PATH")" \
   && touch $DB_PATH \
   && chown -R nginx:nginx "$(dirname "$DB_PATH")" \
-  && chmod -R 600 "$(dirname "$DB_PATH")" \
+  && chmod -R 700 "$(dirname "$DB_PATH")" \
   && php-fpm85 \
   && nginx -g "daemon off;"
