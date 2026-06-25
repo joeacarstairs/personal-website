@@ -1,0 +1,78 @@
+#!/sbin/openrc-run
+# credits:
+# https://gist.github.com/itzwam/2069e935385193207f7e5bea7156e21d
+# https://github.com/0x17de/dockerservice-openrc
+
+: ${JOEACNET_USER:=$(whoami)}
+: ${SRCDIR:=/usr/local/lib/joeac.net}
+DOCKER_COMPOSE_UP_ARGS=${DOCKER_COMPOSE_UP_ARGS-"--no-build --no-recreate --no-deps"}
+
+[ -z "${SVCNAME}" ] && exit 1
+: ${COMPOSEFILE:="${SRCDIR}/compose.yml"}
+: ${MAKEFILE:="${SRCDIR}/Makefile"}
+COMPOSECMD="/usr/bin/podman-compose"
+export COMPOSE_HTTP_TIMEOUT=300
+
+description="Manage dockerservices defined in ${COMPOSEFILE}"
+extra_commands="configtest make"
+description_configtest="Check configuration via \"podman-compose -f ${COMPOSEFILE} config\""
+description_make="Run \"make --makefile ${MAKEFILE}\""
+
+depend() {
+  need localmount net podman
+  use dns
+  after podman
+}
+
+configtest() {
+  if ! [ -f "${COMPOSEFILE}" ]; then
+    eerror "The docker-compose file ${COMPOSEFILE} does not exist!"
+    return 1
+  fi
+  if "${COMPOSECMD}" -f "${COMPOSEFILE}" config >&/dev/null; then
+    einfo "config: ok"
+  else
+    eerror "config: error"
+    return 1
+  fi
+}
+
+make() {
+  configtest || return 1
+  ebegin "Making ${SVCNAME}"
+  make --makefile "${MAKEFILE}"
+  eend $?
+}
+
+start() {
+  configtest || return 1
+  ebegin "Starting ${SVCNAME}"
+  "${COMPOSECMD}" -f "${COMPOSEFILE}" up -d ${DOCKER_COMPOSE_UP_ARGS}
+  eend $?
+}
+
+stop() {
+  ebegin "Stopping ${SVCNAME}"
+  "${COMPOSECMD}" -f "${COMPOSEFILE}" stop --timeout=300
+  eend $?
+}
+
+status() {
+  pods=0
+  started=0
+  while read pod; do
+        pods=$(($pods+1))
+        if podman top $pod &>/dev/null; then
+                einfo "status: [$pod] started"
+                started=$(($started+1))
+        else
+                einfo "status: [$pod] stopped"
+        fi
+  done < <("${COMPOSECMD}" -f "${COMPOSEFILE}" ps --quiet)
+  if [ $started -eq $pods ]; then
+    einfo "status: started"
+  else
+    einfo "status: stopped"
+    return 3
+  fi
+}
