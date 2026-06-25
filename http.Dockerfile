@@ -7,6 +7,7 @@ COPY http/php-fpm.conf /etc/php85/php-fpm.d/joeac.net-http_pool.conf
 COPY http/nginx.conf /etc/nginx/nginx.conf
 CMD mkdir -p "$(dirname "$DB_PATH")" \
   && touch $DB_PATH \
-  && chmod -R g+rw "$(dirname "$DB_PATH")" \
+  && chown -R nginx:nginx "$(dirname "$DB_PATH")" \
+  && chmod -R 600 "$(dirname "$DB_PATH")" \
   && php-fpm85 \
   && nginx -g "daemon off;"
