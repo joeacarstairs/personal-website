@@ -5,8 +5,7 @@ include config.mk
 # VARIABLES #
 #############
 
-src_files := $(filter-out %.args,$(wildcard src/*.upp*))
-src_files += $(filter-out %.args,$(wildcard src/**/*.upp*))
+src_files := $(filter-out %.args,$(wildcard src/*.upp*)) $(filter-out %.args,$(wildcard src/**/*.upp*))
 src_files_ext := $(suffix $(src_files))
 out_deps_ext := $(src_files_ext:.upp%=%)
 
@@ -14,10 +13,10 @@ component_files := $(shell find -L share/components -type f)
 layout_files := $(wildcard share/layouts/*.layout.upp*)
 layouts := $(notdir $(basename $(basename $(layout_files))))
 
-out_deps := $(addprefix out/,$(src_files:src/%=%))
-remove_layout_from_out_deps = out_deps := $$(subst $(1).upp,.,$$(out_deps))
-$(foreach layout,$(layouts),$(eval $(call remove_layout_from_out_deps,.$(layout))))
-$(eval $(call remove_layout_from_out_deps,))
+remove_all_layouts = $(call remove_layouts,$(layouts),$(1))
+remove_layouts = $(let first rest,$(1),$(call remove_layout,$(first),$(if $(rest),$(call remove_layouts,$(rest),$(2)),$(2))))
+remove_layout = $(subst .$(1).upp,.,$(2))
+out_deps := $(subst .upp,.,$(call remove_all_layouts,$(addprefix out/,$(src_files:src/%=%))))
 out_deps_without_src := $(filter-out $(out_deps),$(shell find -L out -type f))
 out_deps += $(out_deps_without_src)
 
@@ -34,6 +33,7 @@ blog_src = $(patsubst \
 	blogs/$(blog)/%.$(BLOG_EXT_$(blog)),\
 	src/$(blog)/%$(if $(BLOG_LAYOUT_$(blog)),.$(BLOG_LAYOUT_$(blog))).upphtml,\
 	$(shell find -L "blogs/$(blog)" -type f -and -name *.$(BLOG_EXT_$(blog))))
+blog_src_without_post_src = $(filter-out $(blog_src),$(shell find -L "src/$(blog)" -type f -and -name *.$(BLOG_LAYOUT_$(blog)).upphtml))
 default_layout_file = $(if \
 	$(shell [ -f "share/layouts/default.layout.$(ext)" ] && echo 1),\
 	share/layouts/default.layout.$(ext))
@@ -51,7 +51,7 @@ endef
 
 define blog_rule =
 .PHONY: $(blog)
-$(blog): $(blog_src)
+$(blog): $(blog_src_without_post_src) $(blog_src)
 endef
 
 define blog_post_rule =
@@ -61,6 +61,20 @@ $(blog_post_target): $(blog_post_src) $(let ext,html,$(layout_file) $(component_
 		$(if $(BLOG_LAYOUT_$(blog)),-l $(BLOG_LAYOUT_$(blog))) \
 		$(BLOG_FLAGS_$(blog)) \
 		-f $$*.$(BLOG_EXT_$(blog))
+endef
+
+define prune_blog_src_file_rule =
+$(let rel_basename,$(patsubst src/$(blog)/%.$(BLOG_LAYOUT_$(blog)).upphtml,%,$(file)),
+blogs/$(blog)/$(rel_basename).$(BLOG_EXT_$(blog)):
+	rm $(file)
+)
+endef
+
+define prune_blog_out_file_rule =
+$(let rel_basename,$(patsubst src/$(blog)/%.$(BLOG_LAYOUT_$(blog)).upphtml,%,$(file)),
+$(file):
+	rm out/$(rel_basename).html
+)
 endef
 
 define prune_out_file_rule =
@@ -75,18 +89,13 @@ $(src_file) $(src_files_with_layouts) $(public_file):
 ))))))
 endef
 
-define prune_blog_rule =
-.PHONY: prune_$(blog)
-prune_$(blog):
-	./bin/prune_blog $(blog) *$(if $(BLOG_LAYOUT_$(blog)),.$(BLOG_LAYOUT_$(blog))).upphtml
-endef
-
 
 #########
 # RULES #
 #########
 
-all: bin/pp prune $(blogs) public out vendor
+all: bin/pp $(blogs) public out vendor
+	$(MAKE) out # if blog posts have been pruned, outfiles must be re-calculated
 
 bin/pp:
 	cd pp && $(MAKE) && cp pp ../bin/pp
@@ -119,12 +128,8 @@ public: $(subst public/,out/,$(shell find -L public/ -type f))
 out/%: public/%
 	mkdir -p $(dir $@) && cp $< $@
 
-.PHONY: prune
-prune: $(addprefix prune_,$(blogs))
-
 $(foreach file,$(out_deps_without_src),$(eval $(prune_out_file_rule)))
-
-$(foreach blog,$(blogs),$(eval $(prune_blog_rule)))
+$(foreach blog,$(blogs),$(foreach file,$(blog_src_without_post_src),$(eval $(prune_blog_src_file_rule))))
 
 vendor: composer.json composer.lock
 	composer install
