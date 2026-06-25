@@ -54,6 +54,40 @@ $(foreach module,$(MODULES),$(eval $(call module_env_rule)))
 login_registry:
 	podman login $(REGISTRY_DOMAIN)
 
+.PHONY: install
+install: install_service install_crontab
+
+.PHONY: uninstall
+uninstall: uninstall_service uninstall_crontab
+
+.PHONY: install_service
+install_service: ~/.config/rc/init.d/joeac.net
+
+~/.config/rc/init.d/joeac.net: openrc/joeac.net
+	rm -f ~/.config/rc/init.d/joeac.net; \
+	mkdir -p ~/.config/rc/init.d; \
+	cp openrc/joeac.net ~/.config/rc/init.d/joeac.net \
+		&& rc-update -U add joeac.net \
+		&& rc-service -U joeac.net start; \
+
+.PHONY: uninstall_service
+uninstall_service:
+	rc-service -U joeac.net stop \
+		&& rc-update -U del joeac.net \
+		&& rm -f ~/.config/rc/init.d/joeac.net; \
+
+.PHONY: install_crontab
+install_crontab: /etc/periodic/daily/joeac.net
+
+.PHONY: uninstall_crontab
+uninstall_crontab:
+	sudo rm -f /etc/periodic/daily/joeac.net
+
+/etc/periodic/daily/joeac.net:
+	echo "@daily $(shell whoami) git -C /usr/local/lib/joeac.net pull && $(MAKE) --directory /usr/local/lib/joeac.net && rc-service joeac.net restart" \
+		> crontab.tmp
+	sudo mv crontab.tmp /etc/periodic/daily/joeac.net
+
 .PHONY: clean
 clean:
 	$(foreach module,$(MODULES),$(MAKE) --directory=$(module) clean;)
