@@ -67,13 +67,13 @@ install_service: ~/.config/rc/init.d/joeac.net
 	rm -f ~/.config/rc/init.d/joeac.net; \
 	mkdir -p ~/.config/rc/init.d; \
 	cp openrc/joeac.net ~/.config/rc/init.d/joeac.net \
-		&& rc-update -U add joeac.net \
+		&& rc-update -U add joeac.net default \
 		&& rc-service -U joeac.net start; \
 
 .PHONY: uninstall_service
 uninstall_service:
 	rc-service -U joeac.net stop \
-		&& rc-update -U del joeac.net \
+		&& rc-update -U del joeac.net default \
 		&& rm -f ~/.config/rc/init.d/joeac.net; \
 
 .PHONY: install_crontab
