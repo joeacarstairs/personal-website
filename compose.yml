@@ -23,12 +23,13 @@ services:
       context: .
       dockerfile: smtp.Dockerfile
       args:
-        LOCAL_SMTP_PORT: $LOCAL_SMTP_PORT
+        SMTP_PORT: 2500
     env_file:
       - .env
     environment:
-      SMTP_PORT: $LOCAL_SMTP_PORT
-      SMTP_PASSWORD: $LOCAL_SMTP_PORT
+      SMTP_PORT: 2500
+      SMTP_USER: smtp
+      SMTP_PASSWORD: smtp
       REMOTE_SMTP_PASSWORD_FILE: /run/secrets/remote_smtp_password
     secrets:
       - remote_smtp_password
