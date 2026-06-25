@@ -10,6 +10,7 @@ DOCKER_COMPOSE_UP_ARGS=${DOCKER_COMPOSE_UP_ARGS-"--no-build --no-recreate --no-d
 : ${COMPOSEFILE:="${SRCDIR}/compose.yml"}
 : ${MAKEFILE:="${SRCDIR}/Makefile"}
 COMPOSECMD="/usr/bin/podman-compose"
+COMPOSESTARTARGS="--podman-run-args='--rm'"
 export COMPOSE_HTTP_TIMEOUT=300
 
 description="Manage dockerservices defined in ${COMPOSEFILE}"
@@ -32,7 +33,7 @@ configtest() {
 start() {
   configtest || return 1
   ebegin "Starting ${SVCNAME}"
-  "${COMPOSECMD}" -f "${COMPOSEFILE}" up -d ${DOCKER_COMPOSE_UP_ARGS}
+  "${COMPOSECMD}" "${COMPOSESTARTARGS}" -f "${COMPOSEFILE}" up -d ${DOCKER_COMPOSE_UP_ARGS}
   eend $?
 }
 
