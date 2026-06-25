@@ -13,9 +13,8 @@ COMPOSECMD="/usr/bin/podman-compose"
 export COMPOSE_HTTP_TIMEOUT=300
 
 description="Manage dockerservices defined in ${COMPOSEFILE}"
-extra_commands="configtest make"
+extra_commands="configtest"
 description_configtest="Check configuration via \"podman-compose -f ${COMPOSEFILE} config\""
-description_make="Run \"make --makefile ${MAKEFILE}\""
 
 depend() {
   need localmount net podman
@@ -34,13 +33,6 @@ configtest() {
     eerror "config: error"
     return 1
   fi
-}
-
-make() {
-  configtest || return 1
-  ebegin "Making ${SVCNAME}"
-  make --makefile "${MAKEFILE}"
-  eend $?
 }
 
 start() {
