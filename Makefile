@@ -6,7 +6,7 @@ CPU_ARCH := $(shell lscpu | grep ^Architecture: | sed "s/^Architecture:[[:space:
 IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
 REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
-MODULES := http gemini smtp
+MODULES := http gemini smtp vaultwarden
 
 
 #############

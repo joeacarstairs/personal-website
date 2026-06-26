@@ -34,6 +34,17 @@ services:
     secrets:
       - remote_smtp_password
 
+  vaultwarden:
+    image: docker.io/vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    environment:
+      DOMAIN: "https://pwd.joeac.net"
+    volumes:
+      - ./vaultwarden/vw-data/:/data/
+    ports:
+      - "9000:80"
+
 secrets:
   remote_smtp_password:
     external: true
