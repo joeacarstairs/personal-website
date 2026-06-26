@@ -1,6 +1,7 @@
 services:
   gemini:
     image: git.joeac.net/joeac/joeac.net-gemini
+    container_name: joeac.net-gemini
     build:
       context: .
       dockerfile: gemini.Dockerfile
@@ -9,6 +10,7 @@ services:
 
   http:
     image: git.joeac.net/joeac/joeac.net-http
+    container_name: joeac.net-http
     build:
       context: .
       dockerfile: http.Dockerfile
@@ -19,6 +21,7 @@ services:
 
   smtp:
     image: git.joeac.net/joeac/joeac.net-smtp
+    container_name: joeac.net-smtp
     build:
       context: .
       dockerfile: smtp.Dockerfile
@@ -36,7 +39,7 @@ services:
 
   vaultwarden:
     image: docker.io/vaultwarden/server:latest
-    container_name: vaultwarden
+    container_name: joeac.net-vaultwarden
     restart: unless-stopped
     environment:
       DOMAIN: "https://pwd.joeac.net"
