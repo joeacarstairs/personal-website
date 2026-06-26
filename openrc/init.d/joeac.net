@@ -47,18 +47,19 @@ status() {
   pods=0
   started=0
   while read pod; do
+	pod_service="$(podman inspect $pod | jq .[0].Config.Labels.[\"com.docker.compose.service\"])"
+	if ! [ "$pod_service" = "\"${MODULENAME}\"" ]; then
+		continue
+	fi
         pods=$(($pods+1))
         if podman top $pod &>/dev/null; then
                 einfo "status: [$pod] started"
-                started=$(($started+1))
+		exit 0
         else
                 einfo "status: [$pod] stopped"
+		exit 3
         fi
-  done < <("${COMPOSECMD}" -f "${COMPOSEFILE}" ps --quiet ${MODULENAME})
-  if [ $started -eq $pods ]; then
-    einfo "status: started"
-  else
-    einfo "status: stopped"
-    return 3
-  fi
+  done < <("${COMPOSECMD}" -f "${COMPOSEFILE}" ps --quiet)
+  einfo "status: no container found for ${MODULENAME}"
+  exit 3
 }

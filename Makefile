@@ -116,10 +116,10 @@ endif
 $(foreach module,$(MODULES),$(eval $(install_module_rule)))
 $(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
 
-~/.config/rc/init.d/joeac.net: openrc/joeac.net ~/.config/rc/init.d ~/.config/rc/runlevels/default
+~/.config/rc/init.d/joeac.net: openrc/init.d/joeac.net ~/.config/rc/init.d ~/.config/rc/runlevels/default
 	rm -f ~/.config/rc/init.d/joeac.net; \
 	mkdir -p ~/.config/rc/init.d; \
-	cp openrc/joeac.net ~/.config/rc/init.d/joeac.net
+	cp openrc/init.d/joeac.net ~/.config/rc/init.d/joeac.net
 
 ~/.config/rc/init.d:
 	mkdir -p ~/.config/rc/init.d
