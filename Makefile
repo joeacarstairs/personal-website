@@ -55,10 +55,42 @@ login_registry:
 	podman login $(REGISTRY_DOMAIN)
 
 .PHONY: install
-install: install_service install_crontab next_steps
+install: install_nginx install_service install_crontab next_steps
 
 .PHONY: uninstall
-uninstall: uninstall_service uninstall_crontab
+uninstall: uninstall_nginx uninstall_service uninstall_crontab
+
+nginx_src := $(shell find -L nginx -type f)
+nginx_target := $(addprefix /etc/,$(nginx_src))
+NGINX_CONFIG := /etc/nginx
+NGINX_CONFIG_BACKUP := /etc/nginx.joeac.net-backup
+nginx_config_backup_exists = $(shell test -d $(NGINX_CONFIG_BACKUP) && echo 1 || echo 0)
+.PHONY: install_nginx
+install_nginx: $(NGINX_CONFIG_BACKUP) $(nginx_target)
+	sudo rc-service nginx restart
+
+$(NGINX_CONFIG_BACKUP): $(NGINX_CONFIG)
+ifeq ($(nginx_config_backup_exists),1)
+	@echo "tried to back up $(NGINX_CONFIG) to $(NGINX_CONFIG_BACKUP), but $(NGINX_CONFIG_BACKUP) already exists: try \`make uninstall_nginx\` and try again?"
+	@exit 1
+else
+	sudo mv $(NGINX_CONFIG) $(NGINX_CONFIG_BACKUP)
+endif
+
+/etc/nginx/%: nginx/%
+	sudo mkdir -p $$(dirname $@)
+	sudo cp $< $@
+
+.PHONY: uninstall_nginx
+uninstall_nginx:
+ifeq ($(nginx_config_backup_exists),0)
+	@echo "No nginx backup config detected: doing nothing"
+	@exit 0
+else
+	sudo rm -rf $(NGINX_CONFIG)
+	sudo mv $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG)
+	sudo rc-service nginx restart
+endif
 
 .PHONY: install_service
 install_service: ~/.config/rc/init.d/joeac.net
