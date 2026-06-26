@@ -134,12 +134,6 @@ $(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
 	sudo cp openrc/conf.d/user.$(shell whoami) /etc/conf.d/user.$(shell whoami)
 	sudo rc-update add user.$(shell whoami) default
 
-.PHONY: uninstall_service
-uninstall_service:
-	rc-service -U joeac.net stop \
-		&& rc-update -U del joeac.net default \
-		&& rm -f ~/.config/rc/init.d/joeac.net; \
-
 .PHONY: install_crontab
 install_crontab: /etc/periodic/daily/joeac.net
 
