@@ -38,6 +38,24 @@ $(module)/.env: .env
 	cp .env $(module)/.env
 endef
 
+define install_module_rule =
+.PHONY: install_$(module)
+install_$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module)
+
+~/.config/rc/init.d/joeac.net.$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/runlevels/default
+	ln -s $(shell realpath ~/.config/rc/init.d/joeac.net) ~/.config/rc/init.d/joeac.net.$(module)
+	rc-update -U add joeac.net.$(module) default
+	rc-service -U joeac.net.$(module) start
+endef
+
+define uninstall_module_rule =
+.PHONY: uninstall_$(module)
+uninstall_$(module):
+	rc-service -U joeac.net.$(module) stop
+	rc-update -U del joeac.net.$(module) default
+	rm ~/.config/rc/init.d/joeac.net.$(module)
+endef
+
 
 #########
 # RULES #
@@ -55,10 +73,13 @@ login_registry:
 	podman login $(REGISTRY_DOMAIN)
 
 .PHONY: install
-install: install_nginx install_service install_crontab next_steps
+install: install_nginx $(foreach module,$(MODULES),install_$(module)) install_crontab
 
 .PHONY: uninstall
-uninstall: uninstall_nginx uninstall_service uninstall_crontab
+uninstall: uninstall_nginx uninstall_joeac.net_service $(foreach module,$(MODULES),uninstall_$(module)) uninstall_crontab
+
+.PHONY: uninstall_joeac.net_service
+	rm ~/.config/rc/joeac.net
 
 nginx_src := $(shell find -L nginx -type f)
 nginx_target := $(addprefix /etc/,$(nginx_src))
@@ -92,15 +113,20 @@ else
 	sudo rc-service nginx restart
 endif
 
-.PHONY: install_service
-install_service: ~/.config/rc/init.d/joeac.net
+$(foreach module,$(MODULES),$(eval $(install_module_rule)))
+$(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
 
-~/.config/rc/init.d/joeac.net: openrc/joeac.net
+~/.config/rc/init.d/joeac.net: openrc/joeac.net ~/.config/rc/init.d ~/.config/rc/runlevels/default
 	rm -f ~/.config/rc/init.d/joeac.net; \
 	mkdir -p ~/.config/rc/init.d; \
-	cp openrc/joeac.net ~/.config/rc/init.d/joeac.net \
-		&& rc-update -U add joeac.net default \
-		&& rc-service -U joeac.net start; \
+	cp openrc/joeac.net ~/.config/rc/init.d/joeac.net
+
+~/.config/rc/init.d:
+	mkdir -p ~/.config/rc/init.d
+
+~/.config/rc/runlevels/default:
+	mkdir -p ~/.config/rc/runlevels/default
+	@echo "now edit openrc/user-default-runlevel with your username, copy it to /etc/init.d, and add it to the system's default runlevel with \`rc-service add <SERVICE> default\`"
 
 .PHONY: uninstall_service
 uninstall_service:
@@ -119,10 +145,6 @@ uninstall_crontab:
 	echo "@daily $(shell whoami) git -C /usr/local/lib/joeac.net pull && $(MAKE) --directory /usr/local/lib/joeac.net && rc-service joeac.net restart" \
 		> crontab.tmp
 	sudo mv crontab.tmp /etc/periodic/daily/joeac.net
-
-.PHONY: next_steps
-next_steps:
-	@echo "Make sure that your user's default runlevel is triggered by OpenRC. If this isn't already happening, edit openrc/user-default-runlevel with your username, copy it to /etc/init.d, and add it to the system's default runlevel with \`rc-service add <SERVICE> default\`."
 
 .PHONY: clean
 clean:
