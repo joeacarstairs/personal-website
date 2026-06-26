@@ -1,1 +1,0 @@
-/home/broughton/.config/nginx/http.d
