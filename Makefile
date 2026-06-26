@@ -116,7 +116,7 @@ endif
 $(foreach module,$(MODULES),$(eval $(install_module_rule)))
 $(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
 
-~/.config/rc/init.d/joeac.net: openrc/init.d/joeac.net ~/.config/rc/init.d ~/.config/rc/runlevels/default
+~/.config/rc/init.d/joeac.net: openrc/init.d/joeac.net ~/.config/rc/init.d ~/.config/rc/runlevels/default /etc/init.d/user.$(shell whoami) /etc/conf.d/user.$(shell whoami)
 	rm -f ~/.config/rc/init.d/joeac.net; \
 	mkdir -p ~/.config/rc/init.d; \
 	cp openrc/init.d/joeac.net ~/.config/rc/init.d/joeac.net
@@ -126,7 +126,13 @@ $(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
 
 ~/.config/rc/runlevels/default:
 	mkdir -p ~/.config/rc/runlevels/default
-	@echo "now edit openrc/user-default-runlevel with your username, copy it to /etc/init.d, and add it to the system's default runlevel with \`rc-service add <SERVICE> default\`"
+
+/etc/init.d/user.$(shell whoami):
+	sudo ln -s /etc/init.d/user /etc/init.d/user.$(shell whoami)
+
+/etc/conf.d/user.$(shell whoami): openrc/conf.d/user.$(shell whoami)
+	sudo cp openrc/conf.d/user.$(shell whoami) /etc/conf.d/user.$(shell whoami)
+	sudo rc-update add user.$(shell whoami) default
 
 .PHONY: uninstall_service
 uninstall_service:

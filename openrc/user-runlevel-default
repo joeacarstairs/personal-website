@@ -1,6 +1,0 @@
-#!/sbin/openrc
-
-description="start <USER> default runlevel"
-command="openrc"
-command_args="-U default"
-command_user="<USER>"
