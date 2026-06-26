@@ -55,7 +55,7 @@ login_registry:
 	podman login $(REGISTRY_DOMAIN)
 
 .PHONY: install
-install: install_service install_crontab
+install: install_service install_crontab next_steps
 
 .PHONY: uninstall
 uninstall: uninstall_service uninstall_crontab
@@ -87,6 +87,10 @@ uninstall_crontab:
 	echo "@daily $(shell whoami) git -C /usr/local/lib/joeac.net pull && $(MAKE) --directory /usr/local/lib/joeac.net && rc-service joeac.net restart" \
 		> crontab.tmp
 	sudo mv crontab.tmp /etc/periodic/daily/joeac.net
+
+.PHONY: next_steps
+next_steps:
+	@echo "Make sure that your user's default runlevel is triggered by OpenRC. If this isn't already happening, edit openrc/user-default-runlevel with your username, copy it to /etc/init.d, and add it to the system's default runlevel with \`rc-service add <SERVICE> default\`."
 
 .PHONY: clean
 clean:
