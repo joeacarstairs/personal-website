@@ -1,3 +1,5 @@
+include config.mk
+
 #############
 # VARIABLES #
 #############
@@ -14,6 +16,7 @@ MODULES := http gemini smtp vaultwarden
 #############
 
 container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/joeac.net-$(module)
+nginx_module_target = $(if $(SUBDOMAIN_$(module)),/etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf restart_nginx)
 
 define build_module_rule =
 .PHONY: build_$(module)
@@ -40,7 +43,7 @@ endef
 
 define install_module_rule =
 .PHONY: install_$(module)
-install_$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module)
+install_$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module) $(nginx_module_target)
 
 ~/.config/rc/init.d/joeac.net.$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/runlevels/default
 	ln -s $(shell realpath ~/.config/rc/init.d/joeac.net) ~/.config/rc/init.d/joeac.net.$(module)
@@ -73,7 +76,7 @@ login_registry:
 	podman login $(REGISTRY_DOMAIN)
 
 .PHONY: install
-install: install_nginx $(foreach module,$(MODULES),install_$(module)) install_crontab
+install: $(foreach module,$(MODULES),install_$(module)) install_crontab
 
 .PHONY: uninstall
 uninstall: uninstall_nginx uninstall_joeac.net_service $(foreach module,$(MODULES),uninstall_$(module)) uninstall_crontab
@@ -83,32 +86,31 @@ uninstall: uninstall_nginx uninstall_joeac.net_service $(foreach module,$(MODULE
 
 nginx_src := $(shell find -L nginx -type f)
 nginx_target := $(addprefix /etc/,$(nginx_src))
-NGINX_CONFIG := /etc/nginx
-NGINX_CONFIG_BACKUP := /etc/nginx.joeac.net-backup
+NGINX_CONFIG_SRC := nginx/nginx.conf
+NGINX_CONFIG := /etc/nginx/nginx.conf
+NGINX_CONFIG_BACKUP := /etc/nginx/nginx.joeac.net-backup
 nginx_config_backup_exists = $(shell test -d $(NGINX_CONFIG_BACKUP) && echo 1 || echo 0)
 .PHONY: install_nginx
-install_nginx: $(NGINX_CONFIG_BACKUP) $(nginx_target)
+install_nginx: $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG)
+
+.PHONY: restart_nginx
+restart_nginx:
 	sudo rc-service nginx restart
 
-$(NGINX_CONFIG_BACKUP): $(NGINX_CONFIG)
-ifeq ($(nginx_config_backup_exists),1)
-	@echo "tried to back up $(NGINX_CONFIG) to $(NGINX_CONFIG_BACKUP), but $(NGINX_CONFIG_BACKUP) already exists: try \`make uninstall_nginx\` and try again?"
-	@exit 1
-else
+$(NGINX_CONFIG_BACKUP):
+ifeq ($(nginx_config_backup_exists),0)
 	sudo mv $(NGINX_CONFIG) $(NGINX_CONFIG_BACKUP)
 endif
 
-/etc/nginx/%: nginx/%
-	sudo mkdir -p $$(dirname $@)
+$(NGINX_CONFIG): $(NGINX_CONFIG_SRC)
 	sudo cp $< $@
 
 .PHONY: uninstall_nginx
 uninstall_nginx:
 ifeq ($(nginx_config_backup_exists),0)
 	@echo "No nginx backup config detected: doing nothing"
-	@exit 0
 else
-	sudo rm -rf $(NGINX_CONFIG)
+	sudo rm -f $(NGINX_CONFIG)
 	sudo mv $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG)
 	sudo rc-service nginx restart
 endif
@@ -133,6 +135,12 @@ $(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
 /etc/conf.d/user.$(shell whoami): openrc/conf.d/user.$(shell whoami)
 	sudo cp openrc/conf.d/user.$(shell whoami) /etc/conf.d/user.$(shell whoami)
 	sudo rc-update add user.$(shell whoami) default
+
+/etc/nginx/http.d/%joeac.net.conf: nginx/http.d/%joeac.net.conf install_nginx /etc/nginx/http.d
+	sudo cp $< $@
+
+/etc/nginx/http.d:
+	sudo mkdir -p /etc/nginx/http.d
 
 .PHONY: install_crontab
 install_crontab: /etc/periodic/daily/joeac.net
