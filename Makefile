@@ -19,6 +19,7 @@ MODULES := http gemini smtp vaultwarden
 
 container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/joeac.net-$(module)
 nginx_module_target = $(if $(SUBDOMAIN_$(module)),/etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf restart_nginx)
+dyndns_module_target = $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net)
 
 define build_module_rule =
 .PHONY: build_$(module)
@@ -45,7 +46,7 @@ endef
 
 define install_module_rule =
 .PHONY: install_$(module)
-install_$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module) $(nginx_module_target)
+install_$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module) $(nginx_module_target) $(dyndns_module_target)
 
 ~/.config/rc/init.d/joeac.net.$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/runlevels/default
 	ln -s $(shell realpath ~)/.config/rc/init.d/joeac.net) ~/.config/rc/init.d/joeac.net.$(module)
@@ -59,6 +60,9 @@ uninstall_$(module):
 	rc-service -U joeac.net.$(module) stop
 	rc-update -U del joeac.net.$(module) default
 	rm ~/.config/rc/init.d/joeac.net.$(module)
+	$(if $(SUBDOMAIN_$(module)),\
+		sudo rm -f /etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net; \
+	)
 endef
 
 
@@ -93,7 +97,7 @@ NGINX_CONFIG := /etc/nginx/nginx.conf
 NGINX_CONFIG_BACKUP := /etc/nginx/nginx.joeac.net-backup
 nginx_config_backup_exists = $(shell test -d $(NGINX_CONFIG_BACKUP) && echo 1 || echo 0)
 .PHONY: install_nginx
-install_nginx: $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG)
+install_nginx: $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG) install_dyndns
 
 .PHONY: restart_nginx
 restart_nginx:
@@ -108,7 +112,7 @@ $(NGINX_CONFIG): $(NGINX_CONFIG_SRC)
 	sudo cp $< $@
 
 .PHONY: uninstall_nginx
-uninstall_nginx:
+uninstall_nginx: uninstall_dyndns
 ifeq ($(nginx_config_backup_exists),0)
 	@echo "No nginx backup config detected: doing nothing"
 else
@@ -155,6 +159,42 @@ uninstall_crontab:
 	echo "@daily $(shell whoami) git -C /usr/local/lib/joeac.net pull && $(MAKE) --directory /usr/local/lib/joeac.net && rc-service joeac.net restart" \
 		> crontab.tmp
 	sudo mv crontab.tmp /etc/periodic/daily/joeac.net
+
+.PHONY: install_dyndns
+install_dyndns: /usr/local/bin/dyndns.sh ~/.config/dyndns/DIGITALOCEAN_TOKEN
+
+/usr/local/bin/dyndns.sh: /usr/local/lib/digitalocean_dyndns/dyndns.sh /usr/local/bin/get_ip_addr.sh
+	sudo rm -f /usr/local/bin/dyndns.sh
+	sudo cp /usr/local/lib/digitalocean_dyndns/dyndns.sh /usr/local/bin/dyndns.sh
+
+/usr/local/bin/get_ip_addr.sh: /usr/local/lib/digitalocean_dyndns/get_ip_addr.sh
+	sudo rm -f /usr/local/bin/get_ip_addr.sh
+	sudo cp /usr/local/lib/digitalocean_dyndns/get_ip_addr.sh /usr/local/bin/get_ip_addr.sh
+
+/usr/local/lib/digitalocean_dyndns/%:
+	cd /usr/local/lib \
+		&& sudo git clone https://git.joeac.net/joeac/digitalocean_dyndns.git \
+
+~/.config/dyndns/DIGITALOCEAN_TOKEN: DIGITALOCEAN_TOKEN
+	mkdir -p ~/.config/dyndns/
+	rm -f ~/.config/dyndns/DIGITALOCEAN_TOKEN
+	cp DIGITALOCEAN_TOKEN ~/.config/dyndns/DIGITALOCEAN_TOKEN
+
+/etc/periodic/daily/dyndns-%joeac.net:
+	echo "#!/bin/sh" > crontab.tmp
+	echo "                      dyndns.sh 4 $(*F)joeac.net" >> crontab.tmp
+	echo "CONN_DEVICE_NAME=eth0 dyndns.sh 6 $(*F)joeac.net" >> crontab.tmp
+	sudo mv crontab.tmp $@
+	sudo chmod +x $@
+
+.PHONY: uninstall_dyndns
+uninstall_dyndns:
+	sudo rm -rf \
+		/usr/local/bin/dyndns.sh \
+		/usr/local/bin/get_ip_addr.sh \
+		/usr/local/lib/digitalocean_dyndns/ \
+		~/.config/dyndns \
+		~/.cache/dyndns
 
 .PHONY: clean
 clean:
