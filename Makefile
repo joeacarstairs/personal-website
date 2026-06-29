@@ -158,9 +158,11 @@ uninstall_crontab:
 	sudo rm -f /etc/periodic/daily/joeac.net
 
 /etc/periodic/daily/joeac.net:
-	echo "@daily $(shell whoami) git -C /usr/local/lib/joeac.net pull && $(MAKE) --directory /usr/local/lib/joeac.net && rc-service joeac.net restart" \
-		> crontab.tmp
+	echo "#!/bin/sh" > crontab.tmp
+	echo "git -C /usr/local/lib/joeac.net pull && $(MAKE) --directory /usr/local/lib/joeac.net && rc-service joeac.net restart" \
+		>> crontab.tmp
 	sudo mv crontab.tmp /etc/periodic/daily/joeac.net
+	sudo chmod +x /etc/periodic/daily/joeac.net
 
 .PHONY: install_dyndns
 install_dyndns: /usr/local/bin/dyndns.sh ~/.config/dyndns/DIGITALOCEAN_TOKEN
