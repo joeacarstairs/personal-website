@@ -61,6 +61,8 @@ uninstall_$(module):
 	rc-update -U del joeac.net.$(module) default
 	rm ~/.config/rc/init.d/joeac.net.$(module)
 	$(if $(SUBDOMAIN_$(module)),\
+		sudo rm -f /etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf; \
+		sudo rc-service nginx restart; \
 		sudo rm -f /etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net; \
 	)
 endef
