@@ -4,7 +4,9 @@ include config.mk
 # VARIABLES #
 #############
 
-CPU_ARCH := $(shell lscpu | grep ^Architecture: | sed "s/^Architecture:[[:space:]]*\([[:alnum:][:punct:]]\+\).*/\1/")
+CPU_ARCH := $(if $(shell which arch),\
+	$(shell arch),\
+	$(shell lscpu | grep ^Architecture: | sed "s/^Architecture:[[:space:]]*\([[:alnum:][:punct:]]\+\).*/\1/"))
 IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
 REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
