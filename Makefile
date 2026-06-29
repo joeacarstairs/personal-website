@@ -49,7 +49,7 @@ define install_module_rule =
 install_$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module) $(nginx_module_target) $(dyndns_module_target)
 
 ~/.config/rc/init.d/joeac.net.$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/runlevels/default
-	ln -s $(shell realpath ~)/.config/rc/init.d/joeac.net) ~/.config/rc/init.d/joeac.net.$(module)
+	ln -s $(shell realpath ~)/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module)
 	rc-update -U add joeac.net.$(module) default
 	rc-service -U joeac.net.$(module) start
 endef
