@@ -10,7 +10,7 @@ CPU_ARCH := $(if $(shell which arch),\
 IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
 REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
-MODULES := http gemini smtp vaultwarden
+MODULES := http gemini smtp vaultwarden etherpad
 
 
 #############

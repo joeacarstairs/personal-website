@@ -19,6 +19,24 @@ services:
     ports:
       - "8080:80"
 
+  etherpad:
+    image: git.joeac.net/joeac/joeac.net-etherpad
+    container_name: joeac.net-etherpad
+    build:
+      context: .
+      dockerfile: etherpad.Dockerfile
+      args:
+        ALPINE_VERSION: ${ALPINE_VERSION}
+        ETHERPAD_VERSION: ${ETHERPAD_VERSION}
+    volumes:
+      - ./etherpad/var:/var/app/var
+    environment:
+      NODE_ENV: ${ETHERPAD_NODE_ENV}
+      ADMIN_PASSWORD: ${ETHERPAD_ADMIN_PASSWORD}
+    restart: unless-stopped
+    ports:
+      - "${ETHERPAD_PORT}:9001"
+
   smtp:
     image: git.joeac.net/joeac/joeac.net-smtp
     container_name: joeac.net-smtp
