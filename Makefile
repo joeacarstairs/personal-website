@@ -82,7 +82,7 @@ endef
 
 define reinstall_openrc_module_rule =
 .PHONY: reinstall_openrc_$(module)
-reinstall_openrc_$(module): $(openrc_module_target) openrc_restart_$(module)
+reinstall_openrc_$(module): $(if $(openrc_module_target),$(openrc_module_target) openrc_restart_$(module))
 endef
 
 define uninstall_module_rule =
