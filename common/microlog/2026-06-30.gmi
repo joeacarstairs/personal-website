@@ -1,0 +1,7 @@
+So I've now got half a dozen services running on my homelab across two machines. I need to install the services on each machine, keep them running after crashes and reboots, update and restart them when the source code changes, and co-ordinate them with each other (since I can only have one public IP on my home network, but I want to serve stuff over the Internet from both machines).
+
+I am currently managing this with Podman, some Dockerfiles and Docker-Compose files, Makefiles, and a lot of manual interference. This just about works, and is probably reasonably sensible for the small, low-consequence situation.
+
+Still, it is a faff. I'm wondering: is this kind of what Kubernetes is for? I've never understood. Looking at the documentation, I find it really hard to understand what Kubernetes is for. Maybe it's for situations kind of like this (only typically much bigger)?
+
+Answers on a postcard please.
