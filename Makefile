@@ -10,7 +10,7 @@ CPU_ARCH := $(if $(shell which arch 2>/dev/null),\
 IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
 REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
-MODULES := http gemini smtp vaultwarden etherpad
+MODULES := http gemini smtp vaultwarden etherpad ln
 COMPOSE_SERVICES := $(shell podman-compose config \
 	| yq ".services | keys" \
 	| sed "s/[,[\"]//g" \
