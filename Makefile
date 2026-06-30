@@ -15,6 +15,7 @@ COMPOSE_SERVICES := $(shell podman-compose config \
 	| yq ".services | keys" --output-format csv --csv-separator " ")
 MAKE_MODULES := $(foreach module,$(MODULES),\
 	$(shell [ -f $(module)/Makefile ] && echo $(module)))
+RESTART_NGINX := sudo rc-service nginx restart
 
 
 #############
@@ -22,7 +23,7 @@ MAKE_MODULES := $(foreach module,$(MODULES),\
 #############
 
 container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/joeac.net-$(module)
-nginx_module_target = $(if $(SUBDOMAIN_$(module)),/etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf restart_nginx)
+nginx_module_target = $(if $(SUBDOMAIN_$(module)),/etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf)
 dyndns_module_target = $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net)
 openrc_module_target = $(if $(filter $(COMPOSE_SERVICES),$(module)),~/.config/rc/init.d/joeac.net.$(module))
 install_submake_file = $(shell [ -f "$(module)/install.mk" ] && echo "$(module)/install.mk")
@@ -52,13 +53,27 @@ endef
 
 define install_module_rule =
 .PHONY: install_$(module)
-install_$(module): $(openrc_module_target) $(nginx_module_target) $(dyndns_module_target) $(install_submake_file)
+install_$(module): install_openrc_$(module) $(nginx_module_target) $(dyndns_module_target) $(install_submake_file)
 	$(if $(install_submake_file),$(MAKE) --makefile=$(install_submake_file) install)
+endef
+
+define install_openrc_module_rule =
+.PHONY: install_openrc_$(module)
+install_openrc_$(module): $(openrc_module_target) openrc_add_$(module) openrc_start_$(module)
 
 ~/.config/rc/init.d/joeac.net.$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/runlevels/default
 	ln -s $(shell realpath ~)/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module)
-	rc-update -U add joeac.net.$(module) default
-	rc-service -U joeac.net.$(module) start
+endef
+
+define reinstall_module_rule =
+.PHONY: reinstall_$(module)
+reinstall_$(module): reinstall_openrc_$(module) $(nginx_module_target) $(dyndns_module_target) $(install_submake_file)
+	$(if $(install_submake_file),$(MAKE) --makefile=$(install_submake_file) reinstall)
+endef
+
+define reinstall_openrc_module_rule =
+.PHONY: reinstall_openrc_$(module)
+reinstall_openrc_$(module): $(openrc_module_target) openrc_restart_$(module)
 endef
 
 define uninstall_module_rule =
@@ -71,12 +86,30 @@ uninstall_$(module):
 	)
 	$(if $(SUBDOMAIN_$(module)),\
 		sudo rm -f /etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf; \
-		sudo rc-service nginx restart; \
+		$(RESTART_NGINX); \
 		sudo rm -f /etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net; \
 	)
 	$(if $(install_submake_file),\
 		$(MAKE) --makefile $(install_submake_file) uninstall
 	)
+endef
+
+define openrc_add_rule =
+.PHONY: openrc_add_$(module)
+openrc_add_$(module):
+	rc-update -U add joeac.net.$(module) default
+endef
+
+define openrc_start_rule =
+.PHONY: openrc_start_$(module)
+openrc_start_$(module):
+	rc-service -U joeac.net.$(module) start
+endef
+
+define openrc_restart_rule =
+.PHONY: openrc_restart_$(module)
+openrc_restart_$(module):
+	rc-service -U joeac.net.$(module) restart
 endef
 
 
@@ -113,10 +146,6 @@ nginx_config_backup_exists = $(shell test -d $(NGINX_CONFIG_BACKUP) && echo 1 ||
 .PHONY: install_nginx
 install_nginx: $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG) install_dyndns
 
-.PHONY: restart_nginx
-restart_nginx:
-	sudo rc-service nginx restart
-
 $(NGINX_CONFIG_BACKUP):
 ifeq ($(nginx_config_backup_exists),0)
 	sudo mv $(NGINX_CONFIG) $(NGINX_CONFIG_BACKUP)
@@ -124,6 +153,7 @@ endif
 
 $(NGINX_CONFIG): $(NGINX_CONFIG_SRC)
 	sudo cp $< $@
+	$(RESTART_NGINX)
 
 .PHONY: uninstall_nginx
 uninstall_nginx: uninstall_dyndns
@@ -132,11 +162,17 @@ ifeq ($(nginx_config_backup_exists),0)
 else
 	sudo rm -f $(NGINX_CONFIG)
 	sudo mv $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG)
-	sudo rc-service nginx restart
+	$(RESTART_NGINX)
 endif
 
 $(foreach module,$(MODULES),$(eval $(install_module_rule)))
+$(foreach module,$(MODULES),$(eval $(reinstall_module_rule)))
 $(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
+$(foreach module,$(MODULES),$(eval $(install_openrc_module_rule)))
+$(foreach module,$(MODULES),$(eval $(reinstall_openrc_module_rule)))
+$(foreach module,$(MODULES),$(eval $(openrc_add_rule)))
+$(foreach module,$(MODULES),$(eval $(openrc_start_rule)))
+$(foreach module,$(MODULES),$(eval $(openrc_restart_rule)))
 
 ~/.config/rc/init.d/joeac.net: openrc/init.d/joeac.net ~/.config/rc/init.d ~/.config/rc/runlevels/default /etc/init.d/user.$(shell whoami) /etc/conf.d/user.$(shell whoami)
 	rm -f ~/.config/rc/init.d/joeac.net; \
@@ -158,6 +194,7 @@ $(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
 
 /etc/nginx/http.d/%joeac.net.conf: nginx/http.d/%joeac.net.conf install_nginx /etc/nginx/http.d
 	sudo cp $< $@
+	$(RESTART_NGINX)
 
 /etc/nginx/http.d:
 	sudo mkdir -p /etc/nginx/http.d
