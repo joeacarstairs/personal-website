@@ -1,4 +1,4 @@
 #!
 SITE_URL="${1}"
 #!
-<meta http-equiv="refresh" content="0" ; url="${SITE_URL}/subscribe" />
+<meta http-equiv=refresh content=0;url=${SITE_URL}/subscribe />
