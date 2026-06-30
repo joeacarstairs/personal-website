@@ -53,7 +53,7 @@ endef
 define install_module_rule =
 .PHONY: install_$(module)
 install_$(module): $(openrc_module_target) $(nginx_module_target) $(dyndns_module_target) $(install_submake_file)
-	$(if $(install_submake_file),$(MAKE) --makefile=$(install_submake_file)) install
+	$(if $(install_submake_file),$(MAKE) --makefile=$(install_submake_file) install)
 
 ~/.config/rc/init.d/joeac.net.$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/runlevels/default
 	ln -s $(shell realpath ~)/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module)
