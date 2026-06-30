@@ -9,7 +9,7 @@ services:
       - "${GEMINI_PORT}:1965"
 
   http:
-    image: git.joeac.net/joeac/joeac.net-http
+    image: git.joeac.net/joeac/${CONTAINER_PREFIX}joeac.net-http
     container_name: joeac.net-http
     build:
       context: .
@@ -30,7 +30,7 @@ services:
       - "${HTTP_PORT}:80"
 
   etherpad:
-    image: git.joeac.net/joeac/joeac.net-etherpad
+    image: git.joeac.net/joeac/${CONTAINER_PREFIX}joeac.net-etherpad
     container_name: joeac.net-etherpad
     build:
       context: .
@@ -48,7 +48,7 @@ services:
       - "${ETHERPAD_PORT}:9001"
 
   smtp:
-    image: git.joeac.net/joeac/joeac.net-smtp
+    image: git.joeac.net/joeac/${CONTAINER_PREFIX}joeac.net-smtp
     container_name: joeac.net-smtp
     build:
       context: .
