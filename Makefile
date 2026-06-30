@@ -11,6 +11,12 @@ IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
 REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
 MODULES := http gemini smtp vaultwarden etherpad
+COMPOSE_SERVICES := $(shell podman-compose config \
+	| yq ".services | keys" \
+	| sed "s/[,[\"]//g" \
+	| sed "s/]//g")
+MAKE_MODULES := $(foreach module,$(MODULES),\
+	$(shell [ -f $(module)/Makefile ] && echo $(module)))
 
 
 #############
@@ -20,6 +26,7 @@ MODULES := http gemini smtp vaultwarden etherpad
 container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/joeac.net-$(module)
 nginx_module_target = $(if $(SUBDOMAIN_$(module)),/etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf restart_nginx)
 dyndns_module_target = $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net)
+openrc_module_target = $(if $(filter $(COMPOSE_SERVICES),$(module)),~/.config/rc/init.d/joeac.net.$(module))
 
 define build_module_rule =
 .PHONY: build_$(module)
@@ -46,7 +53,7 @@ endef
 
 define install_module_rule =
 .PHONY: install_$(module)
-install_$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module) $(nginx_module_target) $(dyndns_module_target)
+install_$(module): $(openrc_module_target) $(nginx_module_target) $(dyndns_module_target)
 
 ~/.config/rc/init.d/joeac.net.$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/runlevels/default
 	ln -s $(shell realpath ~)/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module)
@@ -57,9 +64,11 @@ endef
 define uninstall_module_rule =
 .PHONY: uninstall_$(module)
 uninstall_$(module):
-	rc-service -U joeac.net.$(module) stop
-	rc-update -U del joeac.net.$(module) default
-	rm ~/.config/rc/init.d/joeac.net.$(module)
+	$(if $(openrc_module_target),\
+		rc-service -U joeac.net.$(module) stop \
+		rc-update -U del joeac.net.$(module) default \
+		rm ~/.config/rc/init.d/joeac.net.$(module) \
+	)
 	$(if $(SUBDOMAIN_$(module)),\
 		sudo rm -f /etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf; \
 		sudo rc-service nginx restart; \
@@ -74,9 +83,9 @@ endef
 
 all: $(foreach module,$(MODULES),push_$(module))
 
-$(foreach module,$(MODULES),$(eval $(call build_module_rule)))
-$(foreach module,$(MODULES),$(eval $(call push_module_rule)))
-$(foreach module,$(MODULES),$(eval $(call make_module_rule)))
+$(foreach module,$(COMPOSE_SERVICES),$(eval $(call build_module_rule)))
+$(foreach module,$(COMPOSE_SERVICES),$(eval $(call push_module_rule)))
+$(foreach module,$(MAKE_MODULES),$(eval $(call make_module_rule)))
 $(foreach module,$(MODULES),$(eval $(call module_env_rule)))
 
 .PHONY: login_registry
@@ -202,4 +211,4 @@ uninstall_dyndns:
 
 .PHONY: clean
 clean:
-	$(foreach module,$(MODULES),$(MAKE) --directory=$(module) clean;)
+	$(foreach module,$(MAKE_MODULES),$(MAKE) --directory=$(module) clean;)
