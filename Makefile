@@ -74,6 +74,9 @@ uninstall_$(module):
 		sudo rc-service nginx restart; \
 		sudo rm -f /etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net; \
 	)
+	$(if $(install_submake_file),\
+		$(MAKE) --makefile $(install_submake_file) uninstall
+	)
 endef
 
 
