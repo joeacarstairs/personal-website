@@ -27,6 +27,7 @@ container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/joeac.net-$(module)
 nginx_module_target = $(if $(SUBDOMAIN_$(module)),/etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf restart_nginx)
 dyndns_module_target = $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net)
 openrc_module_target = $(if $(filter $(COMPOSE_SERVICES),$(module)),~/.config/rc/init.d/joeac.net.$(module))
+install_submake_file = $(shell [ -f "$(module)/install.mk" ] && echo "$(module)/install.mk")
 
 define build_module_rule =
 .PHONY: build_$(module)
@@ -53,7 +54,8 @@ endef
 
 define install_module_rule =
 .PHONY: install_$(module)
-install_$(module): $(openrc_module_target) $(nginx_module_target) $(dyndns_module_target)
+install_$(module): $(openrc_module_target) $(nginx_module_target) $(dyndns_module_target) $(install_submake_file)
+	$(if $(install_submake_file),$(MAKE) --makefile=$(install_submake_file)) install
 
 ~/.config/rc/init.d/joeac.net.$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/runlevels/default
 	ln -s $(shell realpath ~)/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module)
