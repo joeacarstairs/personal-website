@@ -51,7 +51,7 @@ endef
 
 define blog_rule =
 .PHONY: $(blog)
-$(blog): $(blog_src_without_post_src) $(blog_src)
+$(blog): $(blog_src_without_post_src) $(blog_src) out/$(blog).html
 endef
 
 define blog_post_rule =
@@ -61,6 +61,11 @@ $(blog_post_target): $(blog_post_src) $(let ext,html,$(layout_file) $(component_
 		$(if $(BLOG_LAYOUT_$(blog)),-l $(BLOG_LAYOUT_$(blog))) \
 		$(BLOG_FLAGS_$(blog)) \
 		-f $$*.$(BLOG_EXT_$(blog))
+endef
+
+define blog_index_rule =
+out/$(blog).html: src/$(blog).upphtml $(blog_src) $(wildcard bin/*)
+	./bin/mkws https://joeac.net "$$(realpath src/$(blog).upphtml)"
 endef
 
 define prune_blog_src_file_rule =
@@ -113,6 +118,7 @@ $(foreach layout,$(layouts),\
 		$(eval $(out_rule))))
 
 $(foreach blog,$(blogs),$(eval $(blog_rule)))
+$(foreach blog,$(blogs),$(eval $(blog_index_rule)))
 
 $(foreach blog,$(blogs),\
 	$(foreach layout,$(layouts),\
