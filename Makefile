@@ -12,9 +12,7 @@ REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
 MODULES := http gemini smtp vaultwarden etherpad ln
 COMPOSE_SERVICES := $(shell podman-compose config \
-	| yq ".services | keys" \
-	| sed "s/[,[\"]//g" \
-	| sed "s/]//g")
+	| yq ".services | keys" --output-format csv --csv-separator " ")
 MAKE_MODULES := $(foreach module,$(MODULES),\
 	$(shell [ -f $(module)/Makefile ] && echo $(module)))
 
