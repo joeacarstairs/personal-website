@@ -43,22 +43,14 @@ endef
 # RULES #
 #########
 
-.SILENT: usage
-.PHONY: usage
-usage:
-	echo "usage:"
-	echo "	make install"
-	$(foreach module,$(MODULES),echo "	make install_$(module)")
-	echo "	make reinstall"
-	$(foreach module,$(MODULES),echo "	make reinstall_$(module)")
-	echo "	make uninstall"
-	$(foreach module,$(MODULES),echo "	make uninstall_$(module)")
+.PHONY: all
+all: $(ENV_RULES) $(MAKE_RULES) $(BUILD_RULES) $(PUSH_RULES)
 
 $(foreach module,$(MAKE_MODULES),$(eval $(call make_module_rule)))
 $(foreach module,$(MODULES),$(eval $(call module_env_rule)))
 
 .PHONY: install
-install: $(foreach module,$(MODULES),install_$(module)) install_crontab
+install: $(foreach module,$(MODULES),$(module)/.env install_$(module)) install_crontab
 
 .PHONY: uninstall
 uninstall: uninstall_nginx uninstall_dyndns uninstall_joeac.net_service $(foreach module,$(MODULES),uninstall_$(module)) uninstall_crontab
