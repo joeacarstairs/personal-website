@@ -23,7 +23,6 @@ MAKE_MODULES := $(foreach module,$(MODULES),\
 # FUNCTIONS #
 #############
 
-openrc_module_target = $(if $(filter $(COMPOSE_SERVICES),$(module)),~/.config/rc/init.d/joeac.net.$(module))
 install_submake_file = $(shell [ -f "$(module)/install.mk" ] && echo "$(module)/install.mk")
 
 define make_module_rule =
@@ -51,12 +50,7 @@ endef
 
 define uninstall_module_rule =
 .PHONY: uninstall_$(module)
-uninstall_$(module):
-	$(if $(openrc_module_target),\
-		rc-service -U joeac.net.$(module) stop \
-		rc-update -U del joeac.net.$(module) default \
-		rm ~/.config/rc/init.d/joeac.net.$(module) \
-	)
+uninstall_$(module): uninstall_openrc_$(module)
 	$(if $(SUBDOMAIN_$(module)),\
 		sudo rm -f /etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf; \
 		$(RESTART_NGINX); \
