@@ -5,8 +5,10 @@ include config.mk
 #############
 
 HOSTNAME := $(shell cat /etc/hostname)
+HOSTNAMES := pi-broughton blade-canongate
 MODULES_pi-broughton := http gemini smtp vaultwarden ln
 MODULES_blade-canongate := etherpad
+ALL_MODULES := $(sort $(foreach hostname,$(HOSTNAMES),$(MODULES_$(hostname))))
 MASTER_NODE := pi-broughton
 IS_MASTER_NODE := $(filter $(MASTER_NODE),$(HOSTNAME))
 MODULES := $(MODULES_$(HOSTNAME))
@@ -21,7 +23,6 @@ MAKE_MODULES := $(foreach module,$(MODULES),\
 # FUNCTIONS #
 #############
 
-dyndns_module_target = $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net)
 openrc_module_target = $(if $(filter $(COMPOSE_SERVICES),$(module)),~/.config/rc/init.d/joeac.net.$(module))
 install_submake_file = $(shell [ -f "$(module)/install.mk" ] && echo "$(module)/install.mk")
 
@@ -38,13 +39,13 @@ endef
 
 define install_module_rule =
 .PHONY: install_$(module)
-install_$(module): install_openrc_$(module) install_nginx_module_$(module) $(dyndns_module_target) $(install_submake_file)
+install_$(module): install_openrc_$(module) install_nginx_module_$(module) install_dyndns_module_$(module) $(install_submake_file)
 	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) install)
 endef
 
 define reinstall_module_rule =
 .PHONY: reinstall_$(module)
-reinstall_$(module): reinstall_openrc_$(module) reinstall_nginx_module_$(module) $(dyndns_module_target) $(install_submake_file)
+reinstall_$(module): reinstall_openrc_$(module) reinstall_nginx_module_$(module) reinstall_dyndns_module_$(module) $(install_submake_file)
 	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) reinstall)
 endef
 
