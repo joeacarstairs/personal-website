@@ -16,9 +16,9 @@ endef
 
 $(foreach module,$(MODULES),$(eval $(install_nginx_module_rule)))
 
-/etc/nginx/http.d/%.joeac.net.conf: nginx/http.d/%.joeac.net.conf /etc/nginx/http.d $(NGINX_CONFIG)
+/etc/nginx/http.d/%.joeac.net.conf: nginx/http.d/%.joeac.net.conf /etc/nginx/http.d /etc/nginx/nginx.conf
 	sudo cp $< $@
-	$(RESTART_NGINX)
+	sudo rc-service nginx restart
 
 /etc/nginx/http.d:
 	sudo mkdir -p /etc/nginx/http.d

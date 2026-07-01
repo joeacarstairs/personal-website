@@ -15,10 +15,6 @@ COMPOSE_SERVICES := $(shell podman-compose config \
 	| yq ".services | keys" --output-format csv --csv-separator " ")
 MAKE_MODULES := $(foreach module,$(MODULES),\
 	$(shell [ -f $(module)/Makefile ] && echo $(module)))
-NGINX_CONFIG_SRC := nginx/nginx.conf
-NGINX_CONFIG := /etc/nginx/nginx.conf
-NGINX_CONFIG_BACKUP := /etc/nginx/nginx.joeac.net-backup
-RESTART_NGINX := sudo rc-service nginx restart
 
 
 #############

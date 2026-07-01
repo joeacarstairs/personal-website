@@ -1,21 +1,21 @@
 .PHONY: install_nginx
-install_nginx: $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG)
+install_nginx: /etc/nginx/nginx.joeac.net-backup /etc/nginx/nginx.conf
 
 .PHONY: reinstall_nginx
-reinstall_nginx: $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG)
+reinstall_nginx: /etc/nginx/nginx.joeac.net-backup /etc/nginx/nginx.conf
 
 .PHONY: uninstall_nginx
 uninstall_nginx: uninstall_dyndns
-ifeq ($(shell test -d $(NGINX_CONFIG_BACKUP) && echo 1 || echo 0),0)
+ifeq ($(shell test -d /etc/nginx/nginx.joeac.net-backup && echo 1 || echo 0),0)
 	$(warn No nginx backup config detected: doing nothing)
 else
-	sudo mv $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG)
-	$(RESTART_NGINX)
+	sudo mv /etc/nginx/nginx.joeac.net-backup /etc/nginx/nginx.conf
+	sudo rc-service nginx restart
 endif
 
-$(NGINX_CONFIG_BACKUP):
-	sudo mv $(NGINX_CONFIG) $(NGINX_CONFIG_BACKUP)
+/etc/nginx/nginx.joeac.net-backup:
+	sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.joeac.net-backup
 
-$(NGINX_CONFIG): $(NGINX_CONFIG_SRC) $(NGINX_CONFIG_BACKUP)
+/etc/nginx/nginx.conf: nginx/nginx.conf /etc/nginx/nginx.joeac.net-backup
 	sudo cp $< $@
-	$(RESTART_NGINX)
+	sudo rc-service nginx restart
