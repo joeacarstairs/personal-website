@@ -1,4 +1,4 @@
-include vars.mk
+include make/vars.mk
 
 
 #############
@@ -67,11 +67,11 @@ $(foreach module,$(MODULES),$(eval $(install_module_rule)))
 $(foreach module,$(MODULES),$(eval $(reinstall_module_rule)))
 $(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
 
-include container.mk
-include openrc.mk
-include nginx.mk
-include crontab.mk
-include dyndns.mk
+include make/container.mk
+include make/openrc.mk
+include make/nginx.mk
+include make/crontab.mk
+include make/dyndns.mk
 
 .PHONY: clean
 clean:
