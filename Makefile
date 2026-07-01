@@ -37,18 +37,6 @@ dyndns_module_target = $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(
 openrc_module_target = $(if $(filter $(COMPOSE_SERVICES),$(module)),~/.config/rc/init.d/joeac.net.$(module))
 install_submake_file = $(shell [ -f "$(module)/install.mk" ] && echo "$(module)/install.mk")
 
-define build_module_rule =
-.PHONY: build_$(module)
-build_$(module): make_$(module) $(module).Dockerfile
-	podman-compose build $(module)
-endef
-
-define push_module_rule =
-.PHONY: push_$(module)
-push_$(module): login_registry build_$(module)
-	podman push $(container_image_name)
-endef
-
 define make_module_rule =
 .PHONY: make_$(module)
 make_$(module): $(module)/.env
@@ -106,14 +94,8 @@ usage:
 	echo "	make uninstall"
 	$(foreach module,$(MODULES),echo "	make uninstall_$(module)")
 
-$(foreach module,$(COMPOSE_SERVICES),$(eval $(call build_module_rule)))
-$(foreach module,$(COMPOSE_SERVICES),$(eval $(call push_module_rule)))
 $(foreach module,$(MAKE_MODULES),$(eval $(call make_module_rule)))
 $(foreach module,$(MODULES),$(eval $(call module_env_rule)))
-
-.PHONY: login_registry
-login_registry:
-	podman login $(REGISTRY_DOMAIN)
 
 .PHONY: install
 install: $(foreach module,$(MODULES),install_$(module)) install_crontab
@@ -128,6 +110,7 @@ $(foreach module,$(MODULES),$(eval $(install_module_rule)))
 $(foreach module,$(MODULES),$(eval $(reinstall_module_rule)))
 $(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
 
+include container.mk
 include openrc.mk
 include nginx.mk
 include crontab.mk
