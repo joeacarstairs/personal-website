@@ -7,10 +7,13 @@ include config.mk
 CPU_ARCH := $(if $(shell which arch 2>/dev/null),\
 	$(shell arch),\
 	$(shell lscpu | grep ^Architecture: | sed "s/^Architecture:[[:space:]]*\([[:alnum:][:punct:]]\+\).*/\1/"))
+HOSTNAME := $(shell cat /etc/hostname)
 IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
 REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
-MODULES := http gemini smtp vaultwarden etherpad ln
+MODULES_pi-broughton := http gemini smtp vaultwarden ln
+MODULES_blade-canongate := etherpad
+MODULES := $(MODULES_$(HOSTNAME))
 COMPOSE_SERVICES := $(shell podman-compose config \
 	| yq ".services | keys" --output-format csv --csv-separator " ")
 MAKE_MODULES := $(foreach module,$(MODULES),\
@@ -117,7 +120,16 @@ endef
 # RULES #
 #########
 
-all: $(foreach module,$(MODULES),push_$(module))
+.SILENT: usage
+.PHONY: usage
+usage:
+	echo "usage:"
+	echo "	make install"
+	$(foreach module,$(MODULES),echo "	make install_$(module)")
+	echo "	make reinstall"
+	$(foreach module,$(MODULES),echo "	make reinstall_$(module)")
+	echo "	make uninstall"
+	$(foreach module,$(MODULES),echo "	make uninstall_$(module)")
 
 $(foreach module,$(COMPOSE_SERVICES),$(eval $(call build_module_rule)))
 $(foreach module,$(COMPOSE_SERVICES),$(eval $(call push_module_rule)))
