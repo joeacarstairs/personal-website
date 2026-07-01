@@ -63,9 +63,6 @@ install: $(foreach module,$(MODULES),install_$(module)) install_crontab
 .PHONY: uninstall
 uninstall: uninstall_nginx uninstall_dyndns uninstall_joeac.net_service $(foreach module,$(MODULES),uninstall_$(module)) uninstall_crontab
 
-.PHONY: uninstall_joeac.net_service
-	rm ~/.config/rc/joeac.net
-
 $(foreach module,$(MODULES),$(eval $(install_module_rule)))
 $(foreach module,$(MODULES),$(eval $(reinstall_module_rule)))
 $(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))

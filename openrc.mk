@@ -66,3 +66,6 @@ $(foreach module,$(MODULES),$(eval $(openrc_restart_rule)))
 /etc/conf.d/user.$(shell whoami): openrc/conf.d/user.$(shell whoami)
 	sudo cp openrc/conf.d/user.$(shell whoami) /etc/conf.d/user.$(shell whoami)
 	sudo rc-update add user.$(shell whoami) default
+
+.PHONY: uninstall_joeac.net_service
+	rm ~/.config/rc/joeac.net
