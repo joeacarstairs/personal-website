@@ -13,8 +13,8 @@ MAKE_MODULES := $(foreach module,$(MODULES),\
 	$(shell [ -f $(module)/Makefile ] && echo $(module)))
 ENV_RULES := $(foreach module,$(MODULES),$(module)/.env)
 MAKE_RULES := $(foreach module,$(MAKE_MODULES),make_$(module))
-BUILD_RULES := $(foreach module,$(filter $(COMPOSE_SERVICES),$(MODULES)) build_$(module))
-PUSH_RULES := $(foreach module,$(filter $(COMPOSE_SERVICES),$(MODULES)) push_$(module))
+BUILD_RULES := $(foreach module,$(filter $(COMPOSE_SERVICES),$(MODULES)),build_$(module))
+PUSH_RULES := $(foreach module,$(filter $(COMPOSE_SERVICES),$(MODULES)),push_$(module))
 SUBDOMAIN_http := @
 SUBDOMAIN_vaultwarden := pwd
 SUBDOMAIN_etherpad := docs
