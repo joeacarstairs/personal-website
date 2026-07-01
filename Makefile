@@ -32,7 +32,6 @@ RESTART_NGINX := sudo rc-service nginx restart
 #############
 
 container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/joeac.net-$(module)
-nginx_module_target = $(if $(SUBDOMAIN_$(module)),/etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf)
 dyndns_module_target = $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net)
 openrc_module_target = $(if $(filter $(COMPOSE_SERVICES),$(module)),~/.config/rc/init.d/joeac.net.$(module))
 install_submake_file = $(shell [ -f "$(module)/install.mk" ] && echo "$(module)/install.mk")
@@ -50,13 +49,13 @@ endef
 
 define install_module_rule =
 .PHONY: install_$(module)
-install_$(module): install_openrc_$(module) $(nginx_module_target) $(dyndns_module_target) $(install_submake_file)
+install_$(module): install_openrc_$(module) install_nginx_module_$(module) $(dyndns_module_target) $(install_submake_file)
 	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) install)
 endef
 
 define reinstall_module_rule =
 .PHONY: reinstall_$(module)
-reinstall_$(module): reinstall_openrc_$(module) $(nginx_module_target) $(dyndns_module_target) $(install_submake_file)
+reinstall_$(module): reinstall_openrc_$(module) reinstall_nginx_module_$(module) $(dyndns_module_target) $(install_submake_file)
 	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) reinstall)
 endef
 

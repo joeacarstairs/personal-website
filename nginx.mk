@@ -19,10 +19,3 @@ $(NGINX_CONFIG_BACKUP):
 $(NGINX_CONFIG): $(NGINX_CONFIG_SRC) $(NGINX_CONFIG_BACKUP)
 	sudo cp $< $@
 	$(RESTART_NGINX)
-
-/etc/nginx/http.d/%joeac.net.conf: nginx/http.d/%joeac.net.conf /etc/nginx/http.d $(NGINX_CONFIG)
-	sudo cp $< $@
-	$(RESTART_NGINX)
-
-/etc/nginx/http.d:
-	sudo mkdir -p /etc/nginx/http.d
