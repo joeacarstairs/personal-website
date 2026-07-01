@@ -1,16 +1,16 @@
 define install_dyndns_module_rule =
-.PHONY: install_dyndns_module_$(module)
+.PHONY: install_dyndns_$(module)
 install_dyndns_module_$(module): $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net install_dyndns)
 endef
 
 define reinstall_dyndns_module_rule =
-.PHONY: reinstall_dyndns_module_$(module)
-reinstall_dyndns_module_$(module): $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net reinstall_dyndns)
+.PHONY: reinstall_dyndns_$(module)
+reinstall_dyndns_$(module): $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net reinstall_dyndns)
 endef
 
 define uninstall_dyndns_module_rule =
-.PHONY: uninstall_dyndns_module_$(module)
-uninstall_dyndns_module_$(module):
+.PHONY: uninstall_dyndns_$(module)
+uninstall_dyndns_$(module):
 	$(if $(SUBDOMAIN_$(module)), \
 		sudo rm -f /etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net
 	)
@@ -28,7 +28,7 @@ $(foreach module,$(ALL_MODULES), $(eval $(uninstall_dyndns_module_rule)))
 	sudo chmod +x $@
 
 .PHONY: uninstall_dyndns
-uninstall_dyndns: $(foreach module,$(ALL_MODULES),$(uninstall_dyndns_module_rule))
+uninstall_dyndns: $(foreach module,$(ALL_MODULES),$(uninstall_dyndns_$(module)))
 	sudo rm -rf \
 		/usr/local/bin/dyndns.sh \
 		/usr/local/bin/get_ip_addr.sh \
