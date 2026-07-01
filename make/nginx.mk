@@ -24,8 +24,14 @@ $(foreach module,$(MODULES),$(eval $(uninstall_nginx_module_rule)))
 /etc/nginx/http.d:
 	sudo mkdir -p /etc/nginx/http.d
 
+.PHONY: install_nginx
+install_nginx: /etc/nginx/nginx.conf $(add_prefix install_nginx_,$(NGINX_MODULES))
+
+.PHONY: reinstall_nginx
+reinstall_nginx: /etc/nginx/nginx.conf $(add_prefix reinstall_nginx_,$(NGINX_MODULES))
+
 .PHONY: uninstall_nginx
-uninstall_nginx: $(foreach module,$(MODULES),uninstall_nginx_$(module))
+uninstall_nginx: $(foreach module,$(NGINX_MODULES),uninstall_nginx_$(module))
 ifeq ($(shell test -d /etc/nginx/nginx.joeac.net-backup && echo 1 || echo 0),0)
 	$(warn No nginx backup config detected: doing nothing)
 else

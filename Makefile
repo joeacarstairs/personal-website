@@ -20,19 +20,19 @@ endef
 
 define install_module_rule =
 .PHONY: install_$(module)
-install_$(module): install_openrc_$(module) install_nginx_$(module) install_dyndns_$(module) $(install_submake_file)
+install_$(module): install_openrc_$(module) install_dyndns_$(module) $(install_submake_file)
 	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) install)
 endef
 
 define reinstall_module_rule =
 .PHONY: reinstall_$(module)
-reinstall_$(module): reinstall_openrc_$(module) reinstall_nginx_$(module) reinstall_dyndns_$(module) $(install_submake_file)
+reinstall_$(module): reinstall_openrc_$(module) reinstall_dyndns_$(module) $(install_submake_file)
 	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) reinstall)
 endef
 
 define uninstall_module_rule =
 .PHONY: uninstall_$(module)
-uninstall_$(module): uninstall_openrc_$(module) uninstall_nginx_$(module) uninstall_dyndns_$(module)
+uninstall_$(module): uninstall_openrc_$(module) uninstall_dyndns_$(module)
 	$(if $(install_submake_file),\
 		$(MAKE) --makefile=$(notdir (install_submake_file)) --directory $(dir $(install_submake_file)) uninstall
 	)
@@ -50,7 +50,7 @@ $(foreach module,$(MAKE_MODULES),$(eval $(call make_module_rule)))
 $(foreach module,$(MODULES),$(eval $(call module_env_rule)))
 
 .PHONY: install
-install: $(foreach module,$(MODULES),$(module)/.env install_$(module)) install_crontab
+install: install_nginx $(foreach module,$(MODULES),$(module)/.env install_$(module)) install_crontab
 
 .PHONY: uninstall
 uninstall: uninstall_nginx uninstall_dyndns uninstall_joeac.net_service $(foreach module,$(MODULES),uninstall_$(module)) uninstall_crontab
