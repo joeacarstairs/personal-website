@@ -3,7 +3,7 @@ openrc_module_target = $(if $(is_openrc_module),~/.config/rc/init.d/joeac.net.$(
 
 define install_openrc_module_rule =
 .PHONY: install_openrc_$(module)
-install_openrc_$(module): $(openrc_module_target) openrc_add_$(module) openrc_start_$(module)
+install_openrc_$(module): $(if $(is_openrc_module),$(openrc_module_target) openrc_add_$(module) openrc_start_$(module))
 
 ~/.config/rc/init.d/joeac.net.$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/runlevels/default
 	ln -s $(shell realpath ~)/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module)
