@@ -11,9 +11,9 @@ endef
 define uninstall_dyndns_module_rule =
 .PHONY: uninstall_dyndns_module_$(module)
 uninstall_dyndns_module_$(module):
-    $(if $(SUBDOMAIN_$(module)), \
-      sudo rm -f /etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net
-    )
+	$(if $(SUBDOMAIN_$(module)), \
+		sudo rm -f /etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net
+	)
 endef
 
 $(foreach module,$(ALL_MODULES), $(eval $(install_dyndns_module_rule)))
