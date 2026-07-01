@@ -4,13 +4,7 @@ include config.mk
 # VARIABLES #
 #############
 
-CPU_ARCH := $(if $(shell which arch 2>/dev/null),\
-	$(shell arch),\
-	$(shell lscpu | grep ^Architecture: | sed "s/^Architecture:[[:space:]]*\([[:alnum:][:punct:]]\+\).*/\1/"))
 HOSTNAME := $(shell cat /etc/hostname)
-IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
-REGISTRY_DOMAIN := git.joeac.net
-REGISTRY_USER := joeac
 MODULES_pi-broughton := http gemini smtp vaultwarden ln
 MODULES_blade-canongate := etherpad
 MASTER_NODE := pi-broughton
@@ -31,7 +25,6 @@ RESTART_NGINX := sudo rc-service nginx restart
 # FUNCTIONS #
 #############
 
-container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/joeac.net-$(module)
 dyndns_module_target = $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net)
 openrc_module_target = $(if $(filter $(COMPOSE_SERVICES),$(module)),~/.config/rc/init.d/joeac.net.$(module))
 install_submake_file = $(shell [ -f "$(module)/install.mk" ] && echo "$(module)/install.mk")
