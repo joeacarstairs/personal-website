@@ -50,12 +50,7 @@ endef
 
 define uninstall_module_rule =
 .PHONY: uninstall_$(module)
-uninstall_$(module): uninstall_openrc_$(module)
-	$(if $(SUBDOMAIN_$(module)),\
-		sudo rm -f /etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf; \
-		$(RESTART_NGINX); \
-		sudo rm -f /etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net; \
-	)
+uninstall_$(module): uninstall_openrc_$(module) uninstall_nginx_$(module) uninstall_dyndns_module_$(module)
 	$(if $(install_submake_file),\
 		$(MAKE) --makefile=$(notdir (install_submake_file)) --directory $(dir $(install_submake_file)) uninstall
 	)

@@ -5,3 +5,6 @@ indent_size = 2
 
 [*.{md,markdown,mdx}]
 max_line_length = 80
+
+[{Makefile,*.mk}]
+indent_style = tab
