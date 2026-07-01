@@ -13,11 +13,17 @@ REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
 MODULES_pi-broughton := http gemini smtp vaultwarden ln
 MODULES_blade-canongate := etherpad
+MASTER_NODE := pi-broughton
+IS_MASTER_NODE := $(filter $(MASTER_NODE),$(HOSTNAME))
 MODULES := $(MODULES_$(HOSTNAME))
+SUBDOMAINS := $(foreach module,$(MODULES),$(SUBDOMAIN_$(module)))
 COMPOSE_SERVICES := $(shell podman-compose config \
 	| yq ".services | keys" --output-format csv --csv-separator " ")
 MAKE_MODULES := $(foreach module,$(MODULES),\
 	$(shell [ -f $(module)/Makefile ] && echo $(module)))
+NGINX_CONFIG_SRC := nginx/nginx.conf
+NGINX_CONFIG := /etc/nginx/nginx.conf
+NGINX_CONFIG_BACKUP := /etc/nginx/nginx.joeac.net-backup
 RESTART_NGINX := sudo rc-service nginx restart
 
 
@@ -144,38 +150,10 @@ login_registry:
 install: $(foreach module,$(MODULES),install_$(module)) install_crontab
 
 .PHONY: uninstall
-uninstall: uninstall_nginx uninstall_joeac.net_service $(foreach module,$(MODULES),uninstall_$(module)) uninstall_crontab
+uninstall: uninstall_nginx uninstall_dyndns uninstall_joeac.net_service $(foreach module,$(MODULES),uninstall_$(module)) uninstall_crontab
 
 .PHONY: uninstall_joeac.net_service
 	rm ~/.config/rc/joeac.net
-
-nginx_src := $(shell find -L nginx -type f)
-nginx_target := $(addprefix /etc/,$(nginx_src))
-NGINX_CONFIG_SRC := nginx/nginx.conf
-NGINX_CONFIG := /etc/nginx/nginx.conf
-NGINX_CONFIG_BACKUP := /etc/nginx/nginx.joeac.net-backup
-nginx_config_backup_exists = $(shell test -d $(NGINX_CONFIG_BACKUP) && echo 1 || echo 0)
-.PHONY: install_nginx
-install_nginx: $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG) install_dyndns
-
-$(NGINX_CONFIG_BACKUP):
-ifeq ($(nginx_config_backup_exists),0)
-	sudo mv $(NGINX_CONFIG) $(NGINX_CONFIG_BACKUP)
-endif
-
-$(NGINX_CONFIG): $(NGINX_CONFIG_SRC)
-	sudo cp $< $@
-	$(RESTART_NGINX)
-
-.PHONY: uninstall_nginx
-uninstall_nginx: uninstall_dyndns
-ifeq ($(nginx_config_backup_exists),0)
-	@echo "No nginx backup config detected: doing nothing"
-else
-	sudo rm -f $(NGINX_CONFIG)
-	sudo mv $(NGINX_CONFIG_BACKUP) $(NGINX_CONFIG)
-	$(RESTART_NGINX)
-endif
 
 $(foreach module,$(MODULES),$(eval $(install_module_rule)))
 $(foreach module,$(MODULES),$(eval $(reinstall_module_rule)))
@@ -204,13 +182,7 @@ $(foreach module,$(MODULES),$(eval $(openrc_restart_rule)))
 	sudo cp openrc/conf.d/user.$(shell whoami) /etc/conf.d/user.$(shell whoami)
 	sudo rc-update add user.$(shell whoami) default
 
-/etc/nginx/http.d/%joeac.net.conf: nginx/http.d/%joeac.net.conf install_nginx /etc/nginx/http.d
-	sudo cp $< $@
-	$(RESTART_NGINX)
-
-/etc/nginx/http.d:
-	sudo mkdir -p /etc/nginx/http.d
-
+include nginx.mk
 include crontab.mk
 include dyndns.mk
 
