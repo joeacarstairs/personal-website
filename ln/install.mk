@@ -1,15 +1,13 @@
-LN_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-
 .PHONY: install
 install: /var/ln.joeac.net/public
 
 .PHONY: reinstall
 reinstall: install
 
-/var/ln.joeac.net/public: $(LN_DIR)/public
+/var/ln.joeac.net/public: public
 	sudo rm -rf /var/ln.joeac.net/public
 	sudo mkdir -p /var/ln.joeac.net/
-	sudo cp -r $(LN_DIR)/public/ /var/ln.joeac.net/public/
+	sudo cp -r public/ /var/ln.joeac.net/public/
 
 .PHONY: uninstall
 uninstall:

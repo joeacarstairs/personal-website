@@ -63,7 +63,7 @@ endef
 define install_module_rule =
 .PHONY: install_$(module)
 install_$(module): install_openrc_$(module) $(nginx_module_target) $(dyndns_module_target) $(install_submake_file)
-	$(if $(install_submake_file),$(MAKE) --makefile=$(install_submake_file) install)
+	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) install)
 endef
 
 define install_openrc_module_rule =
@@ -77,7 +77,7 @@ endef
 define reinstall_module_rule =
 .PHONY: reinstall_$(module)
 reinstall_$(module): reinstall_openrc_$(module) $(nginx_module_target) $(dyndns_module_target) $(install_submake_file)
-	$(if $(install_submake_file),$(MAKE) --makefile=$(install_submake_file) reinstall)
+	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) reinstall)
 endef
 
 define reinstall_openrc_module_rule =
@@ -99,7 +99,7 @@ uninstall_$(module):
 		sudo rm -f /etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net; \
 	)
 	$(if $(install_submake_file),\
-		$(MAKE) --makefile $(install_submake_file) uninstall
+		$(MAKE) --makefile=$(notdir (install_submake_file)) --directory $(dir $(install_submake_file)) uninstall
 	)
 endef
 
