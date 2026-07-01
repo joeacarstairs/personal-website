@@ -1,22 +1,4 @@
-include config.mk
-
-#############
-# VARIABLES #
-#############
-
-HOSTNAME := $(shell cat /etc/hostname)
-HOSTNAMES := pi-broughton blade-canongate
-MODULES_pi-broughton := http gemini smtp vaultwarden ln
-MODULES_blade-canongate := etherpad
-ALL_MODULES := $(sort $(foreach hostname,$(HOSTNAMES),$(MODULES_$(hostname))))
-MASTER_NODE := pi-broughton
-IS_MASTER_NODE := $(filter $(MASTER_NODE),$(HOSTNAME))
-MODULES := $(MODULES_$(HOSTNAME))
-SUBDOMAINS := $(foreach module,$(MODULES),$(SUBDOMAIN_$(module)))
-COMPOSE_SERVICES := $(shell podman-compose config \
-	| yq ".services | keys" --output-format csv --csv-separator " ")
-MAKE_MODULES := $(foreach module,$(MODULES),\
-	$(shell [ -f $(module)/Makefile ] && echo $(module)))
+include vars.mk
 
 
 #############
