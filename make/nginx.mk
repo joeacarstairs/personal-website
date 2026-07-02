@@ -11,6 +11,7 @@ endef
 define uninstall_nginx_module_rule =
 .PHONY: uninstall_nginx_$(module)
 uninstall_nginx_$(module):
+	(if $(SUBDOMAIN_$(module)),rm -f /etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf)
 endef
 
 $(foreach module,$(MODULES),$(eval $(install_nginx_module_rule)))
