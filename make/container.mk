@@ -8,6 +8,7 @@ REGISTRY_USER := joeac
 
 container_image_name = $(shell $(COMPOSE_CMD) config | yq ".services.$(module).image")
 is_containerised = $(filter $(COMPOSE_SERVICES),$(module))
+is_own_image = $(filter git.joeac.net/%,$(container_image_name))
 has_dockerfile = $(shell test -f $(module).Dockerfile)
 
 define build_module_rule =
@@ -20,8 +21,8 @@ endef
 define push_module_rule =
 .PHONY: push_$(module)
 push_$(module): $(if $(is_containerised),login_registry)
-	$(if $(is_containerised),\
-		podman push $(container_image_name))
+	$(if $(is_containerised),$(if $(is_own_image),\
+		podman push $(container_image_name)))
 endef
 
 $(foreach module,$(MODULES),$(eval $(call build_module_rule)))
