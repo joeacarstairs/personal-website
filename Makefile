@@ -53,7 +53,7 @@ $(foreach module,$(MODULES),$(eval $(call module_env_rule)))
 install: install_nginx $(ENV_RULES) $(INSTALL_RULES) install_crontab
 
 .PHONY: reinstall
-reinstall: reinstall_nginx $(ENV_RULES) $(REINSTALL_RULES) reinstall_crontab
+reinstall: reinstall_nginx reinstall_dyndns $(ENV_RULES) $(REINSTALL_RULES) reinstall_crontab
 
 .PHONY: uninstall
 uninstall: uninstall_nginx uninstall_dyndns uninstall_joeac.net_service $(UNINSTALL_RULES) uninstall_crontab
