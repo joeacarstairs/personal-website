@@ -1,3 +1,7 @@
+SUBDOMAIN_http := @
+SUBDOMAIN_vaultwarden := pwd
+SUBDOMAIN_etherpad := docs
+SUBDOMAIN_ln := ln
 HOSTNAME := $(shell cat /etc/hostname)
 HOSTNAMES := pi-broughton blade-canongate
 MODULES_pi-broughton := http gemini smtp vaultwarden ln
@@ -19,7 +23,3 @@ PUSH_RULES := $(foreach module,$(filter $(COMPOSE_SERVICES),$(MODULES)),push_$(m
 INSTALL_RULES := $(foreach module,$(MODULES),install_$(module))
 REINSTALL_RULES := $(foreach module,$(MODULES),reinstall_$(module))
 UNINSTALL_RULES := $(foreach module,$(MODULES),uninstall_$(module))
-SUBDOMAIN_http := @
-SUBDOMAIN_vaultwarden := pwd
-SUBDOMAIN_etherpad := docs
-SUBDOMAIN_ln := ln
