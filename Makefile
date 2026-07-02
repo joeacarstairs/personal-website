@@ -38,8 +38,8 @@ endef
 .PHONY: all
 all: $(ENV_RULES) $(MAKE_RULES) $(BUILD_RULES) $(PUSH_RULES)
 
-$(foreach module,$(MODULES),$(eval $(call make_module_rule)))
-$(foreach module,$(MODULES),$(eval $(call module_env_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(call make_module_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(call module_env_rule)))
 
 .PHONY: install
 install: install_nginx $(ENV_RULES) $(INSTALL_RULES) install_crontab
@@ -50,9 +50,9 @@ reinstall: reinstall_nginx reinstall_dyndns $(ENV_RULES) $(REINSTALL_RULES) rein
 .PHONY: uninstall
 uninstall: uninstall_nginx uninstall_dyndns uninstall_joeac.net_service $(UNINSTALL_RULES) uninstall_crontab
 
-$(foreach module,$(MODULES),$(eval $(install_module_rule)))
-$(foreach module,$(MODULES),$(eval $(reinstall_module_rule)))
-$(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(install_module_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(reinstall_module_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(uninstall_module_rule)))
 
 .PHONY: clean
 clean:
