@@ -8,10 +8,6 @@ reinstall_crontab: /etc/periodic/daily/joeac.net
 uninstall_crontab:
 	sudo rm -f /etc/periodic/daily/joeac.net
 
-/etc/periodic/daily/joeac.net:
-	echo "#!/bin/sh" > crontab.tmp
-	echo "git -C /usr/local/lib/joeac.net pull && $(MAKE) --directory /usr/local/lib/joeac.net && rc-service joeac.net restart" \
-		>> crontab.tmp
-	sudo mv crontab.tmp /etc/periodic/daily/joeac.net
+/etc/periodic/daily/joeac.net: update.sh
+	sudo cp update.sh /etc/periodic/daily/joeac.net
 	sudo chmod +x /etc/periodic/daily/joeac.net
-
