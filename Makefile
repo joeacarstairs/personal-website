@@ -1,12 +1,13 @@
 include make/vars.mk
 
+submake_file = $(shell [ -f "$(module)/Makefile" ] && echo "$(module)/Makefile")
 install_submake_file = $(shell [ -f "$(module)/install.mk" ] && echo "$(module)/install.mk")
 
 define make_module_rule =
 .PHONY: make_$(module)
 make_$(module): $(module)/.env
-	$(if $(install_submake_file),\
-		$(MAKE) --makefile=$(install_submake_file) --directory=$(module))
+	$(if $(submake_file),\
+		$(MAKE) --makefile=$(notdir $(submake_file)) --directory=$(module))
 endef
 
 define module_env_rule =
