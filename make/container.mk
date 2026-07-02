@@ -5,7 +5,7 @@ IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
 REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
 
-container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/$(CONTAINER_PREFIX)joeac.net-$(module)
+container_image_name = $(shell podman-compose config | yq ".services.$(module).image")
 is_containerised = $(filter $(COMPOSE_SERVICES),$(module))
 has_dockerfile = $(shell test -f $(module).Dockerfile)
 
