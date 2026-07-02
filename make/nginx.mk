@@ -1,6 +1,6 @@
 installed_nginx_sites = $(wildcard /etc/nginx/http.d/*.joeac.net.conf)
 installed_nginx_subdomains = $(installed_nginx_sites:/etc/nginx/http.d/%.joeac.net.conf=%)
-nginx_subdomains_to_remove = $(filter-out $(SUBDOMAINS),$(installed_nginx_subdomains))
+nginx_subdomains_to_remove = $(filter-out $(NGINX_SUBDOMAINS),$(installed_nginx_subdomains))
 nginx_sites_to_remove = $(nginx_subdomains_to_remove:%=/etc/nginx/http.d/%.joeac.net.conf)
 
 define install_nginx_module_rule =

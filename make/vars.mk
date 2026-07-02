@@ -12,6 +12,7 @@ IS_MASTER_NODE := $(filter $(MASTER_NODE),$(HOSTNAME))
 NGINX_MODULES := $(if $(IS_MASTER_NODE),$(ALL_MODULES))
 MODULES := $(MODULES_$(HOSTNAME))
 SUBDOMAINS := $(foreach module,$(MODULES),$(SUBDOMAIN_$(module)))
+NGINX_SUBDOMAINS := $(foreach module,$(NGINX_MODULES),$(SUBDOMAIN_$(module)))
 COMPOSE_SERVICES := $(shell podman-compose config \
 	| yq ".services | keys" --output-format csv --csv-separator " ")
 MAKE_MODULES := $(foreach module,$(MODULES),\
