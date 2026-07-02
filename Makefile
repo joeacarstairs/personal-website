@@ -5,7 +5,8 @@ install_submake_file = $(shell [ -f "$(module)/install.mk" ] && echo "$(module)/
 define make_module_rule =
 .PHONY: make_$(module)
 make_$(module): $(module)/.env
-	$(MAKE) --directory=$(module)
+	$(if $(install_submake_file),\
+		$(MAKE) --makefile=$(install_submake_file) --directory=$(module))
 endef
 
 define module_env_rule =
@@ -36,7 +37,7 @@ endef
 .PHONY: all
 all: $(ENV_RULES) $(MAKE_RULES) $(BUILD_RULES) $(PUSH_RULES)
 
-$(foreach module,$(MAKE_MODULES),$(eval $(call make_module_rule)))
+$(foreach module,$(MODULES),$(eval $(call make_module_rule)))
 $(foreach module,$(MODULES),$(eval $(call module_env_rule)))
 
 .PHONY: install
