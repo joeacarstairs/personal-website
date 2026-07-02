@@ -7,10 +7,11 @@ REGISTRY_USER := joeac
 
 container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/$(CONTAINER_PREFIX)joeac.net-$(module)
 is_containerised = $(filter $(COMPOSE_SERVICES),$(module))
+has_dockerfile = $(shell test -f $(module).Dockerfile)
 
 define build_module_rule =
 .PHONY: build_$(module)
-build_$(module): $(if $(is_containerised),make_$(module) $(module).Dockerfile)
+build_$(module): $(if $(is_containerised),make_$(module) $(if $(has_dockerfile),$(module).Dockerfile))
 	$(if $(is_containerised),\
 		IMAGE_PREFIX="$(IMAGE_PREFIX)" podman-compose build $(module))
 endef
