@@ -3,12 +3,13 @@ capitalise = $(shell _v="$(1)"; echo $${_v^^})
 HOSTNAME := $(shell cat /etc/hostname)
 HOSTNAMES := pi-broughton blade-canongate
 MASTER_NODE := pi-broughton
+IS_MASTER_NODE := $(filter $(MASTER_NODE),$(HOSTNAME))
 MODULES_pi-broughton := http gemini smtp vaultwarden ln
 MODULES_blade-canongate := etherpad
+ALL_NGINX_MODULES := http vaultwarden ln etherpad
+NGINX_MODULES := $(if $(IS_MASTER_NODE),$(ALL_NGINX_MODULES))
 MODULES := $(MODULES_$(HOSTNAME))
 ALL_MODULES := $(sort $(foreach hostname,$(HOSTNAMES),$(MODULES_$(hostname))))
-IS_MASTER_NODE := $(filter $(MASTER_NODE),$(HOSTNAME))
-NGINX_MODULES := $(if $(IS_MASTER_NODE),$(ALL_MODULES))
 COMPOSE_SERVICES := $(shell podman-compose config \
 	| yq ".services | keys" --output-format csv --csv-separator " ")
 MAKE_MODULES := $(foreach module,$(MODULES),\
@@ -29,6 +30,8 @@ PUBLIC_ROOT_DIR_ln := /var/ln.joeac.net/public
 
 $(foreach module,$(ALL_MODULES),$(if $(PORT_$(module)),$(eval \
 	export $(call capitalise,$(module))_PORT := $(PORT_$(module)))))
+$(foreach hostname,$(HOSTNAMES),$(foreach module,$(MODULES_$(hostname)),$(eval \
+	export HOST_$(module) := $(hostname:$(HOSTNAME)=localhost))))
 
 SUBDOMAINS := $(foreach module,$(MODULES),$(SUBDOMAIN_$(module)))
 NGINX_SUBDOMAINS := $(foreach module,$(NGINX_MODULES),$(SUBDOMAIN_$(module)))
@@ -40,3 +43,10 @@ PUSH_RULES := $(foreach module,$(filter $(COMPOSE_SERVICES),$(MODULES)),push_$(m
 INSTALL_RULES := $(foreach module,$(MODULES),install_$(module))
 REINSTALL_RULES := $(foreach module,$(MODULES),reinstall_$(module))
 UNINSTALL_RULES := $(foreach module,$(MODULES),uninstall_$(module))
+
+$(foreach module,$(ALL_NGINX_MODULES), \
+	$(if $(SUBDOMAIN_$(module)),, \
+		$(error $(module) is declared as an nginx module, but SUBDOMAIN_$(module) is not set)))
+$(foreach module,$(ALL_NGINX_MODULES), \
+	$(if $(PORT_$(module)) $(HOST_$(module)),,$(if $(PUBLIC_ROOT_DIR_$(module)),, \
+		$(error $(module) is declared as an nginx module, but neither PUBLIC_ROOT_DIR_$(module), nor both PORT_$(module) and HOST_$(module), are set))))

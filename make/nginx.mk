@@ -2,6 +2,13 @@ installed_nginx_sites = $(wildcard /etc/nginx/http.d/*.joeac.net.conf)
 installed_nginx_subdomains = $(installed_nginx_sites:/etc/nginx/http.d/%.joeac.net.conf=%)
 nginx_subdomains_to_remove = $(filter-out $(NGINX_SUBDOMAINS),$(installed_nginx_subdomains))
 nginx_sites_to_remove = $(nginx_subdomains_to_remove:%=/etc/nginx/http.d/%.joeac.net.conf)
+nginx_module_config_template = \
+	$(if $(PORT_$(module)),nginx/http.d/reverse_proxy.conf.template) \
+	$(if $(PUBLIC_ROOT_DIR_$(module)),nginx/http.d/static.conf.template)
+nginx_module_config_template_args = \
+	DOMAIN=$(if $(filter-out @,$(SUBDOMAIN_$(module))),$(SUBDOMAIN_$(module)).)joeac.net \
+	$(if $(PORT_$(module)),PORT=$(PORT_$(module)) HOST=$(HOST_$(module))) \
+	$(if $(PUBLIC_ROOT_DIR_$(module)),ROOT="$(PUBLIC_ROOT_DIR_$(module))")
 
 define install_nginx_module_rule =
 .PHONY: install_nginx_$(module)
@@ -24,14 +31,17 @@ remove_$(site):
 	rm -f $(site)
 endef
 
-$(foreach module,$(MODULES),$(eval $(install_nginx_module_rule)))
-$(foreach module,$(MODULES),$(eval $(reinstall_nginx_module_rule)))
-$(foreach module,$(MODULES),$(eval $(uninstall_nginx_module_rule)))
-$(foreach site,$(nginx_sites_to_remove),$(eval $(remove_nginx_site_rule)))
-
-/etc/nginx/http.d/%.joeac.net.conf: nginx/http.d/%.joeac.net.conf /etc/nginx/http.d /etc/nginx/nginx.conf
-	sudo cp $< $@
+define nginx_module_config_rule =
+/etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf: $(nginx_module_config_template) /etc/nginx/http.d /etc/nginx/nginx.conf
+	sudo $(nginx_module_config_template_args) envsubst -i $$< -o $$@
 	sudo rc-service nginx restart
+endef
+
+$(foreach module,$(ALL_MODULES),$(eval $(install_nginx_module_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(reinstall_nginx_module_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(uninstall_nginx_module_rule)))
+$(foreach site,$(nginx_sites_to_remove),$(eval $(remove_nginx_site_rule)))
+$(foreach module,$(ALL_NGINX_MODULES),$(eval $(nginx_module_config_rule)))
 
 /etc/nginx/http.d:
 	sudo mkdir -p /etc/nginx/http.d
@@ -41,7 +51,7 @@ remove_/etc/nginx/http.d/%.joeac.net.conf:
 	rm -f $(@:remove_%=%)
 
 .PHONY: install_nginx
-install_nginx: /etc/nginx/nginx.conf $(add_prefix install_nginx_,$(NGINX_MODULES))
+install_nginx: /etc/nginx/nginx.conf $(addprefix install_nginx_,$(NGINX_MODULES))
 
 .PHONY: reinstall_nginx
 reinstall_nginx: /etc/nginx/nginx.conf $(add_prefix reinstall_nginx_,$(NGINX_MODULES)) $(addprefix remove_,$(nginx_sites_to_remove))
