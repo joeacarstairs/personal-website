@@ -17,6 +17,7 @@ MAKE_RULES := $(foreach module,$(MAKE_MODULES),make_$(module))
 BUILD_RULES := $(foreach module,$(filter $(COMPOSE_SERVICES),$(MODULES)),build_$(module))
 PUSH_RULES := $(foreach module,$(filter $(COMPOSE_SERVICES),$(MODULES)),push_$(module))
 INSTALL_RULES := $(foreach module,$(MODULES),install_$(module))
+REINSTALL_RULES := $(foreach module,$(MODULES),reinstall_$(module))
 UNINSTALL_RULES := $(foreach module,$(MODULES),uninstall_$(module))
 SUBDOMAIN_http := @
 SUBDOMAIN_vaultwarden := pwd
