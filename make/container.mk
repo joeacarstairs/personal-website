@@ -1,8 +1,14 @@
+capitalise = $(shell _v="$(1)"; echo $${_v^^})
+
 CPU_ARCH := $(if $(shell which arch 2>/dev/null),\
 	$(shell arch),\
 	$(shell lscpu | grep ^Architecture: | sed "s/^Architecture:[[:space:]]*\([[:alnum:][:punct:]]\+\).*/\1/"))
 IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
-COMPOSE_CMD := IMAGE_PREFIX="$(IMAGE_PREFIX)" podman-compose
+COMPOSE_CMD := \
+	IMAGE_PREFIX="$(IMAGE_PREFIX)" \
+	LOCAL_SMTP_PORT=$(PORT_smtp) \
+	$(foreach module,$(ALL_MODULES),$(call capitalise,$(module))_PORT=$(PORT_$(module))) \
+	podman-compose
 REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
 
