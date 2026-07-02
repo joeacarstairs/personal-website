@@ -6,21 +6,24 @@ REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
 
 container_image_name = $(REGISTRY_DOMAIN)/$(REGISTRY_USER)/$(CONTAINER_PREFIX)joeac.net-$(module)
+is_containerised = $(filter $(COMPOSE_SERVICES),$(module))
 
 define build_module_rule =
 .PHONY: build_$(module)
-build_$(module): make_$(module) $(module).Dockerfile
-	IMAGE_PREFIX="$(IMAGE_PREFIX)" podman-compose build $(module)
+build_$(module): $(if $(is_containerised),make_$(module) $(module).Dockerfile)
+	$(if $(is_containerised),\
+		IMAGE_PREFIX="$(IMAGE_PREFIX)" podman-compose build $(module))
 endef
 
 define push_module_rule =
 .PHONY: push_$(module)
-push_$(module): login_registry build_$(module)
-	podman push $(container_image_name)
+push_$(module): $(if $(is_containerised),login_registry build_$(module))
+	$(if $(is_containerised),\
+		podman push $(container_image_name))
 endef
 
-$(foreach module,$(COMPOSE_SERVICES),$(eval $(call build_module_rule)))
-$(foreach module,$(COMPOSE_SERVICES),$(eval $(call push_module_rule)))
+$(foreach module,$(MODULES),$(eval $(call build_module_rule)))
+$(foreach module,$(MODULES),$(eval $(call push_module_rule)))
 
 .PHONY: login_registry
 login_registry:
