@@ -25,6 +25,8 @@ PORT_gemini := 1965
 PORT_smtp := 2500
 PORT_vaultwarden := 9000
 
+PUBLIC_ROOT_DIR_ln := /var/ln.joeac.net/public
+
 $(foreach module,$(ALL_MODULES),$(if $(PORT_$(module)),$(eval \
 	export $(call capitalise,$(module))_PORT := $(PORT_$(module)))))
 

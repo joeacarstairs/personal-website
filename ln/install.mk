@@ -1,14 +1,14 @@
 .PHONY: install
-install: /var/ln.joeac.net/public
+install: $(PUBLIC_ROOT_DIR_ln)
 
 .PHONY: reinstall
 reinstall: install
 
-/var/ln.joeac.net/public: public
-	sudo rm -rf /var/ln.joeac.net/public
-	sudo mkdir -p /var/ln.joeac.net/
-	sudo cp -r public/ /var/ln.joeac.net/public/
+$(PUBLIC_ROOT_DIR_ln): public
+	sudo rm -rf $(PUBLIC_ROOT_DIR_ln)
+	sudo mkdir -p $(PUBLIC_ROOT_DIR_ln)
+	sudo cp -r public/ $(PUBLIC_ROOT_DIR_ln)/
 
 .PHONY: uninstall
 uninstall:
-	sudo rm -rf /var/ln.joeac.net
+	sudo rm -rf $(PUBLIC_ROOT_DIR_ln)
