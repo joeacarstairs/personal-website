@@ -1,10 +1,5 @@
 include make/vars.mk
 
-
-#############
-# FUNCTIONS #
-#############
-
 install_submake_file = $(shell [ -f "$(module)/install.mk" ] && echo "$(module)/install.mk")
 
 define make_module_rule =
@@ -38,11 +33,6 @@ uninstall_$(module): uninstall_openrc_$(module) uninstall_dyndns_$(module)
 	)
 endef
 
-
-#########
-# RULES #
-#########
-
 .PHONY: all
 all: $(ENV_RULES) $(MAKE_RULES) $(BUILD_RULES) $(PUSH_RULES)
 
@@ -62,12 +52,12 @@ $(foreach module,$(MODULES),$(eval $(install_module_rule)))
 $(foreach module,$(MODULES),$(eval $(reinstall_module_rule)))
 $(foreach module,$(MODULES),$(eval $(uninstall_module_rule)))
 
+.PHONY: clean
+clean:
+	$(foreach module,$(MAKE_MODULES),$(MAKE) --directory=$(module) clean;)
+
 include make/container.mk
 include make/openrc.mk
 include make/nginx.mk
 include make/crontab.mk
 include make/dyndns.mk
-
-.PHONY: clean
-clean:
-	$(foreach module,$(MAKE_MODULES),$(MAKE) --directory=$(module) clean;)
