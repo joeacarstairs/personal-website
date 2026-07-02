@@ -18,7 +18,7 @@ endef
 
 define push_module_rule =
 .PHONY: push_$(module)
-push_$(module): $(if $(is_containerised),login_registry build_$(module))
+push_$(module): $(if $(is_containerised),login_registry)
 	$(if $(is_containerised),\
 		podman push $(container_image_name))
 endef
