@@ -1,3 +1,5 @@
+capitalise = $(shell _v="$(1)"; echo $${_v^^})
+
 HOSTNAME := $(shell cat /etc/hostname)
 HOSTNAMES := pi-broughton blade-canongate
 MASTER_NODE := pi-broughton
@@ -22,6 +24,9 @@ PORT_http := 8080
 PORT_gemini := 1965
 PORT_smtp := 2500
 PORT_vaultwarden := 9000
+
+$(foreach module,$(ALL_MODULES),$(if $(PORT_$(module)),$(eval \
+	export $(call capitalise,$(module))_PORT := $(PORT_$(module)))))
 
 SUBDOMAINS := $(foreach module,$(MODULES),$(SUBDOMAIN_$(module)))
 NGINX_SUBDOMAINS := $(foreach module,$(NGINX_MODULES),$(SUBDOMAIN_$(module)))
