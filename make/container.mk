@@ -2,10 +2,11 @@ CPU_ARCH := $(if $(shell which arch 2>/dev/null),\
 	$(shell arch),\
 	$(shell lscpu | grep ^Architecture: | sed "s/^Architecture:[[:space:]]*\([[:alnum:][:punct:]]\+\).*/\1/"))
 IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
+COMPOSE_CMD := IMAGE_PREFIX="$(IMAGE_PREFIX)" podman-compose
 REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
 
-container_image_name = $(shell podman-compose config | yq ".services.$(module).image")
+container_image_name = $(shell $(COMPOSE_CMD) config | yq ".services.$(module).image")
 is_containerised = $(filter $(COMPOSE_SERVICES),$(module))
 has_dockerfile = $(shell test -f $(module).Dockerfile)
 
@@ -13,7 +14,7 @@ define build_module_rule =
 .PHONY: build_$(module)
 build_$(module): $(if $(is_containerised),make_$(module) $(if $(has_dockerfile),$(module).Dockerfile))
 	$(if $(is_containerised),\
-		IMAGE_PREFIX="$(IMAGE_PREFIX)" podman-compose build $(module))
+		$(COMPOSE_CMD) build $(module))
 endef
 
 define push_module_rule =
