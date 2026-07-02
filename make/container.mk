@@ -1,5 +1,3 @@
-capitalise = $(shell _v="$(1)"; echo $${_v^^})
-
 CPU_ARCH := $(if $(shell which arch 2>/dev/null),\
 	$(shell arch),\
 	$(shell lscpu | grep ^Architecture: | sed "s/^Architecture:[[:space:]]*\([[:alnum:][:punct:]]\+\).*/\1/"))
