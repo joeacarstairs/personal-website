@@ -19,9 +19,15 @@ uninstall_nginx_$(module):
 	(if $(SUBDOMAIN_$(module)),rm -f /etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf)
 endef
 
+define remove_nginx_site_rule =
+remove_$(site):
+	rm -f $(site)
+endef
+
 $(foreach module,$(MODULES),$(eval $(install_nginx_module_rule)))
 $(foreach module,$(MODULES),$(eval $(reinstall_nginx_module_rule)))
 $(foreach module,$(MODULES),$(eval $(uninstall_nginx_module_rule)))
+$(foreach site,$(nginx_sites_to_remove),$(eval $(remove_nginx_site_rule)))
 
 /etc/nginx/http.d/%.joeac.net.conf: nginx/http.d/%.joeac.net.conf /etc/nginx/http.d /etc/nginx/nginx.conf
 	sudo cp $< $@
