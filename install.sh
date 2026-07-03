@@ -39,7 +39,7 @@ fi
 
 if [ -z "$(grep "\bjoeac.net\b" /etc/group)" ]
 then
-  sudo adduser -h /home/joeac.net joeac.net
+  sudo adduser -D -h /home/joeac.net joeac.net
 fi
 
 cd /home/joeac.net
