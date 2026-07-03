@@ -30,7 +30,7 @@ PORT_vaultwarden := 9000
 PUBLIC_ROOT_DIR_ln := /var/ln.joeac.net/public
 
 export ETHERPAD_DATA_DIR := /var/etherpad/var
-export VAULTWARDEN_DATA_DIR := /var/vaultwarden
+export VAULTWARDEN_DATA_DIR := /var/vaultwarden/data
 
 $(foreach module,$(ALL_MODULES),$(if $(PORT_$(module)),$(eval \
 	export $(call capitalise,$(module))_PORT := $(PORT_$(module)))))
