@@ -12,7 +12,10 @@ done
 
 set -e
 
-doas adduser -h /home/joeac.net joeac.net
+if [ -z "$(grep "\bjoeac.net\b" /etc/group)" ]
+then
+  doas adduser -h /home/joeac.net joeac.net
+fi
 
 cd /home/joeac.net
 sudo -u joeac.net git clone https://git.joeac.net/joeac.net.git joeac.net
