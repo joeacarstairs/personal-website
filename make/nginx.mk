@@ -33,7 +33,8 @@ endef
 
 define nginx_module_config_rule =
 /etc/nginx/http.d/$(SUBDOMAIN_$(module)).joeac.net.conf: $(nginx_module_config_template) /etc/nginx/http.d /etc/nginx/nginx.conf
-	sudo $(nginx_module_config_template_args) envsubst -i $$< -o $$@
+	$(nginx_module_config_template_args) envsubst -i $$< -o $$(notdir $$@).tmp
+	sudo cp $$(notdir $$@).tmp $$@
 	sudo rc-service nginx restart
 endef
 
