@@ -52,7 +52,7 @@ then
   sudo -u joeac.net git clone https://git.joeac.net/joeac/joeac.net.git /home/joeac.net/joeac.net
 fi
 sudo chown joeac.net:joeac.net /home/joeac.net/joeac.net
-sudo chmod 765 /home/joeac.net/joeac.net
+sudo chmod 770 /home/joeac.net/joeac.net
 
 if ! [ -h /usr/local/lib/joeac.net ]
 then
