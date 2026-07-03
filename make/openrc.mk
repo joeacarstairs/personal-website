@@ -6,7 +6,7 @@ define install_openrc_module_rule =
 install_openrc_$(module): $(if $(is_openrc_module),$(openrc_module_target) openrc_add_$(module) openrc_start_$(module))
 
 ~/.config/rc/init.d/joeac.net.$(module): ~/.config/rc/init.d/joeac.net ~/.config/rc/runlevels/default
-	rm -f ~/.config/rc/init.d/joeac.net
+	rm -f ~/.config/rc/init.d/joeac.net.$(module)
 	ln -s $(shell realpath ~)/.config/rc/init.d/joeac.net ~/.config/rc/init.d/joeac.net.$(module)
 endef
 
