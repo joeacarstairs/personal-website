@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /usr/local/lib/joeac.net \
-  && git pull \
-  && make \
-  && make reinstall
+cd /home/joeac.net/joeac.net \
+  && sudo -u joeac.net git pull \
+  && sudo -u joeac.net make \
+  && sudo -u joeac.net make reinstall
