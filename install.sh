@@ -4,19 +4,19 @@ set -e
 
 if [ -z "$(which podman 2>/dev/null)" ]
 then
-  doas apk add podman
+  sudo apk add podman
 fi
 
 if [ -z "$(which podman-compose 2>/dev/null)" ]
 then
-  doas apk add podman-compose
+  sudo apk add podman-compose
 fi
 
 if [ -z "$(which yq 2>/dev/null)" ]
 then
   YQ_PLATFORM="linux_$(expr "$(arch)" : "armv7" && echo arm || expr "$(arch)" : "x86_64" && echo amd64 || arch)"
-  doas wget -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_${YQ_PLATFORM}
-  doas chmod +x /usr/local/bin/yq
+  sudo wget -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_${YQ_PLATFORM}
+  sudo chmod +x /usr/local/bin/yq
 fi
 
 if [ -z "$(which envsubst 2>/dev/null)" ]
@@ -24,22 +24,22 @@ then
   if [ "$(arch)" = "x86_64" ] || [ "$(arch)" = "arm64" ]
   then
     ENVSUBST_VERSION=1.4.3
-    doas wget -O /usr/local/bin/envsubst https://github.com/a8m/envsubst/releases/download/v${ENVSUBST_VERSION}/envsubst-Linux-$(arch)
-    doas chmod +x /usr/local/bin/envsubst
+    sudo wget -O /usr/local/bin/envsubst https://github.com/a8m/envsubst/releases/download/v${ENVSUBST_VERSION}/envsubst-Linux-$(arch)
+    sudo chmod +x /usr/local/bin/envsubst
   else
-    doas apk add go
+    sudo apk add go
     go install github.com/a8m/envsubst/cmd/envsubst@latest
   fi
 fi
 
 if [ -z "$(which bash 2>/dev/null)" ]
 then
-  doas apk add bash
+  sudo apk add bash
 fi
 
 if [ -z "$(grep "\bjoeac.net\b" /etc/group)" ]
 then
-  doas adduser -h /home/joeac.net joeac.net
+  sudo adduser -h /home/joeac.net joeac.net
 fi
 
 cd /home/joeac.net
