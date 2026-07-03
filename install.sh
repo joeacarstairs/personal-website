@@ -97,7 +97,8 @@ do
       fi
     fi
 
-    echo "${var_name}=${!var_name}" >> /home/joeac.net/joeac.net/.env
+    var_value="$(expr "$(env | grep "^${var_name}=")" : "${var_name}=\(.*\)\$")"
+    echo "${var_name}=${var_value}" >> /home/joeac.net/joeac.net/.env
   fi
 done </home/joeac.net/joeac.net/example.env
 
