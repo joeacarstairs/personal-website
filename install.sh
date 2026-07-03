@@ -45,7 +45,7 @@ fi
 cd /home/joeac.net
 if ! [ -d joeac.net/.git ]
 then
-  sudo -u joeac.net git clone https://git.joeac.net/joeac.net.git joeac.net
+  sudo -u joeac.net git clone https://git.joeac.net/joeac/joeac.net.git joeac.net
 fi
 cd joeac.net
 
