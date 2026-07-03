@@ -1,3 +1,0 @@
-# copy this file to user.<USER> for the user you want to be running joeac.net via OpenRC
-# add in here any user setup, bearing in mind that OpenRC doesn't use your usual login flow
-# this may include setting up $HOME and/or $XDG_RUNTIME_DIR
