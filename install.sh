@@ -1,5 +1,10 @@
 #!/bin/sh
 
+get_var_value()
+{
+  expr "$(env | grep "^${1}=")" : "${1}=\(.*\)\$"
+}
+
 if [ -z "$(which podman 2>/dev/null)" ]
 then
   sudo apk add podman
@@ -85,18 +90,17 @@ do
       continue
     fi
 
-    if [ -z "$(expr "$(env | grep "^${var_name}=")" : "${var_name}=\(.*\)\$")" ]
+    if [ -z "$(get_var_value ${var_name})" ]
     then
       default_value="$(expr "${line}" : "[[:alnum:]_]\+=\(.*\)\$")"
       read -sp "${var_name}: " ${var_name}
-      if [ -z "${!var_name}" ]
+      if [ -z "$(get_var_value ${var_name})" ]
       then
         eval ${var_name}="${default_value}"
       fi
     fi
 
-    var_value="$(expr "$(env | grep "^${var_name}=")" : "${var_name}=\(.*\)\$")"
-    echo "${var_name}=${var_value}" >> /home/joeac.net/joeac.net/.env
+    echo "${var_name}=$(get_var_value ${var_name})" >> /home/joeac.net/joeac.net/.env
   fi
 done </home/joeac.net/joeac.net/example.env
 
