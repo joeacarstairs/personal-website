@@ -40,12 +40,12 @@ default_layout_file = $(if \
 layout_file = $(if $(layout),share/layouts/$(layout).layout.upp$(ext),$(default_layout_file))
 
 define out_rule =
-out/%.$(ext): bin/pp src/%$(if $(layout),.$(layout)).upp$(ext) $(layout_file) $(component_files)
+out/%.$(ext): src/%$(if $(layout),.$(layout)).upp$(ext) $(layout_file) $(component_files) bin/pp
 	./bin/mkws https://joeac.net "$$$$(realpath $$<)"
 endef
 
 define blog_rss_feed_rule =
-out/$(blog)/rss.xml: bin/pp src/$(blog)/rss.uppxml $(blog_src) $(wildcard bin/*)
+out/$(blog)/rss.xml: src/$(blog)/rss.uppxml $(blog_src) $(wildcard bin/*) bin/pp
 	./bin/mkws https://joeac.net "$$(realpath src/$(blog)/rss.uppxml)"
 endef
 
@@ -64,7 +64,7 @@ $(blog_post_target): $(blog_post_src) $(let ext,html,$(layout_file) $(component_
 endef
 
 define blog_index_rule =
-out/$(blog).html: bin/pp src/$(blog).upphtml $(blog_src) $(wildcard bin/*)
+out/$(blog).html: src/$(blog).upphtml $(blog_src) $(wildcard bin/*) bin/pp
 	./bin/mkws https://joeac.net "$$(realpath src/$(blog).upphtml)"
 endef
 
