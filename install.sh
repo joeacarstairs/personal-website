@@ -44,14 +44,12 @@ then
   sudo adduser $(whoami) joeac.net
 fi
 
-cd /home/joeac.net
-if ! [ -d joeac.net/.git ]
+if ! [ -d /home/joeac.net/joeac.net/.git ]
 then
-  sudo -u joeac.net git clone https://git.joeac.net/joeac/joeac.net.git joeac.net
+  sudo -u joeac.net git clone https://git.joeac.net/joeac/joeac.net.git /home/joeac.net/joeac.net
 fi
 sudo chown joeac.net:joeac.net joeac.net
-sudo chmod 765 joeac.net
-cd joeac.net
+sudo chmod 765 /home/joeac.net/joeac.net
 
 if ! [ -h /usr/local/lib/joeac.net ]
 then
@@ -64,7 +62,7 @@ then
   then
     read -sp "DIGITALOCEAN_TOKEN: " DIGITALOCEAN_TOKEN
   fi
-  echo ${DIGITALOCEAN_TOKEN} > DIGITALOCEAN_TOKEN
+  echo ${DIGITALOCEAN_TOKEN} > /home/joeac.net/joeac.net/DIGITALOCEAN_TOKEN
 fi
 
 if ! ( podman secret exists remote_smtp_password )
@@ -77,13 +75,14 @@ then
   unset REMOTE_SMTP_PASSWORD
 fi
 
+sudo -u joeac.net touch /home/joeac.net/joeac.net/.env
 while read line
 do
   if expr "${line}" : "^[[:alnum:]_]\+=" 1>/dev/null
   then
     var_name="$(expr "${line}" "^\([[:alnum:]_]\+\)=")"
 
-    if [ -n "$(grep "^${var_name}=" .env)" ]
+    if [ -n "$(grep "^${var_name}=" /home/joeac.net/joeac.net/.env)" ]
     then
       continue
     fi
@@ -98,7 +97,7 @@ do
       fi
     fi
 
-    echo "${var_name}=${!var_name}" >> .env
+    echo "${var_name}=${!var_name}" >> /home/joeac.net/joeac.net/.env
   fi
 done <example.env
 
