@@ -1,16 +1,40 @@
 #!/bin/sh
 
-DEPENDENCIES="podman podman-compose yq envsubst bash"
-for dep in ${DEPENDENCIES}
-do
-  if [ -z "$(which ${dep} 2>/dev/null)" ]
-  then
-    echo "Cannot install: missing required dependency ${dep}. Install ${dep}, then try again."
-    exit 1
-  fi
-done
-
 set -e
+
+if [ -z "$(which podman 2>/dev/null)" ]
+then
+  doas apk add podman
+fi
+
+if [ -z "$(which podman-compose 2>/dev/null)" ]
+then
+  doas apk add podman-compose
+fi
+
+if [ -z "$(which yq 2>/dev/null")" ]
+then
+  YQ_PLATFORM="linux_$(expr "$(arch)" : "armv7" && echo arm || expr "$(arch)" : "x86_64" && echo amd64 || arch)"
+  wget -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_${YQ_PLATFORM}
+  chmod +x /usr/local/bin/yq
+fi
+
+if [ -z "$(which envsubst 2>/dev/null)" ]
+then
+  if [ "$(arch)" = "x86_64" ] || [ "$(arch)" = "arm64" ]
+  then
+    wget -O /usr/local/bin/envsubst https://github.com/a8m/envsubst/releases/download/latest/envsubst-Linux-$(arch)
+    chmod +x /usr/local/bin/envsubst
+  else
+    doas apk add go
+    go get github.com/a8m/envsubst/cmd/envsubst
+  fi
+fi
+
+if [ -z "$(which bash 2>/dev/null)" ]
+then
+  doas apk add bash
+fi
 
 if [ -z "$(grep "\bjoeac.net\b" /etc/group)" ]
 then
