@@ -53,6 +53,18 @@ INSTALL_RULES := $(foreach module,$(MODULES),install_$(module))
 REINSTALL_RULES := $(foreach module,$(MODULES),reinstall_$(module))
 UNINSTALL_RULES := $(foreach module,$(MODULES),uninstall_$(module))
 
+COMPOSE_CMD := \
+	ALPINE_VERSION="$(ALPINE_VERSION)" \
+	IMAGE_PREFIX="$(IMAGE_PREFIX)" \
+	GEMINI_CERTIFICATES_DIR="$(GEMINI_CERTIFICATES_DIR)" \
+	GEMINI_COMITIUM_DATA_DIR="$(GEMINI_COMITIUM_DATA_DIR)" \
+	ETHERPAD_DATA_DIR="$(ETHERPAD_DATA_DIR)" \
+	ETHERPAD_VERSION="$(ETHERPAD_VERSION)" \
+	VAULTWARDEN_DATA_DIR="$(VAULTWARDEN_DATA_DIR)" \
+	LOCAL_SMTP_PORT=$(PORT_smtp) \
+	$(foreach module,$(ALL_MODULES),$(call capitalise,$(module))_PORT=$(PORT_$(module))) \
+	podman-compose
+
 $(foreach module,$(ALL_NGINX_MODULES), \
 	$(if $(SUBDOMAIN_$(module)),, \
 		$(error $(module) is declared as an nginx module, but SUBDOMAIN_$(module) is not set)))

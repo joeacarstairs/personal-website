@@ -50,10 +50,10 @@ $(foreach module,$(MODULES),$(eval $(openrc_add_rule)))
 $(foreach module,$(MODULES),$(eval $(openrc_start_rule)))
 $(foreach module,$(MODULES),$(eval $(openrc_restart_rule)))
 
-~/.config/rc/init.d/joeac.net: openrc/init.d/joeac.net ~/.config/rc/init.d ~/.config/rc/runlevels/default /etc/init.d/user.$(USER) /etc/conf.d/user.$(USER)
+~/.config/rc/init.d/joeac.net: openrc/init.d/joeac.net.template ~/.config/rc/init.d ~/.config/rc/runlevels/default /etc/init.d/user.$(USER) /etc/conf.d/user.$(USER)
 	rm -f ~/.config/rc/init.d/joeac.net; \
 	mkdir -p ~/.config/rc/init.d; \
-	cp openrc/init.d/joeac.net ~/.config/rc/init.d/joeac.net
+	COMPOSECMD="$(COMPOSE_CMD)" envsubst -i openrc/init.d/joeac.net.template -o ~/.config/rc/init.d/joeac.net
 
 ~/.config/rc/init.d:
 	mkdir -p ~/.config/rc/init.d

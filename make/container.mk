@@ -2,17 +2,6 @@ CPU_ARCH := $(if $(shell which arch 2>/dev/null),\
 	$(shell arch),\
 	$(shell lscpu | grep ^Architecture: | sed "s/^Architecture:[[:space:]]*\([[:alnum:][:punct:]]\+\).*/\1/"))
 IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
-COMPOSE_CMD := \
-	ALPINE_VERSION="$(ALPINE_VERSION)" \
-	IMAGE_PREFIX="$(IMAGE_PREFIX)" \
-	GEMINI_CERTIFICATES_DIR="$(GEMINI_CERTIFICATES_DIR)" \
-	GEMINI_COMITIUM_DATA_DIR="$(GEMINI_COMITIUM_DATA_DIR)" \
-	ETHERPAD_DATA_DIR="$(ETHERPAD_DATA_DIR)" \
-	ETHERPAD_VERSION="$(ETHERPAD_VERSION)" \
-	VAULTWARDEN_DATA_DIR="$(VAULTWARDEN_DATA_DIR)" \
-	LOCAL_SMTP_PORT=$(PORT_smtp) \
-	$(foreach module,$(ALL_MODULES),$(call capitalise,$(module))_PORT=$(PORT_$(module))) \
-	podman-compose
 REGISTRY_DOMAIN := git.joeac.net
 REGISTRY_USER := joeac
 
