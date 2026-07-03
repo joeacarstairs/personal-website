@@ -2,7 +2,7 @@ server {
     server_name ${DOMAIN};
     location / {
         root ${ROOT};
-        try_files $uri $uri.html $uri/index.html =404;
+        try_files $$uri $$uri.html $$uri/index.html =404;
         error_page 404 /index.html;
     }
     listen 443 ssl;
@@ -18,5 +18,5 @@ server {
     } # managed by Certbot
     server_name ln.joeac.net;
     listen 80;
-    return 404; # managed by Certbot
+    return 404;
 }
