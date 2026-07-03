@@ -1,5 +1,15 @@
 #!/bin/sh
 
+DEPENDENCIES="podman podman-compose yq envsubst bash"
+for dep in ${DEPENDENCIES}
+do
+  if [ -z "$(which ${dep} 2>/dev/null)" ]
+  then
+    echo "Cannot install: missing required dependency ${dep}. Install ${dep}, then try again."
+    exit 1
+  fi
+done
+
 set -e
 
 doas adduser -h /home/joeac.net joeac.net
