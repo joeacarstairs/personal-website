@@ -87,7 +87,7 @@ do
       continue
     fi
 
-    if [ -z "${!var_name}" ]
+    if [ -z "$(expr "$(env | grep "^${var_name}=")" : "^${var_name}=\(.*\)\$")" ]
     then
       default_value="$(expr "${line}" : "^[[:alnum:]_]\+=\(.*\)\$")"
       read -sp "${var_name}: " ${var_name}
