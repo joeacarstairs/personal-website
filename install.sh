@@ -29,11 +29,14 @@ then
   sudo ln -s /home/joeac.net/joeac.net /usr/local/lib/joeac.net
 fi
 
-if [ -z "${DIGITALOCEAN_TOKEN}" ]
+if ! [ -f DIGITALOCEAN_TOKEN ]
 then
-  read -sp "DIGITALOCEAN_TOKEN: " DIGITALOCEAN_TOKEN
+  if [ -z "${DIGITALOCEAN_TOKEN}" ]
+  then
+    read -sp "DIGITALOCEAN_TOKEN: " DIGITALOCEAN_TOKEN
+  fi
+  echo ${DIGITALOCEAN_TOKEN} > DIGITALOCEAN_TOKEN
 fi
-echo ${DIGITALOCEAN_TOKEN} > DIGITALOCEAN_TOKEN
 
 if ! ( podman secret exists remote_smtp_password )
 then
@@ -50,6 +53,12 @@ do
   if expr "${line}" : "^[[:alnum:]_]\+=" 1>/dev/null
   then
     var_name="$(expr "${line}" "^\([[:alnum:]_]\+\)=")"
+
+    if [ -n "$(grep "^${var_name}=" .env)" ]
+    then
+      continue
+    fi
+
     if [ -z "${!var_name}" ]
     then
       default_value="$(expr "${line}" "^[[:alnum:]_]\+=\(.*\)\$")"
@@ -59,6 +68,7 @@ do
         eval ${var_name}="${default_value}"
       fi
     fi
+
     echo "${var_name}=${!var_name}" >> .env
   fi
 done <example.env
