@@ -40,6 +40,8 @@ fi
 if [ -z "$(grep "\bjoeac.net\b" /etc/group)" ]
 then
   sudo adduser -D -h /home/joeac.net joeac.net
+  sudo adduser joeac.net joeac.net
+  sudo adduser $(whoami) joeac.net
 fi
 
 cd /home/joeac.net
@@ -47,6 +49,8 @@ if ! [ -d joeac.net/.git ]
 then
   sudo -u joeac.net git clone https://git.joeac.net/joeac/joeac.net.git joeac.net
 fi
+sudo chown joeac.net:joeac.net joeac.net
+sudo chmod 764 joeac.net
 cd joeac.net
 
 if ! [ -h /usr/local/lib/joeac.net ]
