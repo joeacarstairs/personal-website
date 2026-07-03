@@ -31,7 +31,7 @@ define uninstall_module_rule =
 .PHONY: uninstall_$(module)
 uninstall_$(module): uninstall_openrc_$(module) uninstall_dyndns_$(module)
 	$(if $(install_submake_file),\
-		$(MAKE) --makefile=$(notdir (install_submake_file)) --directory $(dir $(install_submake_file)) uninstall
+		$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory $(dir $(install_submake_file)) uninstall
 	)
 endef
 
