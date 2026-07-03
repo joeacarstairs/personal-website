@@ -23,7 +23,8 @@ if [ -z "$(which envsubst 2>/dev/null)" ]
 then
   if [ "$(arch)" = "x86_64" ] || [ "$(arch)" = "arm64" ]
   then
-    wget -O /usr/local/bin/envsubst https://github.com/a8m/envsubst/releases/download/latest/envsubst-Linux-$(arch)
+    ENVSUBST_VERSION=1.4.3
+    wget -O /usr/local/bin/envsubst https://github.com/a8m/envsubst/releases/download/v${ENVSUBST_VERSION}/envsubst-Linux-$(arch)
     chmod +x /usr/local/bin/envsubst
   else
     doas apk add go
