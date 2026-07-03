@@ -45,6 +45,7 @@ then
   sudo adduser -D -h /home/joeac.net joeac.net
   sudo adduser joeac.net joeac.net
   sudo adduser $(whoami) joeac.net
+  su -l $(whoami)
 fi
 
 if ! [ -d /home/joeac.net/joeac.net/.git ]
