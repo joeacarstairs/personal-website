@@ -34,6 +34,8 @@ export GEMINI_CERTIFICATES_DIR := /var/joeac.net-gemini/certificates
 export GEMINI_COMITIUM_DATA_DIR := /var/joeac.net-gemini/comitium-data
 export VAULTWARDEN_DATA_DIR := /var/vaultwarden/data
 
+ALPINE_VERSION := 3.23
+
 $(foreach module,$(ALL_MODULES),$(if $(PORT_$(module)),$(eval \
 	export $(call capitalise,$(module))_PORT := $(PORT_$(module)))))
 $(foreach hostname,$(HOSTNAMES),$(foreach module,$(MODULES_$(hostname)),$(eval \
