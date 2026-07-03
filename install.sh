@@ -18,9 +18,16 @@ then
 fi
 
 cd /home/joeac.net
-sudo -u joeac.net git clone https://git.joeac.net/joeac.net.git joeac.net
-sudo ln -s /home/joeac.net/joeac.net /usr/local/lib/joeac.net
+if ! [ -d joeac.net/.git ]
+then
+  sudo -u joeac.net git clone https://git.joeac.net/joeac.net.git joeac.net
+fi
 cd joeac.net
+
+if ! [ -h /usr/local/lib/joeac.net ]
+then
+  sudo ln -s /home/joeac.net/joeac.net /usr/local/lib/joeac.net
+fi
 
 if [ -z "${DIGITALOCEAN_TOKEN}" ]
 then
