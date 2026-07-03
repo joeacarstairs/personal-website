@@ -39,7 +39,7 @@ services:
         ALPINE_VERSION: ${ALPINE_VERSION}
         ETHERPAD_VERSION: ${ETHERPAD_VERSION}
     volumes:
-      - ./etherpad/var:/var/app/var
+      - ${ETHERPAD_DATA_DIR}:/var/app/var
     environment:
       NODE_ENV: ${ETHERPAD_NODE_ENV}
       ADMIN_PASSWORD: ${ETHERPAD_ADMIN_PASSWORD}
