@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -ex
 
 if [ -z "$(which podman 2>/dev/null)" ]
 then
