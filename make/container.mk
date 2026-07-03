@@ -4,6 +4,7 @@ CPU_ARCH := $(if $(shell which arch 2>/dev/null),\
 IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
 COMPOSE_CMD := \
 	IMAGE_PREFIX="$(IMAGE_PREFIX)" \
+	VAULTWARDEN_DATA_DIR="$(VAULTWARDEN_DATA_DIR)" \
 	LOCAL_SMTP_PORT=$(PORT_smtp) \
 	$(foreach module,$(ALL_MODULES),$(call capitalise,$(module))_PORT=$(PORT_$(module))) \
 	podman-compose

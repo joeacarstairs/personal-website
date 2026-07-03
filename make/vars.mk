@@ -29,6 +29,8 @@ PORT_vaultwarden := 9000
 
 PUBLIC_ROOT_DIR_ln := /var/ln.joeac.net/public
 
+VAULTWARDEN_DATA_DIR := /var/vaultwarden
+
 $(foreach module,$(ALL_MODULES),$(if $(PORT_$(module)),$(eval \
 	export $(call capitalise,$(module))_PORT := $(PORT_$(module)))))
 $(foreach hostname,$(HOSTNAMES),$(foreach module,$(MODULES_$(hostname)),$(eval \
