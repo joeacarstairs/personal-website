@@ -21,7 +21,7 @@ uninstall_openrc_$(module):
 	$(if $(is_openrc_module),\
 		rc-service -U joeac.net.$(module) stop; \
 		rc-update -U del joeac.net.$(module) default; \
-		rm ~/.config/rc/init.d/joeac.net.$(module); \
+		rm -f ~/.config/rc/init.d/joeac.net.$(module); \
 	)
 endef
 
