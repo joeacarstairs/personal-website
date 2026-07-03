@@ -1,4 +1,4 @@
-capitalise = $(shell _v="$(1)"; echo $${_v^^})
+capitalise = $(shell echo "$(1)" | tr '[:lower:]' '[:upper:]')
 
 USER := $(shell whoami)
 HOSTNAME := $(shell cat /etc/hostname)
