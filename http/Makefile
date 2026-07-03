@@ -109,7 +109,7 @@ share/man/man1/pp.1:
 out: bin/pp $(out_deps)
 
 bin/pp:
-	cd pp && $(MAKE) && chmod +x pp && cp pp ../bin/pp
+	$(MAKE) --directory=pp && chmod +x pp/pp && cp pp/pp bin/pp
 
 $(foreach ext,$(sort $(out_deps_ext)),\
 	$(eval $(out_rule)))
