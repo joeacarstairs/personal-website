@@ -25,6 +25,16 @@ then
 fi
 echo ${DIGITALOCEAN_TOKEN} > DIGITALOCEAN_TOKEN
 
+if ! ( podman secret exists remote_smtp_password )
+then
+  if [ -z "${REMOTE_SMTP_PASSWORD}" ]
+  then
+    read -sp "REMOTE_SMTP_PASSWORD: " REMOTE_SMTP_PASSWORD
+  fi
+  echo "${REMOTE_SMTP_PASSWORD}" | podman secret create remote_smtp_password -
+  unset REMOTE_SMTP_PASSWORD
+fi
+
 while read line
 do
   if expr "${line}" : "^[[:alnum:]_]\+=" 1>/dev/null
