@@ -101,5 +101,5 @@ do
   fi
 done </home/joeac.net/joeac.net/example.env
 
-sudo -u joeac.net make
-sudo -u joeac.net make install
+sudo -u joeac.net make --directory=/home/joeac.net/joeac.net
+sudo -u joeac.net make --directory=/home/joeac.net/joeac.net install
