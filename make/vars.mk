@@ -30,6 +30,8 @@ PORT_vaultwarden := 9000
 PUBLIC_ROOT_DIR_ln := /var/ln.joeac.net/public
 
 export ETHERPAD_DATA_DIR := /var/etherpad/var
+export GEMINI_CERTIFICATES_DIR := /var/joeac.net-gemini/certificates
+export GEMINI_COMITIUM_DATA_DIR := /var/joeac.net-gemini/comitium-data
 export VAULTWARDEN_DATA_DIR := /var/vaultwarden/data
 
 $(foreach module,$(ALL_MODULES),$(if $(PORT_$(module)),$(eval \

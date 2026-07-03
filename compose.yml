@@ -7,6 +7,9 @@ services:
       dockerfile: gemini.Dockerfile
     ports:
       - "${GEMINI_PORT}:1965"
+    volumes:
+      - ${GEMINI_CERTIFICATES_DIR}:/var/app/.certificates
+      - ${GEMINI_COMITIUM_DATA_DIR}:/var/app/comitium-data
 
   http:
     image: git.joeac.net/joeac/${IMAGE_PREFIX}joeac.net-http

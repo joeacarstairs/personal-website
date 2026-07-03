@@ -7,7 +7,6 @@ COPY --from=comitium /usr/local/bin/comitium /usr/local/bin/comitium
 
 RUN mkdir -p /var/app/content
 WORKDIR /var/app
-COPY gemini/.certificates .certificates
 RUN crontab -l > crontab.tmp \
   && echo "0 */6 * * * /usr/local/bin/comitium refresh --data /var/app/comitium-data" >> crontab.tmp \
   && crontab crontab.tmp \
@@ -15,7 +14,6 @@ RUN crontab -l > crontab.tmp \
 
 COPY gemini/run.sh /var/app/
 COPY gemini/content /var/app/content
-COPY gemini/comitium-data /var/app/comitium-data
 COPY common /var/common
 
 CMD ./run.sh

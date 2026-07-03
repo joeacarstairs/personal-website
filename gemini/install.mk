@@ -1,0 +1,20 @@
+GEMINI_COMITIUM_DATA_FILES := $(addprefix $(GEMINI_COMITIUM_DATA_DIR)/,$(notdir $(wildcard comitium-data/*)))
+
+.PHONY: install
+install: $(GEMINI_CERTIFICATES_DIR) $(GEMINI_COMITIUM_DATA_FILES)
+
+.PHONY: reinstall
+reinstall: $(GEMINI_CERTIFICATES_DIR) $(GEMINI_COMITIUM_DATA_FILES)
+
+$(GEMINI_CERTIFICATES_DIR):
+	sudo mkdir -p $(GEMINI_CERTIFICATES_DIR)
+
+$(GEMINI_COMITIUM_DATA_DIR)/%: comitium-data/% $(GEMINI_COMITIUM_DATA_DIR)
+	sudo cp $< $@
+
+$(GEMINI_COMITIUM_DATA_DIR):
+	sudo mkdir -p $(GEMINI_COMITIUM_DATA_DIR)
+
+.PHONY: uninstall
+uninstall:
+	sudo rm -rf $(GEMINI_COMITIUM_DATA_DIR)
