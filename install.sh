@@ -99,7 +99,7 @@ do
 
     echo "${var_name}=${!var_name}" >> /home/joeac.net/joeac.net/.env
   fi
-done <example.env
+done </home/joeac.net/joeac.net/example.env
 
 sudo -u joeac.net make
 sudo -u joeac.net make install
