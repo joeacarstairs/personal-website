@@ -22,7 +22,7 @@ configtest() {
     eerror "The docker-compose file $${COMPOSEFILE} does not exist!"
     return 1
   fi
-  if "${COMPOSECMD}" -f "$${COMPOSEFILE}" config >&/dev/null; then
+  if ${COMPOSECMD} -f "$${COMPOSEFILE}" config >&/dev/null; then
     einfo "config: ok"
   else
     eerror "config: error"
@@ -33,13 +33,13 @@ configtest() {
 start() {
   configtest || return 1
   ebegin "Starting $${MODULENAME}"
-  "${COMPOSECMD}" -f "$${COMPOSEFILE}" up -d $${DOCKER_COMPOSE_UP_ARGS} $${MODULENAME}
+  ${COMPOSECMD} -f "$${COMPOSEFILE}" up -d $${DOCKER_COMPOSE_UP_ARGS} $${MODULENAME}
   eend $$?
 }
 
 stop() {
   ebegin "Stopping $${MODULENAME}"
-  "${COMPOSECMD}" -f "$${COMPOSEFILE}" down --timeout=5 $${MODULENAME}
+  ${COMPOSECMD} -f "$${COMPOSEFILE}" down --timeout=5 $${MODULENAME}
   eend $$?
 }
 
@@ -59,7 +59,7 @@ status() {
                 einfo "status: [$$pod] stopped"
 		exit 3
         fi
-  done < <("${COMPOSECMD}" -f "$${COMPOSEFILE}" ps --quiet)
+  done < <(${COMPOSECMD} -f "$${COMPOSEFILE}" ps --quiet)
   einfo "status: no container found for $${MODULENAME}"
   exit 3
 }
