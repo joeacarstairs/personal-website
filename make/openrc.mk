@@ -54,6 +54,7 @@ $(foreach module,$(MODULES),$(eval $(openrc_restart_rule)))
 	rm -f ~/.config/rc/init.d/joeac.net; \
 	mkdir -p ~/.config/rc/init.d; \
 	COMPOSECMD="$(COMPOSE_CMD)" envsubst -i openrc/init.d/joeac.net.template -o ~/.config/rc/init.d/joeac.net
+	chmod +x ~/.config/rc/init.d/joeac.net
 
 ~/.config/rc/init.d:
 	mkdir -p ~/.config/rc/init.d
