@@ -15,7 +15,7 @@ fi
 if [ -z "$(which yq 2>/dev/null)" ]
 then
   YQ_PLATFORM="linux_$(expr "$(arch)" : "armv7" && echo arm || expr "$(arch)" : "x86_64" && echo amd64 || arch)"
-  wget -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_${YQ_PLATFORM}
+  doas wget -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_${YQ_PLATFORM}
   doas chmod +x /usr/local/bin/yq
 fi
 
@@ -24,7 +24,7 @@ then
   if [ "$(arch)" = "x86_64" ] || [ "$(arch)" = "arm64" ]
   then
     ENVSUBST_VERSION=1.4.3
-    wget -O /usr/local/bin/envsubst https://github.com/a8m/envsubst/releases/download/v${ENVSUBST_VERSION}/envsubst-Linux-$(arch)
+    doas wget -O /usr/local/bin/envsubst https://github.com/a8m/envsubst/releases/download/v${ENVSUBST_VERSION}/envsubst-Linux-$(arch)
     doas chmod +x /usr/local/bin/envsubst
   else
     doas apk add go
