@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -e
-
 if [ -z "$(which podman 2>/dev/null)" ]
 then
   sudo apk add podman
