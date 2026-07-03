@@ -1,5 +1,6 @@
 capitalise = $(shell _v="$(1)"; echo $${_v^^})
 
+USER := $(shell whoami)
 HOSTNAME := $(shell cat /etc/hostname)
 HOSTNAMES := pi-broughton blade-canongate
 MASTER_NODE := pi-broughton

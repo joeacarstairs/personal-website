@@ -50,7 +50,7 @@ $(foreach module,$(MODULES),$(eval $(openrc_add_rule)))
 $(foreach module,$(MODULES),$(eval $(openrc_start_rule)))
 $(foreach module,$(MODULES),$(eval $(openrc_restart_rule)))
 
-~/.config/rc/init.d/joeac.net: openrc/init.d/joeac.net ~/.config/rc/init.d ~/.config/rc/runlevels/default /etc/init.d/user.$(shell whoami) /etc/conf.d/user.$(shell whoami)
+~/.config/rc/init.d/joeac.net: openrc/init.d/joeac.net ~/.config/rc/init.d ~/.config/rc/runlevels/default /etc/init.d/user.$(USER) /etc/conf.d/user.$(USER)
 	rm -f ~/.config/rc/init.d/joeac.net; \
 	mkdir -p ~/.config/rc/init.d; \
 	cp openrc/init.d/joeac.net ~/.config/rc/init.d/joeac.net
@@ -61,12 +61,12 @@ $(foreach module,$(MODULES),$(eval $(openrc_restart_rule)))
 ~/.config/rc/runlevels/default:
 	mkdir -p ~/.config/rc/runlevels/default
 
-/etc/init.d/user.$(shell whoami):
-	sudo ln -s /etc/init.d/user /etc/init.d/user.$(shell whoami)
+/etc/init.d/user.$(USER):
+	sudo ln -s /etc/init.d/user /etc/init.d/user.$(USER)
 
-/etc/conf.d/user.$(shell whoami): openrc/conf.d/user.$(shell whoami)
-	sudo cp openrc/conf.d/user.$(shell whoami) /etc/conf.d/user.$(shell whoami)
-	sudo rc-update add user.$(shell whoami) default
+/etc/conf.d/user.$(USER): openrc/conf.d/user.$(USER)
+	sudo cp openrc/conf.d/user.$(USER) /etc/conf.d/user.$(USER)
+	sudo rc-update add user.$(USER) default
 
 .PHONY: uninstall_joeac.net_service
 	rm ~/.config/rc/joeac.net
