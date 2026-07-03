@@ -79,6 +79,7 @@ then
 fi
 
 sudo -u joeac.net touch /home/joeac.net/joeac.net/.env
+sudo -u joeac.net chmod 760 /home/joeac.net/joeac.net/.env
 while read line
 do
   if expr "${line}" : "[[:alnum:]_]\+=" 1>/dev/null
