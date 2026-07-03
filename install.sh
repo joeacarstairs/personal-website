@@ -78,18 +78,18 @@ fi
 sudo -u joeac.net touch /home/joeac.net/joeac.net/.env
 while read line
 do
-  if expr "${line}" : "^[[:alnum:]_]\+=" 1>/dev/null
+  if expr "${line}" : "[[:alnum:]_]\+=" 1>/dev/null
   then
-    var_name="$(expr "${line}" : "^\([[:alnum:]_]\+\)=")"
+    var_name="$(expr "${line}" : "\([[:alnum:]_]\+\)=")"
 
     if [ -n "$(grep "^${var_name}=" /home/joeac.net/joeac.net/.env)" ]
     then
       continue
     fi
 
-    if [ -z "$(expr "$(env | grep "^${var_name}=")" : "^${var_name}=\(.*\)\$")" ]
+    if [ -z "$(expr "$(env | grep "^${var_name}=")" : "${var_name}=\(.*\)\$")" ]
     then
-      default_value="$(expr "${line}" : "^[[:alnum:]_]\+=\(.*\)\$")"
+      default_value="$(expr "${line}" : "[[:alnum:]_]\+=\(.*\)\$")"
       read -sp "${var_name}: " ${var_name}
       if [ -z "${!var_name}" ]
       then
