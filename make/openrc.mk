@@ -65,7 +65,8 @@ $(foreach module,$(MODULES),$(eval $(openrc_restart_rule)))
 	sudo ln -s /etc/init.d/user /etc/init.d/user.$(USER)
 
 /etc/conf.d/user.$(USER): openrc/conf.d/user.template
-	sudo USER=$(USER) envsubst -i openrc/conf.d/user.template -o /etc/conf.d/user.$(USER)
+	USER=$(USER) envsubst -i openrc/conf.d/user.template -o openrc/conf.d/user.$(USER)
+	sudo mv openrc/conf.d/user.$(USER) /etc/conf.d/user.$(USER)
 	sudo rc-update add user.$(USER) default
 
 .PHONY: uninstall_joeac.net_service
