@@ -27,7 +27,7 @@ then
     chmod +x /usr/local/bin/envsubst
   else
     doas apk add go
-    go get github.com/a8m/envsubst/cmd/envsubst
+    go install github.com/a8m/envsubst/cmd/envsubst
   fi
 fi
 
