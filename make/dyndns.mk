@@ -29,10 +29,10 @@ $(foreach module,$(ALL_MODULES), $(eval $(uninstall_dyndns_module_rule)))
 remove_/etc/periodic/daily/dyndns-%.joeac.net:
 	rm -f $(@:remove_%=%)
 
-/etc/periodic/daily/dyndns-%joeac.net: /usr/local/bin/dyndns.sh ~/.config/dyndns/DIGITALOCEAN_TOKEN
+/etc/periodic/daily/dyndns-%joeac.net: ~/digitalocean_dyndns/dyndns.sh ~/.config/dyndns/DIGITALOCEAN_TOKEN
 	echo "#!/bin/sh" > crontab.tmp
-	echo "                      /usr/local/bin/dyndns.sh 4 $(*F)joeac.net" >> crontab.tmp
-	echo "CONN_DEVICE_NAME=eth0 /usr/local/bin/dyndns.sh 6 $(*F)joeac.net" >> crontab.tmp
+	echo "                      $(shell realpath ~)/digitalocean_dyndns/dyndns.sh 4 $(*F)joeac.net" >> crontab.tmp
+	echo "CONN_DEVICE_NAME=eth0 $(shell realpath ~)/digitalocean_dyndns/dyndns.sh 6 $(*F)joeac.net" >> crontab.tmp
 	sudo mv crontab.tmp $@
 	sudo chmod +x $@
 
@@ -42,23 +42,12 @@ reinstall_dyndns: $(addprefix remove_,$(dyndns_crontabs_to_remove))
 .PHONY: uninstall_dyndns
 uninstall_dyndns: $(foreach module,$(ALL_MODULES),$(uninstall_dyndns_$(module)))
 	sudo rm -rf \
-		/usr/local/bin/dyndns.sh \
-		/usr/local/bin/get_ip_addr.sh \
-		/usr/local/lib/digitalocean_dyndns/ \
+		~/digitalocean_dyndns/ \
 		~/.config/dyndns \
 		~/.cache/dyndns
 
-/usr/local/bin/dyndns.sh: /usr/local/lib/digitalocean_dyndns/dyndns.sh /usr/local/bin/get_ip_addr.sh
-	sudo rm -f /usr/local/bin/dyndns.sh
-	sudo cp /usr/local/lib/digitalocean_dyndns/dyndns.sh /usr/local/bin/dyndns.sh
-
-/usr/local/bin/get_ip_addr.sh: /usr/local/lib/digitalocean_dyndns/get_ip_addr.sh
-	sudo rm -f /usr/local/bin/get_ip_addr.sh
-	sudo cp /usr/local/lib/digitalocean_dyndns/get_ip_addr.sh /usr/local/bin/get_ip_addr.sh
-
-/usr/local/lib/digitalocean_dyndns/%:
-	cd /usr/local/lib \
-		&& sudo git clone https://git.joeac.net/joeac/digitalocean_dyndns.git
+~/digitalocean_dyndns/%:
+	git clone https://git.joeac.net/joeac/digitalocean_dyndns.git ~/digitalocean_dyndns
 
 ~/.config/dyndns/DIGITALOCEAN_TOKEN: DIGITALOCEAN_TOKEN
 	mkdir -p ~/.config/dyndns/

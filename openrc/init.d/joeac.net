@@ -3,8 +3,9 @@
 # https://gist.github.com/itzwam/2069e935385193207f7e5bea7156e21d
 # https://github.com/0x17de/dockerservice-openrc
 
+: ${HOME:=/home/joeac.net}
 : ${MODULENAME:=${RC_SVCNAME##*.}}
-: ${SRCDIR:=/usr/local/lib/joeac.net}
+: ${SRCDIR:=$HOME/joeac.net}
 DOCKER_COMPOSE_UP_ARGS=${DOCKER_COMPOSE_UP_ARGS-"--no-build --no-recreate --no-deps"}
 
 [ -z "${MODULENAME}" ] && exit 1

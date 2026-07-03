@@ -44,21 +44,26 @@ if [ -z "$(grep "\bjoeac.net\b" /etc/group)" ]
 then
   sudo adduser -D -h /home/joeac.net joeac.net
   sudo adduser joeac.net joeac.net
-  sudo adduser $(whoami) joeac.net
-  su -l $(whoami)
+fi
+
+if ! ( expr "$(groups joeac.net)" wheel )
+then
+  sudo adduser joeac.net wheel
+fi
+
+su -l joeac.net
+if ! [ $(whoami) = "joeac.net" ]
+then
+  echo "Could not log in to user: joeac.net. Log in manually and re-run this script as joeac.net."
+  exit 1
 fi
 
 if ! [ -d /home/joeac.net/joeac.net/.git ]
 then
-  sudo -u joeac.net git clone https://git.joeac.net/joeac/joeac.net.git /home/joeac.net/joeac.net
+  git clone https://git.joeac.net/joeac/joeac.net.git /home/joeac.net/joeac.net
 fi
 sudo chown joeac.net:joeac.net /home/joeac.net/joeac.net
-sudo chmod 770 /home/joeac.net/joeac.net
-
-if ! [ -h /usr/local/lib/joeac.net ]
-then
-  sudo ln -s /home/joeac.net/joeac.net /usr/local/lib/joeac.net
-fi
+sudo chmod 770 /home/joeac.netjoeac.net
 
 if ! [ -f DIGITALOCEAN_TOKEN ]
 then
@@ -79,8 +84,6 @@ then
   unset REMOTE_SMTP_PASSWORD
 fi
 
-sudo -u joeac.net touch /home/joeac.net/joeac.net/.env
-sudo -u joeac.net chmod 760 /home/joeac.net/joeac.net/.env
 while read line
 do
   if expr "${line}" : "[[:alnum:]_]\+=" 1>/dev/null
@@ -106,5 +109,5 @@ do
   fi
 done </home/joeac.net/joeac.net/example.env
 
-sudo -u joeac.net make --directory=/home/joeac.net/joeac.net
-sudo -u joeac.net make --directory=/home/joeac.net/joeac.net install
+make --directory=/home/joeac.net/joeac.net
+make --directory=/home/joeac.net/joeac.net install
