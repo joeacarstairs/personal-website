@@ -35,6 +35,7 @@ export GEMINI_COMITIUM_DATA_DIR := /var/joeac.net-gemini/comitium-data
 export VAULTWARDEN_DATA_DIR := /var/vaultwarden/data
 
 ALPINE_VERSION := 3.23
+ETHERPAD_VERSION := 3.3.2
 
 $(foreach module,$(ALL_MODULES),$(if $(PORT_$(module)),$(eval \
 	export $(call capitalise,$(module))_PORT := $(PORT_$(module)))))
