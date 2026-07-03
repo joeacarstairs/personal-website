@@ -12,7 +12,7 @@ then
   doas apk add podman-compose
 fi
 
-if [ -z "$(which yq 2>/dev/null")" ]
+if [ -z "$(which yq 2>/dev/null)" ]
 then
   YQ_PLATFORM="linux_$(expr "$(arch)" : "armv7" && echo arm || expr "$(arch)" : "x86_64" && echo amd64 || arch)"
   wget -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_${YQ_PLATFORM}
