@@ -55,6 +55,10 @@ INSTALL_RULES := $(foreach module,$(MODULES),install_$(module))
 REINSTALL_RULES := $(foreach module,$(MODULES),reinstall_$(module))
 UNINSTALL_RULES := $(foreach module,$(MODULES),uninstall_$(module))
 
+CPU_ARCH := $(if $(shell which arch 2>/dev/null),\
+	$(shell arch),\
+	$(shell lscpu | grep ^Architecture: | sed "s/^Architecture:[[:space:]]*\([[:alnum:][:punct:]]\+\).*/\1/"))
+IMAGE_PREFIX := $(if $(filter armv7%,$(CPU_ARCH)),armv7/)
 COMPOSE_CMD := \
 	ALPINE_VERSION="$(ALPINE_VERSION)" \
 	IMAGE_PREFIX="$(IMAGE_PREFIX)" \
