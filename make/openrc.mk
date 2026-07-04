@@ -43,11 +43,11 @@ openrc_restart_$(module):
 	rc-service -U joeac.net.$(module) restart
 endef
 
-$(foreach module,$(MODULES),$(eval $(install_openrc_module_rule)))
-$(foreach module,$(MODULES),$(eval $(reinstall_openrc_module_rule)))
-$(foreach module,$(MODULES),$(eval $(uninstall_openrc_module_rule)))
-$(foreach module,$(MODULES),$(eval $(openrc_add_rule)))
-$(foreach module,$(MODULES),$(eval $(openrc_start_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(install_openrc_module_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(reinstall_openrc_module_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(uninstall_openrc_module_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(openrc_add_rule)))
+$(foreach module,$(ALL_MODULES),$(eval $(openrc_start_rule)))
 $(foreach module,$(MODULES),$(eval $(openrc_restart_rule)))
 
 ~/.config/rc/init.d/joeac.net: openrc/init.d/joeac.net.template ~/.config/rc/init.d ~/.config/rc/runlevels/default /etc/init.d/user.$(USER) /etc/conf.d/user.$(USER)
