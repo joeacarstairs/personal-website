@@ -28,7 +28,7 @@ endef
 
 define remove_nginx_site_rule =
 remove_$(site):
-	rm -f $(site)
+	sudo rm -f $(site)
 endef
 
 define nginx_module_config_rule =
