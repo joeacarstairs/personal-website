@@ -3,6 +3,8 @@ capitalise = $(shell echo "$(1)" | tr '[:lower:]' '[:upper:]')
 USER := $(shell whoami)
 HOSTNAME := $(shell cat /etc/hostname)
 HOSTNAMES := pi-broughton blade-canongate
+IP_ADDR_pi-broughton := 192.168.178.54
+IP_ADDR_blade-canongate := 192.168.178.75
 MASTER_NODE := blade-canongate
 IS_MASTER_NODE := $(filter $(MASTER_NODE),$(HOSTNAME))
 MODULES_pi-broughton := http gemini smtp vaultwarden ln
@@ -40,7 +42,7 @@ ETHERPAD_VERSION := 3.3.2
 $(foreach module,$(ALL_MODULES),$(if $(PORT_$(module)),$(eval \
 	export $(call capitalise,$(module))_PORT := $(PORT_$(module)))))
 $(foreach hostname,$(HOSTNAMES),$(foreach module,$(MODULES_$(hostname)),$(eval \
-	export HOST_$(module) := $(hostname:$(HOSTNAME)=localhost))))
+	export HOST_$(module) := $(if $(filter $(HOSTNAME),$(hostname)),127.0.0.1,$(IP_ADDR_$(hostname))))))
 
 SUBDOMAINS := $(foreach module,$(MODULES),$(SUBDOMAIN_$(module)))
 NGINX_SUBDOMAINS := $(foreach module,$(NGINX_MODULES),$(SUBDOMAIN_$(module)))
