@@ -33,8 +33,11 @@ install_unbound_anchor_crontab:
 /etc/unbound/unbound.conf.d/dnssec.conf: dnssec.conf
 	sudo mkdir -p $(dir $@) && sudo cp $< $@
 
+DKIM_PRIVATE_KEY_A := ~/mox/config/dkim/2026a._domainkey.mail.joeac.net.20260705T163220.rsa2048.privatekey.pkcs8.pem
+DKIM_PRIVATE_KEY_B := ~/mox/config/dkim/2026b._domainkey.mail.joeac.net.20260705T163220.rsa2048.privatekey.pkcs8.pem
+DKIM_PRIVATE_KEYS := $(DKIM_PRIVATE_KEY_A) $(DKIM_PRIVATE_KEY_B)
 .PHONY: install_mox
-install_mox: /usr/local/bin/mox /home/mox/config/domains.conf
+install_mox: /usr/local/bin/mox ~/mox/config/adminpasswd $(DKIM_PRIVATE_KEYS)
 
 MOX_PLATFORM := $(if $(filter armv7% arm32%,$(CPU_ARCH)),arm,amd64)
 MOX_VERSION := 0.0.15
@@ -49,5 +52,5 @@ MOX_URL := $(MOX_URL_BASE)@v$(MOX_VERSION)/linux-$(MOX_PLATFORM)-go$(MOX_GO_VERS
 	chmod +x mox
 	sudo mv mox /usr/local/bin/mox
 
-/home/mox/config/domains.conf:
-	$(error Now configure mox for mail.joeac.net. To get started, create a user 'mox' if there isn't one already, cd to /home/mox, and run 'mox -hostname mail.joeac.net -existing-webserver quickstart me@mail.joeac.net'. See https://www.xmox.nl for more information on how to configure mox.)
+~/mox/config/%: config/%
+	mkdir -p $(dir $@) && cp $< $@
