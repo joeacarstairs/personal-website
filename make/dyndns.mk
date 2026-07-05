@@ -5,7 +5,7 @@ dyndns_crontabs_to_remove = $(dyndns_subdomains_to_remove:%=/etc/periodic/daily/
 
 define install_dyndns_module_rule =
 .PHONY: install_dyndns_$(module)
-install_dyndns_module_$(module): $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net install_dyndns)
+install_dyndns_module_$(module): $(if $(SUBDOMAIN_$(module)),/etc/periodic/daily/dyndns-$(SUBDOMAIN_$(module)).joeac.net)
 endef
 
 define reinstall_dyndns_module_rule =
