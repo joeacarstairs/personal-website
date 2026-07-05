@@ -8,7 +8,7 @@ IP_ADDR_blade-canongate := 192.168.178.75
 MASTER_NODE := blade-canongate
 IS_MASTER_NODE := $(filter $(MASTER_NODE),$(HOSTNAME))
 MODULES_pi-broughton := http smtp vaultwarden ln
-MODULES_blade-canongate := etherpad gemini
+MODULES_blade-canongate := etherpad gemini mox
 ALL_NGINX_MODULES := http vaultwarden ln etherpad
 NGINX_MODULES := $(if $(IS_MASTER_NODE),$(ALL_NGINX_MODULES))
 MODULES := $(MODULES_$(HOSTNAME))
@@ -22,6 +22,7 @@ SUBDOMAIN_http := @
 SUBDOMAIN_vaultwarden := pwd
 SUBDOMAIN_etherpad := docs
 SUBDOMAIN_ln := ln
+SUBDOMAIN_mox := mail
 
 PORT_etherpad := 9001
 PORT_http := 8080
