@@ -10,8 +10,10 @@ install_unbound: /usr/sbin/unbound /etc/resolv.conf /var/lib/unbound/root.key in
 	sudo rc-service unbound start
 
 /etc/resolv.conf: resolv.conf /etc/resolv.conf.joeac.net-backup
-	sudo mv /etc/resolv.conf /etc/resolv.conf.joeac.net-backup
 	sudo mv resolv.conf /etc/resolv.conf
+
+/etc/resolv.conf.joeac.net-backup:
+	sudo mv /etc/resolv.conf /etc/resolv.conf.joeac.net-backup
 
 /var/lib/unbound/root.key:
 	sudo mkdir -p /var/lib/unbound && unbound-anchor -a /var/lib/unbound/root.key
