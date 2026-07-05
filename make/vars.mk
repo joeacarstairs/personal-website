@@ -30,6 +30,9 @@ SUBDOMAIN_mox-mta-sts := mta-sts.mail
 PORT_etherpad := 9001
 PORT_http := 8080
 PORT_gemini := 1965
+PORT_mox := 81
+PORT_mox-autoconfig := $(PORT_mox)
+PORT_mox-mta-sts := $(PORT_mox)
 PORT_smtp := 2500
 PORT_vaultwarden := 9000
 
