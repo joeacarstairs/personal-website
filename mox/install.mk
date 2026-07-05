@@ -16,7 +16,7 @@ install_unbound: /usr/sbin/unbound /etc/resolv.conf /var/lib/unbound/root.key in
 	sudo mv /etc/resolv.conf /etc/resolv.conf.joeac.net-backup
 
 /var/lib/unbound/root.key:
-	sudo mkdir -p /var/lib/unbound && unbound-anchor -a /var/lib/unbound/root.key
+	sudo mkdir -p /var/lib/unbound && sudo unbound-anchor -a /var/lib/unbound/root.key
 
 UNBOUND_ANCHOR_CRONTAB_ENTRY := @reboot unbound-anchor -a /var/lib/unbound/root.key # managed by joeac.net
 IS_CRONTAB_UP_TO_DATE := $(sudo grep "$(UNBOUND_ANCHOR_CRONTAB_ENTRY)" /etc/crontabs/root)
