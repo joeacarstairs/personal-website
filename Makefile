@@ -39,7 +39,7 @@ endef
 all: $(ENV_RULES) $(MAKE_RULES) $(BUILD_RULES) $(PUSH_RULES)
 
 $(foreach module,$(ALL_MODULES),$(eval $(call make_module_rule)))
-$(foreach module,$(ALL_MODULES),$(eval $(call module_env_rule)))
+$(foreach module,$(ALL_MODULES),$(if $(shell test -d $(module) && echo 1),$(eval $(call module_env_rule))))
 
 .PHONY: install
 install: install_nginx $(ENV_RULES) $(INSTALL_RULES) install_crontab

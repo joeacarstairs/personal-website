@@ -54,7 +54,7 @@ $(foreach hostname,$(HOSTNAMES),$(foreach module,$(MODULES_$(hostname)),$(eval \
 SUBDOMAINS := $(foreach module,$(MODULES),$(SUBDOMAIN_$(module)))
 NGINX_SUBDOMAINS := $(foreach module,$(NGINX_MODULES),$(SUBDOMAIN_$(module)))
 
-ENV_RULES := $(foreach module,$(MODULES),$(module)/.env)
+ENV_RULES := $(foreach module,$(MODULES),$(if $(shell test -d $(module) && echo 1),$(module)/.env))
 MAKE_RULES := $(foreach module,$(MAKE_MODULES),make_$(module))
 BUILD_RULES := $(foreach module,$(filter $(COMPOSE_SERVICES),$(MODULES)),build_$(module))
 PUSH_RULES := $(foreach module,$(filter $(COMPOSE_SERVICES),$(MODULES)),push_$(module))
