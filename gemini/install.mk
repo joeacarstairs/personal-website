@@ -8,11 +8,11 @@ reinstall: $(GEMINI_CERTIFICATES_DIR) $(GEMINI_COMITIUM_DATA_FILES)
 
 $(GEMINI_CERTIFICATES_DIR):
 	sudo mkdir -p $(GEMINI_CERTIFICATES_DIR)
-	$(let gemini_user,$(shell whoami),sudo chown $(GEMINI_USER):$(GEMINI_USER) $(GEMINI_CERTIFICATES_DIR))
+	$(let gemini_user,$(shell whoami),sudo chown $(gemini_user):$(gemini_user) $(GEMINI_CERTIFICATES_DIR))
 
 $(GEMINI_COMITIUM_DATA_DIR)/%: comitium-data/% $(GEMINI_COMITIUM_DATA_DIR)
 	sudo cp $< $@
-	$(let gemini_user,$(shell whoami),sudo chown $(GEMINI_USER):$(GEMINI_USER) $(GEMINI_COMITIUM_DATA_DIR))
+	$(let gemini_user,$(shell whoami),sudo chown $(gemini_user):$(gemini_user) $(GEMINI_COMITIUM_DATA_DIR))
 
 $(GEMINI_COMITIUM_DATA_DIR):
 	sudo mkdir -p $(GEMINI_COMITIUM_DATA_DIR)
