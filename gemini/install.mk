@@ -12,7 +12,7 @@ $(GEMINI_CERTIFICATES_DIR):
 
 $(GEMINI_COMITIUM_DATA_DIR)/%: comitium-data/% $(GEMINI_COMITIUM_DATA_DIR)
 	sudo cp $< $@
-	GEMINI_USER=$(whoami) && sudo chown $$GEMINI_USER:$$GEMINI_USER $(GEMINI_CERTIFICATES_DIR)
+	$(let gemini_user,$(shell whoami),sudo chown $(GEMINI_USER):$(GEMINI_USER) $(GEMINI_COMITIUM_DATA_DIR))
 
 $(GEMINI_COMITIUM_DATA_DIR):
 	sudo mkdir -p $(GEMINI_COMITIUM_DATA_DIR)
