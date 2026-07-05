@@ -32,7 +32,7 @@ PORT_http := 8080
 PORT_gemini := 1965
 PORT_mox := 81
 PORT_mox_autoconfig := $(PORT_mox)
-PORT_mox_mta-sts := $(PORT_mox)
+PORT_mox_mta_sts := $(PORT_mox)
 PORT_smtp := 2500
 PORT_vaultwarden := 9000
 
