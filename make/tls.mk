@@ -57,7 +57,7 @@ remove_/etc/periodic/daily/tls-%.joeac.net:
 
 .PHONY: delete_cert_%
 delete_cert_%:
-	sudo certbot delete --cert-name $(@:delete_cert_%=%).joeac.net
+	sudo certbot delete --cert-name $(@:delete_cert_%=%).joeac.net --non-interactive
 
 /etc/periodic/daily/tls-%joeac.net:
 	echo "#!/bin/sh" > crontab.tmp
