@@ -43,7 +43,7 @@ $(tls_cert):
 
 .PHONY: renew_$(tls_cert)
 renew_$(tls_cert):
-	$(if $(is_cert_expired),$(obtain_or_renew_cert_cmd))
+	$$(if $$(is_cert_expired),$(obtain_or_renew_cert_cmd))
 endef
 
 $(foreach subdomain,$(ALL_SUBDOMAINS), $(eval $(install_tls_subdomain_rule)))
@@ -61,7 +61,7 @@ delete_cert_%:
 
 /etc/periodic/daily/tls-%joeac.net:
 	echo "#!/bin/sh" > crontab.tmp
-	echo "certbot renew --cert-name $(subdomain) --non-interactive" >> crontab.tmp
+	echo "$(obtain_or_renew_cert_cmd)" >> crontab.tmp
 	sudo mv crontab.tmp $@
 	sudo chmod +x $@
 
