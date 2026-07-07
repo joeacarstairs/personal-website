@@ -32,7 +32,8 @@ define obtain_or_renew_cert_cmd =
 sudo certbot certonly \
 	--nginx \
 	--cert-name $(subdomain).joeac.net \
-	--domain $(subst @.,,$(subdomain).)joeac.net
+	--domain $(subst @.,,$(subdomain).)joeac.net \
+	&& sudo chown -R joeac.net:joeac.net $(dir $(tls_cert))
 endef
 
 is_cert_expired = $(shell sudo certbot certificates --cert-name $(subdomain).joeac.net \
