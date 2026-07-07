@@ -31,7 +31,7 @@ endef
 define obtain_or_renew_cert_cmd =
 sudo certbot certonly \
 	--nginx \
-	--cert-name $(subdomain) \
+	--cert-name $(subdomain).joeac.net \
 	--domain $(subst @.,,$(subdomain).)joeac.net
 endef
 
