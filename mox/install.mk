@@ -41,7 +41,7 @@ DKIM_PRIVATE_KEY_B := ~/mox/config/dkim/2026b._domainkey.mail.joeac.net.20260705
 DKIM_PRIVATE_KEYS := $(DKIM_PRIVATE_KEY_A) $(DKIM_PRIVATE_KEY_B)
 MOX_TLS_CERTS := /etc/letsencrypt/live/mail.joeac.net/fullchain.pem /etc/letsencrypt/live/autoconfig.mail.joeac.net/fullchain.pem /etc/letsencrypt/live/clientsettings.mail.joeac.net/fullchain.pem /etc/letsencrypt/live/mta-sts.mail.joeac.net/fullchain.pem
 .PHONY: install_mox
-install_mox: /usr/local/bin/mox ~/mox/config/mox.conf ~/mox/config/domains.conf ~/mox/config/adminpasswd $(DKIM_PRIVATE_KEYS) $(MOX_TLS_CERTS)
+install_mox: /usr/local/bin/mox ~/mox/config/mox.conf ~/mox/config/domains.conf ~/mox/config/adminpasswd ~/mox/data $(DKIM_PRIVATE_KEYS) $(MOX_TLS_CERTS)
 
 MOX_PLATFORM := $(if $(filter armv7% arm32%,$(CPU_ARCH)),arm,amd64)
 MOX_VERSION := 0.0.15
@@ -58,3 +58,6 @@ MOX_URL := $(MOX_URL_BASE)@v$(MOX_VERSION)/linux-$(MOX_PLATFORM)-go$(MOX_GO_VERS
 
 ~/mox/config/%: config/%
 	mkdir -p $(dir $@) && cp $< $@
+
+~/mox/data:
+	mkdir -p $@
