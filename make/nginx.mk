@@ -6,6 +6,7 @@ nginx_module_config_template = \
 	$(if $(PORT_$(module)),nginx/http.d/reverse_proxy.conf.template) \
 	$(if $(PUBLIC_ROOT_DIR_$(module)),nginx/http.d/static.conf.template)
 nginx_module_config_template_args = \
+	CERTNAME=$(SUBDOMAIN_$(module)).joeac.net \
 	DOMAIN=$(if $(filter-out @,$(SUBDOMAIN_$(module))),$(SUBDOMAIN_$(module)).)joeac.net \
 	$(if $(PORT_$(module)),PORT=$(PORT_$(module)) HOST=$(HOST_$(module))) \
 	$(if $(PUBLIC_ROOT_DIR_$(module)),ROOT="$(PUBLIC_ROOT_DIR_$(module))")

@@ -17,19 +17,19 @@ endef
 
 define install_module_rule =
 .PHONY: install_$(module)
-install_$(module): install_openrc_$(module) install_dyndns_$(module) $(install_submake_file)
+install_$(module): install_openrc_$(module) install_dyndns_$(module) install_tls_$(module) $(install_submake_file)
 	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) install)
 endef
 
 define reinstall_module_rule =
 .PHONY: reinstall_$(module)
-reinstall_$(module): reinstall_openrc_$(module) reinstall_dyndns_$(module) $(install_submake_file)
+reinstall_$(module): reinstall_openrc_$(module) reinstall_dyndns_$(module) reinstall_tls_$(module) $(install_submake_file)
 	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) reinstall)
 endef
 
 define uninstall_module_rule =
 .PHONY: uninstall_$(module)
-uninstall_$(module): uninstall_openrc_$(module) uninstall_dyndns_$(module)
+uninstall_$(module): uninstall_openrc_$(module) uninstall_dyndns_$(module) uninstall_tls_$(module)
 	$(if $(install_submake_file),\
 		$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory $(dir $(install_submake_file)) uninstall
 	)
@@ -45,10 +45,10 @@ $(foreach module,$(ALL_MODULES),$(eval $(call module_env_rule)))
 install: install_nginx $(ENV_RULES) $(INSTALL_RULES) install_crontab
 
 .PHONY: reinstall
-reinstall: reinstall_nginx reinstall_dyndns $(ENV_RULES) $(REINSTALL_RULES) reinstall_crontab
+reinstall: reinstall_nginx reinstall_dyndns reinstall_tls $(ENV_RULES) $(REINSTALL_RULES) reinstall_crontab
 
 .PHONY: uninstall
-uninstall: uninstall_nginx uninstall_dyndns uninstall_joeac.net_service $(UNINSTALL_RULES) uninstall_crontab
+uninstall: uninstall_nginx uninstall_dyndns uninstall_tls uninstall_joeac.net_service $(UNINSTALL_RULES) uninstall_crontab
 
 $(foreach module,$(ALL_MODULES),$(eval $(install_module_rule)))
 $(foreach module,$(ALL_MODULES),$(eval $(reinstall_module_rule)))
@@ -63,3 +63,4 @@ include make/openrc.mk
 include make/nginx.mk
 include make/crontab.mk
 include make/dyndns.mk
+include make/tls.mk
