@@ -17,19 +17,19 @@ endef
 
 define install_module_rule =
 .PHONY: install_$(module)
-install_$(module): install_openrc_$(module) install_dyndns_$(module) install_tls_$(module) $(install_submake_file)
+install_$(module): install_openrc_$(module) install_dyndns_$(module) $(if $(SUBDOMAIN_$(module)),install_tls_$(SUBDOMAIN_$(module))) $(install_submake_file)
 	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) install)
 endef
 
 define reinstall_module_rule =
 .PHONY: reinstall_$(module)
-reinstall_$(module): reinstall_openrc_$(module) reinstall_dyndns_$(module) reinstall_tls_$(module) $(install_submake_file)
+reinstall_$(module): reinstall_openrc_$(module) reinstall_dyndns_$(module) $(if $(SUBDOMAIN_$(module)),reinstall_tls_$(SUBDOMAIN_$(module))) $(install_submake_file)
 	$(if $(install_submake_file),$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory=$(dir $(install_submake_file)) reinstall)
 endef
 
 define uninstall_module_rule =
 .PHONY: uninstall_$(module)
-uninstall_$(module): uninstall_openrc_$(module) uninstall_dyndns_$(module) uninstall_tls_$(module)
+uninstall_$(module): uninstall_openrc_$(module) uninstall_dyndns_$(module) $(if $(SUBDOMAIN_$(module)),install_tls_$(SUBDOMAIN_$(module)))
 	$(if $(install_submake_file),\
 		$(MAKE) --makefile=$(notdir $(install_submake_file)) --directory $(dir $(install_submake_file)) uninstall
 	)
