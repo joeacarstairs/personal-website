@@ -1,4 +1,13 @@
 services:
+  actualbudget:
+    image: docker.io/actualbudget/actual-server:latest-alpine
+    container_name: joeac.net-actualbudget
+    restart: unless-stopped
+    volumes:
+      - ${ACTUALBUDGET_DATA_DIR}:/data/
+    ports:
+      - "${ACTUALBUDGET_PORT}:5006"
+
   gemini:
     image: git.joeac.net/joeac/${IMAGE_PREFIX}joeac.net-gemini
     container_name: joeac.net-gemini

@@ -7,9 +7,9 @@ IP_ADDR_pi-broughton := 192.168.178.54
 IP_ADDR_blade-canongate := 192.168.178.75
 MASTER_NODE := blade-canongate
 IS_MASTER_NODE := $(filter $(MASTER_NODE),$(HOSTNAME))
-MODULES_pi-broughton := http smtp vaultwarden ln
+MODULES_pi-broughton := actualbudget http smtp vaultwarden ln
 MODULES_blade-canongate := etherpad gemini mox mox_clientsettings mox_autoconfig mox_mta_sts
-ALL_NGINX_MODULES := http vaultwarden ln etherpad mox mox_clientsettings mox_autoconfig mox_mta_sts
+ALL_NGINX_MODULES := actualbudget http vaultwarden ln etherpad mox mox_clientsettings mox_autoconfig mox_mta_sts
 NGINX_MODULES := $(if $(IS_MASTER_NODE),$(ALL_NGINX_MODULES))
 MODULES := $(MODULES_$(HOSTNAME))
 ALL_MODULES := $(sort $(foreach hostname,$(HOSTNAMES),$(MODULES_$(hostname))))
@@ -18,6 +18,7 @@ COMPOSE_SERVICES := $(shell podman-compose config \
 MAKE_MODULES := $(foreach module,$(MODULES),\
 	$(shell [ -f $(module)/Makefile ] && echo $(module)))
 
+SUBDOMAIN_actualbudget := budget
 SUBDOMAIN_http := @
 SUBDOMAIN_vaultwarden := pwd
 SUBDOMAIN_etherpad := docs
@@ -27,6 +28,7 @@ SUBDOMAIN_mox_autoconfig := autoconfig.mail
 SUBDOMAIN_mox_clientsettings := clientsettings.mail
 SUBDOMAIN_mox_mta_sts := mta-sts.mail
 
+PORT_actualbudget := 5006
 PORT_etherpad := 9001
 PORT_http := 8080
 PORT_gemini := 1965
@@ -39,6 +41,7 @@ PORT_vaultwarden := 9000
 
 PUBLIC_ROOT_DIR_ln := /var/ln.joeac.net/public
 
+export ACTUALBUDGET_DATA_DIR := /var/joeac.net-actualbudget/var
 export ETHERPAD_DATA_DIR := /var/etherpad/var
 export GEMINI_CERTIFICATES_DIR := /var/joeac.net-gemini/certificates
 export GEMINI_COMITIUM_DATA_DIR := /var/joeac.net-gemini/comitium-data
