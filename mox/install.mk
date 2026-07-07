@@ -1,6 +1,9 @@
 .PHONY: install
 install: install_unbound install_mox
 
+.PHONY: reinstall
+reinstall: install_unbound install_mox
+
 .PHONY: install_unbound
 install_unbound: /usr/sbin/unbound /etc/resolv.conf /var/lib/unbound/root.key install_unbound_anchor_crontab /etc/unbound/unbound.conf.d/dnssec.conf
 
