@@ -66,8 +66,13 @@ delete_cert_%:
 	sudo chmod +x $@
 
 certs_to_renew = $(foreach subdomain,$(filter $(SUBDOMAINS),$(installed_tls_cert_subdomains)),$(tls_cert))
+tls_crontabs_to_install = $(foreach subdomain,$(SUBDOMAINS),$(tls_crontab))
+tls_certs_to_install = $(foreach subdomain,$(SUBDOMAINS),$(tls_cert))
+.PHONY: install_tls
+install_tls: $(tls_crontabs_to_install) $(tls_certs_to_install) $(addprefix remove_,$(tls_crontabs_to_remove)) $(addprefix delete_cert_,$(tls_cert_subdomains_to_delete)) $(addprefix renew_,$(certs_to_renew))
+
 .PHONY: reinstall_tls
-reinstall_tls: $(addprefix remove_,$(tls_crontabs_to_remove)) $(addprefix delete_cert_,$(tls_cert_subdomains_to_delete)) $(addprefix renew_,$(certs_to_renew))
+reinstall_tls: install_tls
 
 .PHONY: uninstall_tls
 uninstall_tls: $(foreach subdomain,$(ALL_SUBDOMAINS),$(uninstall_tls_$(subdomain)))

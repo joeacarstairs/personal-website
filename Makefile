@@ -42,7 +42,7 @@ $(foreach module,$(ALL_MODULES),$(eval $(call make_module_rule)))
 $(foreach module,$(ALL_MODULES),$(eval $(call module_env_rule)))
 
 .PHONY: install
-install: install_nginx $(ENV_RULES) $(INSTALL_RULES) install_crontab
+install: install_nginx install_tls $(ENV_RULES) $(INSTALL_RULES) install_crontab
 
 .PHONY: reinstall
 reinstall: reinstall_nginx reinstall_dyndns reinstall_tls $(ENV_RULES) $(REINSTALL_RULES) reinstall_crontab
