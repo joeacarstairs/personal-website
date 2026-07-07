@@ -23,7 +23,7 @@ endef
 define uninstall_tls_subdomain_rule =
 .PHONY: uninstall_tls_$(subdomain)
 uninstall_tls_$(subdomain): delete_cert_$(subdomain).joeac.net
-	$(if $(shell test [ -f $(tls_crontab) ] && echo 1),\
+	$(if $(shell [ -f $(tls_crontab) ] && echo 1),\
 		sudo rm -f $(tls_crontab)
 	)
 endef
