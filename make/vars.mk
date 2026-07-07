@@ -51,6 +51,7 @@ $(foreach module,$(ALL_MODULES),$(if $(PORT_$(module)),$(eval \
 $(foreach hostname,$(HOSTNAMES),$(foreach module,$(MODULES_$(hostname)),$(eval \
 	export HOST_$(module) := $(if $(filter $(HOSTNAME),$(hostname)),127.0.0.1,$(IP_ADDR_$(hostname))))))
 
+ALL_SUBDOMAINS := $(foreach module,$(ALL_MODULES),$(SUBDOMAIN_$(module)))
 SUBDOMAINS := $(foreach module,$(MODULES),$(SUBDOMAIN_$(module)))
 NGINX_SUBDOMAINS := $(foreach module,$(NGINX_MODULES),$(SUBDOMAIN_$(module)))
 
