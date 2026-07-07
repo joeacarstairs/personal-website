@@ -55,9 +55,9 @@ $(foreach subdomain,$(ALL_SUBDOMAINS), $(eval $(cert_rule)))
 remove_/etc/periodic/daily/tls-%.joeac.net:
 	rm -f $(@:remove_%=%)
 
-.PHONY: delete_cert_%.joeac.net
-delete_cert_%.joeac.net:
-	sudo certbot delete --cert-name $(@:delete_cert_%=%)
+.PHONY: delete_cert_%
+delete_cert_%
+	sudo certbot delete --cert-name $(@:delete_cert_%=%).joeac.net
 
 /etc/periodic/daily/tls-%joeac.net:
 	echo "#!/bin/sh" > crontab.tmp
@@ -66,7 +66,7 @@ delete_cert_%.joeac.net:
 	sudo chmod +x $@
 
 .PHONY: reinstall_tls
-reinstall_tls: $(addprefix remove_,$(tls_crontabs_to_remove)) $(addprefix delete_cert_,$(tls_cert_subdomains_to_delete).joeac.net) $(foreach subdomain,$(installed_tls_cert_subdomains),renew_$(tls_cert))
+reinstall_tls: $(addprefix remove_,$(tls_crontabs_to_remove)) $(addprefix delete_cert_,$(tls_cert_subdomains_to_delete)) $(foreach subdomain,$(installed_tls_cert_subdomains),renew_$(tls_cert))
 
 .PHONY: uninstall_tls
 uninstall_tls: $(foreach subdomain,$(ALL_SUBDOMAINS),$(uninstall_tls_$(subdomain)))
