@@ -29,7 +29,7 @@ uninstall_tls_$(subdomain): delete_cert_$(subdomain).joeac.net
 endef
 
 define obtain_or_renew_cert_cmd =
-sudo certbot certonly
+sudo certbot certonly \
 	--nginx \
 	--cert-name $(subdomain) \
 	--domain $(subst @.,,$(subdomain).)joeac.net
