@@ -33,6 +33,7 @@ sudo certbot certonly \
 	--nginx \
 	--cert-name $(subdomain).joeac.net \
 	--domain $(subst @.,,$(subdomain).)joeac.net \
+	--non-interactive \
 	&& sudo chown -R joeac.net:joeac.net $(dir $(tls_cert))
 endef
 
